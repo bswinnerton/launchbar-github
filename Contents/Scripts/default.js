@@ -13,9 +13,20 @@ function runWithString(string) {
     var nwo     = match[1],
         number  = match[2];
 
-    openIssue(nwo, number)
+    return openIssue(nwo, number);
+
+  // Matching:
+  // rails/rails
+  } else if (match = string.match(/^^([^\/]+)\/([^\/#]+)$/)) {
+    var name  = match[1],
+        owner = match[2];
+
+    return openRepository(name, owner);
+
+  // Matching:
+  // rails
   } else {
-    openUser(string);
+    return openUser(string);
   }
 }
 
@@ -23,6 +34,26 @@ function openIssue(nameWithOwner, number) {
   LaunchBar.openURL('https://github.com/' + nameWithOwner + '/issues/' + number);
 }
 
+function openRepository(name, owner) {
+  LaunchBar.openURL('https://github.com/' + owner + '/' + name);
+}
+
 function openUser(user) {
-  LaunchBar.openURL('https://github.com/' + user);
+  return [
+    {
+      title: 'View Repositories',
+      icon: 'repo.png',
+      url: 'https://github.com/' + user + '?tab=repositories'
+    },
+    {
+      title: 'View Issues',
+      icon: 'issue.png',
+      url: 'https://github.com/search?utf8=%E2%9C%93&q=author%3A' + user + '+is%3Aissue&ref=simplesearch'
+    },
+    {
+      title: 'View Pull Requests',
+      icon: 'pull-request.png',
+      url: 'https://github.com/search?utf8=%E2%9C%93&q=author%3A' + user + '+is%3Apr&ref=simplesearch'
+    }
+  ]
 }

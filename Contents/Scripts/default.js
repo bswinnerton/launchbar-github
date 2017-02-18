@@ -35,7 +35,18 @@ function openIssue(nameWithOwner, number) {
 }
 
 function openRepository(name, owner) {
-  LaunchBar.openURL('https://github.com/' + owner + '/' + name);
+  return [
+    {
+      title: 'View Issues',
+      icon: 'issue.png',
+      url: 'https://github.com/' + owner + '/' + name + '/issues/',
+    },
+    {
+      title: 'View Pull Requests',
+      icon: 'pull-request.png',
+      url: 'https://github.com/' + owner + '/' + name + '/pulls/',
+    }
+  ]
 }
 
 function openUser(user) {

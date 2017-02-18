@@ -18,8 +18,8 @@ function runWithString(string) {
   // Matching:
   // rails/rails
   } else if (match = string.match(/^^([^\/]+)\/([^\/#]+)$/)) {
-    var name  = match[1],
-        owner = match[2];
+    var owner = match[1],
+        name  = match[2];
 
     return openRepository(name, owner);
 

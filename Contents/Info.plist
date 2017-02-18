@@ -46,6 +46,6 @@
 		</dict>
 	</dict>
 	<key>LBTextInputTitle</key>
-	<string>Enter a login or login/repository</string>
+	<string>Enter a username, repository, issue, or PR</string>
 </dict>
 </plist>

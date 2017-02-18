@@ -37,14 +37,21 @@ function openIssue(nameWithOwner, number) {
 function openRepository(name, owner) {
   return [
     {
+      title: 'View Repository',
+      subtitle: '@' + owner + '/' + name,
+      alwaysShowsSubtitle: true,
+      icon: 'repo.png',
+      url: 'https://github.com/' + owner + '/' + name
+    },
+    {
       title: 'View Issues',
       icon: 'issue.png',
-      url: 'https://github.com/' + owner + '/' + name + '/issues/',
+      url: 'https://github.com/' + owner + '/' + name + '/issues/'
     },
     {
       title: 'View Pull Requests',
       icon: 'pull-request.png',
-      url: 'https://github.com/' + owner + '/' + name + '/pulls/',
+      url: 'https://github.com/' + owner + '/' + name + '/pulls/'
     }
   ]
 }
@@ -53,6 +60,8 @@ function openUser(user) {
   return [
     {
       title: 'View Profile',
+      subtitle: '@' + user,
+      alwaysShowsSubtitle: true,
       icon: 'person.png',
       url: 'https://github.com/' + user
     },

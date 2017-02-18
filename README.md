@@ -10,6 +10,7 @@ that can search various parts of GitHub based on your input.
 ![](screenshots/default.png)
 ![](screenshots/user.png)
 ![](screenshots/user-expanded.png)
+![](screenshots/user-repos-expanded.png)
 
 ### For a repository
 

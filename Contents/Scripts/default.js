@@ -101,8 +101,8 @@ function fetchRepositories(user) {
   if (!Action.preferences.token) {
     LaunchBar.alert("It looks like this is the first time you're using this " +
       "action.\n\nPlease go to https://github.com/settings/tokens and create " +
-      "a token with 'repo' scope, and set it by invoking this action and " +
-      "typing !set-token <token>")
+      "a scopeless token, and set it by invoking this action and typing " +
+      "!set-token <token>")
     return
   }
 

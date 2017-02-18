@@ -8,18 +8,22 @@
 	<string>com.github.LaunchBar.action.GitHub</string>
 	<key>CFBundleName</key>
 	<string>GitHub</string>
+	<key>CFBundleVersion</key>
+	<string>0.0.1</string>
 	<key>LBAbbreviation</key>
 	<string>GH</string>
 	<key>LBDescription</key>
 	<dict>
 		<key>LBAuthor</key>
-		<string></string>
+		<string>Brooks Swinnerton</string>
 		<key>LBEmail</key>
-		<string></string>
+		<string>bswinnerton@gmail.com</string>
+		<key>LBSummary</key>
+		<string>A LaunchBar action to find resources on GitHub.</string>
 		<key>LBTwitter</key>
-		<string></string>
+		<string>bswinnerton</string>
 		<key>LBWebsiteURL</key>
-		<string></string>
+		<string>https://github.com/bswinnerton/GitHub.lbaction</string>
 	</dict>
 	<key>LBScripts</key>
 	<dict>

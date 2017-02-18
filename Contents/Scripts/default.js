@@ -78,7 +78,11 @@ function openUser(user) {
     {
       title: 'View Repositories',
       icon: 'repo.png',
-      children: fetchRepositories(user)
+      children: [{
+        title: 'View All Repositories',
+        icon: 'repos.png',
+        url: 'https://github.com/' + user + '?tab=repositories'
+      }].concat(fetchRepositories(user))
     },
     {
       title: 'View Issues',

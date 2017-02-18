@@ -41,6 +41,11 @@ function openRepository(name, owner) {
 function openUser(user) {
   return [
     {
+      title: 'View Profile',
+      icon: 'person.png',
+      url: 'https://github.com/' + user
+    },
+    {
       title: 'View Repositories',
       icon: 'repo.png',
       url: 'https://github.com/' + user + '?tab=repositories'

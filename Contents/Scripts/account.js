@@ -1,5 +1,3 @@
-include('repository.js');
-
 class Account {
   constructor(login) {
     this.login = login;

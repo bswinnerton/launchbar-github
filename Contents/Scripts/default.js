@@ -1,7 +1,9 @@
 include('account.js');
+include('issue.js');
+include('repository.js');
 
 const SET_TOKEN_FORMAT    = /^!set-token (.*)$/;
-const ISSUE_OR_PR_FORMAT  = /^([^\/]+\/[^\/#]+)(?:\/pull\/|\/issues\/|#)(\d+)$/;
+const ISSUE_OR_PR_FORMAT  = /^([^\/]+)\/([^\/#]+)(?:\/pull\/|\/issues\/|#)(\d+)$/;
 const REPOSITORY_FORMAT   = /^([^\/]+)\/([^\/#]+)$/;
 const ACCOUNT_FORMAT      = /^(\w+)$/;
 
@@ -23,7 +25,10 @@ function runWithString(string) {
   // rails/rails/issues/123
   // rails/rails/pull/123
   else if (match = string.match(ISSUE_OR_PR_FORMAT)) {
-    return openIssue(match[1], match[2]);
+    let owner = new Account(match[1])
+    let repository = new Repository(owner, match[2]);
+    let issue = new Issue(repository, match[3])
+    return openIssue(issue);
   }
 
   // Matching:
@@ -55,8 +60,8 @@ function setToken(token) {
   });
 }
 
-function openIssue(nameWithOwner, number) {
-  LaunchBar.openURL('https://github.com/' + nameWithOwner + '/issues/' + number);
+function openIssue(issue) {
+  LaunchBar.openURL(issue.url);
 }
 
 function openRepository(repository) {

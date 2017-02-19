@@ -1,8 +1,5 @@
 include('account.js');
 
-// FIXME: Instead of having global state, it'd be better to maintain a cache
-let repositoryMenuItems = [];
-
 const SET_TOKEN_FORMAT    = /^!set-token (.*)$/;
 const ISSUE_OR_PR_FORMAT  = /^([^\/]+\/[^\/#]+)(?:\/pull\/|\/issues\/|#)(\d+)$/;
 const REPOSITORY_FORMAT   = /^([^\/]+)\/([^\/#]+)$/;

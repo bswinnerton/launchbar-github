@@ -3,12 +3,18 @@
 // FIXME: Instead of having global state, it'd be better to maintain a cache
 var repositoryMenuItems = [];
 
+const SET_TOKEN_FORMAT = /^!set-token (.*)$/
+const ISSUE_OR_PR_FORMAT = /^([^\/]+\/[^\/#]+)(?:\/pull\/|\/issues\/|#)(\d+)$/
+const REPOSITORY_FORMAT = /^([^\/]+)\/([^\/#]+)$/
+
 function run(argument) {
   runWithString(argument);
 }
 
 function runWithString(string) {
-  if (match = string.match(/^!set-token (.*)$/)) {
+  // Matching:
+  // set-token <token>
+  if (match = string.match(SET_TOKEN_FORMAT)) {
     return setToken(match[1])
   }
 
@@ -16,13 +22,13 @@ function runWithString(string) {
   // rails/rails#123
   // rails/rails/issues/123
   // rails/rails/pull/123
-  else if (match = string.match(/^([^\/]+\/[^\/#]+)(?:\/pull\/|\/issues\/|#)(\d+)$/)) {
+  else if (match = string.match(ISSUE_OR_PR_FORMAT)) {
     return openIssue(match[1], match[2]);
   }
 
   // Matching:
   // rails/rails
-  else if (match = string.match(/^([^\/]+)\/([^\/#]+)$/)) {
+  else if (match = string.match(REPOSITORY_FORMAT)) {
     return openRepository(match[2], match[1]);
   }
 

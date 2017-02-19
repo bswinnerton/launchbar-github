@@ -1,17 +1,20 @@
-// LaunchBar Action Script
+include('account.js');
 
 // FIXME: Instead of having global state, it'd be better to maintain a cache
 var repositoryMenuItems = [];
 
-const SET_TOKEN_FORMAT    = /^!set-token (.*)$/
-const ISSUE_OR_PR_FORMAT  = /^([^\/]+\/[^\/#]+)(?:\/pull\/|\/issues\/|#)(\d+)$/
-const REPOSITORY_FORMAT   = /^([^\/]+)\/([^\/#]+)$/
+const SET_TOKEN_FORMAT    = /^!set-token (.*)$/;
+const ISSUE_OR_PR_FORMAT  = /^([^\/]+\/[^\/#]+)(?:\/pull\/|\/issues\/|#)(\d+)$/;
+const REPOSITORY_FORMAT   = /^([^\/]+)\/([^\/#]+)$/;
+const ACCOUNT_FORMAT      = /^(\w+)$/;
 
 function run(argument) {
   runWithString(argument);
 }
 
 function runWithString(string) {
+  let match;
+
   // Matching:
   // set-token <token>
   if (match = string.match(SET_TOKEN_FORMAT)) {
@@ -34,8 +37,15 @@ function runWithString(string) {
 
   // Matching:
   // rails
+  else if (match = string.match(ACCOUNT_FORMAT)) {
+    var account = new Account(match[1])
+    return openAccount(account);
+  }
+
+  // Matching everything else:
+  // rails/rails/tree/master/Gemfile
   else {
-    return openUser(string);
+    LaunchBar.openURL('https://github.com/' + string);
   }
 }
 
@@ -78,119 +88,62 @@ function openRepository(name, owner) {
   }
 }
 
-function openUser(user) {
+function openAccount(account) {
   if (LaunchBar.options.commandKey == 1) {
-    LaunchBar.openURL('https://github.com/' + user)
+    LaunchBar.openURL(account.profileURL)
   } else {
     return [
       {
         title: 'View Profile',
-        subtitle: '@' + user,
+        subtitle: account.handle,
         alwaysShowsSubtitle: true,
         icon: 'person.png',
-        url: 'https://github.com/' + user
+        url: account.profileURL,
       },
       {
         title: 'View Repositories',
         icon: 'repo.png',
-        action: 'openUserRepositories',
-        actionArgument: user,
-        actionReturnsItems: true
+        action: 'openAccountRepositories',
+        actionArgument: account.login,
+        actionReturnsItems: true,
       },
       {
         title: 'View Issues',
         icon: 'issue.png',
-        url: 'https://github.com/search?utf8=%E2%9C%93&q=author%3A' + user + '+is%3Aissue&ref=simplesearch'
+        url: account.issuesURL,
       },
       {
         title: 'View Pull Requests',
         icon: 'pull-request.png',
-        url: 'https://github.com/search?utf8=%E2%9C%93&q=author%3A' + user + '+is%3Apr&ref=simplesearch'
+        url: account.pullRequestsURL,
       },
       {
         title: 'View Gists',
         icon: 'gist.png',
-        url: 'https://gist.github.com/' + user
+        url: account.gistsURL,
       }
     ]
   }
 }
 
-
-function openUserRepositories(user) {
-  var url = 'https://github.com/' + user + '?tab=repositories'
+function openAccountRepositories(login) {
+  let account = new Account(login)
 
   if (LaunchBar.options.commandKey == 1) {
-    LaunchBar.openURL(url)
+    LaunchBar.openURL(account.repositoriesURL)
   } else {
+    let menuItems = account.repositories().map(function(repository) {
+      return repository.toMenuItem()
+    });
+
     return [
       {
         title: 'View All Repositories',
         icon: 'repos.png',
-        url: url
+        url: account.repositoriesURL
       }
-    ].concat(fetchRepositories(user))
+    ].concat(menuItems);
   }
-}
-
-function fetchRepositories(user, cursor) {
-  var query, variables, result, lastCursor, menuItems;
-
-  query = `
-    query($login: String!, $cursor: String) {
-      repositoryOwner(login: $login) {
-        repositories(first: 30, after: $cursor, orderBy: {field: CREATED_AT, direction: DESC}) {
-          edges {
-            cursor
-            node {
-              owner { login }
-              name
-              description
-              url
-            }
-          }
-        }
-      }
-    }
-  `;
-
-  variables = {
-    login: user,
-    cursor: cursor || null
-  };
-
-  result = executeQuery(query, variables);
-
-  if (result.data.repositoryOwner) {
-    repositoryEdges = result.data.repositoryOwner.repositories.edges;
-
-    menuItems = repositoryEdges.map(repositoryMenuItemFromEdge);
-    repositoryMenuItems = repositoryMenuItems.concat(menuItems);
-
-    while (repositoryEdges.length == 30) {
-      lastCusor = repositoryEdges[repositoryEdges.length - 1].cursor;
-      fetchRepositories(user, lastCusor);
-    }
-
-    return repositoryMenuItems
-  } else {
-    return []
-  }
-}
-
-function repositoryMenuItemFromEdge(edge) {
-  var menuItem = {
-    title: edge.node.owner.login + '/' + edge.node.name,
-    url: edge.node.url,
-    icon: 'repo.png',
-  };
-
-  if (edge.node.description) {
-    menuItem.subtitle = edge.node.description;
-    menuItem.alwaysShowsSubtitle = true;
-  }
-
-  return menuItem
 }
 
 function executeQuery(query, variables) {
@@ -210,5 +163,9 @@ function executeQuery(query, variables) {
     body: JSON.stringify({ query: query, variables: variables })
   });
 
-  return JSON.parse(result.data);
+  LaunchBar.debugLog(JSON.stringify(result));
+
+  if (result.data) {
+    return JSON.parse(result.data);
+  }
 }

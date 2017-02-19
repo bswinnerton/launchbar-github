@@ -129,17 +129,15 @@ function openAccountRepositories(login) {
   if (LaunchBar.options.commandKey == 1) {
     LaunchBar.openURL(account.repositoriesURL)
   } else {
-    let menuItems = account.repositories().map(function(repository) {
-      return repository.toMenuItem()
-    });
-
     return [
       {
         title: 'View All Repositories',
         icon: 'repos.png',
         url: account.repositoriesURL
       }
-    ].concat(menuItems);
+    ].concat(account.repositories().map(function(repository) {
+      return repository.toMenuItem()
+    }));
   }
 }
 

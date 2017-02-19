@@ -29,8 +29,8 @@ function runWithString(string) {
   // Matching:
   // rails/rails
   else if (match = string.match(REPOSITORY_FORMAT)) {
-    let owner = new Account(match[2])
-    let repository = new Repository(owner, match[1]);
+    let owner = new Account(match[1])
+    let repository = new Repository(owner, match[2]);
     return openRepository(repository);
   }
 

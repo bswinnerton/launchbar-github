@@ -157,6 +157,8 @@ function runWithString(string) {
 // Unfortunately when the script output uses an action argument (like
 // openAccount does), it needs to be able to find the function from the global
 // scope.
+//
+// https://developer.obdev.at/launchbar-developer-documentation/#/script-output.
 function openAccountRepositories(string) {
   return app.openAccountRepositories(string);
 }

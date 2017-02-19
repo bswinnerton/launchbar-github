@@ -99,10 +99,13 @@ function openUser(user) {
 
 function fetchRepositories(user) {
   if (!Action.preferences.token) {
+    LaunchBar.openURL('https://github.com/prerelease/agreement');
+    LaunchBar.openURL('https://github.com/settings/tokens');
     LaunchBar.alert("It looks like this is the first time you're using this " +
-      "action.\n\nPlease go to https://github.com/settings/tokens and create " +
-      "a scopeless token, and set it by invoking this action and typing " +
-      "!set-token <token>")
+      "action.\n\nPlease go to https://github.com/prerelease/agreement and " +
+      "accept the agreement.\n\nOnce signed, go to " +
+      "https://github.com/settings/tokens and create token with 'repo' scope " +
+      "and set it by invoking this action and typing !set-token <token>");
     return
   }
 

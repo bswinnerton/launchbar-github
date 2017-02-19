@@ -25,7 +25,7 @@ function runWithString(string) {
 
   // Matching:
   // rails/rails
-  else if (match = string.match(/^^([^\/]+)\/([^\/#]+)$/)) {
+  else if (match = string.match(/^([^\/]+)\/([^\/#]+)$/)) {
     var owner = match[1],
         name  = match[2];
 

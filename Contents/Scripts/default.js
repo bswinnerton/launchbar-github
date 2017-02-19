@@ -51,70 +51,86 @@ function openIssue(nameWithOwner, number) {
 }
 
 function openRepository(name, owner) {
-  return [
-    {
-      title: 'View Repository',
-      subtitle: '@' + owner + '/' + name,
-      alwaysShowsSubtitle: true,
-      icon: 'repo.png',
-      url: 'https://github.com/' + owner + '/' + name
-    },
-    {
-      title: 'View Issues',
-      icon: 'issue.png',
-      url: 'https://github.com/' + owner + '/' + name + '/issues/'
-    },
-    {
-      title: 'View Pull Requests',
-      icon: 'pull-request.png',
-      url: 'https://github.com/' + owner + '/' + name + '/pulls/'
-    }
-  ]
+  var url = 'https://github.com/' + owner + '/' + name
+
+  if (LaunchBar.options.commandKey == 1) {
+    LaunchBar.openURL(url)
+  } else {
+    return [
+      {
+        title: 'View Repository',
+        subtitle: '@' + owner + '/' + name,
+        alwaysShowsSubtitle: true,
+        icon: 'repo.png',
+        url: url
+      },
+      {
+        title: 'View Issues',
+        icon: 'issue.png',
+        url: url + '/issues/'
+      },
+      {
+        title: 'View Pull Requests',
+        icon: 'pull-request.png',
+        url: url + '/pulls/'
+      }
+    ]
+  }
 }
 
 function openUser(user) {
-  return [
-    {
-      title: 'View Profile',
-      subtitle: '@' + user,
-      alwaysShowsSubtitle: true,
-      icon: 'person.png',
-      url: 'https://github.com/' + user
-    },
-    {
-      title: 'View Repositories',
-      icon: 'repo.png',
-      action: 'openUserRepositories',
-      actionArgument: user,
-      actionReturnsItems: true
-    },
-    {
-      title: 'View Issues',
-      icon: 'issue.png',
-      url: 'https://github.com/search?utf8=%E2%9C%93&q=author%3A' + user + '+is%3Aissue&ref=simplesearch'
-    },
-    {
-      title: 'View Pull Requests',
-      icon: 'pull-request.png',
-      url: 'https://github.com/search?utf8=%E2%9C%93&q=author%3A' + user + '+is%3Apr&ref=simplesearch'
-    },
-    {
-      title: 'View Gists',
-      icon: 'gist.png',
-      url: 'https://gist.github.com/' + user
-    }
-  ]
+  if (LaunchBar.options.commandKey == 1) {
+    LaunchBar.openURL('https://github.com/' + user)
+  } else {
+    return [
+      {
+        title: 'View Profile',
+        subtitle: '@' + user,
+        alwaysShowsSubtitle: true,
+        icon: 'person.png',
+        url: 'https://github.com/' + user
+      },
+      {
+        title: 'View Repositories',
+        icon: 'repo.png',
+        action: 'openUserRepositories',
+        actionArgument: user,
+        actionReturnsItems: true
+      },
+      {
+        title: 'View Issues',
+        icon: 'issue.png',
+        url: 'https://github.com/search?utf8=%E2%9C%93&q=author%3A' + user + '+is%3Aissue&ref=simplesearch'
+      },
+      {
+        title: 'View Pull Requests',
+        icon: 'pull-request.png',
+        url: 'https://github.com/search?utf8=%E2%9C%93&q=author%3A' + user + '+is%3Apr&ref=simplesearch'
+      },
+      {
+        title: 'View Gists',
+        icon: 'gist.png',
+        url: 'https://gist.github.com/' + user
+      }
+    ]
+  }
 }
 
 
 function openUserRepositories(user) {
-  return [
-    {
-      title: 'View All Repositories',
-      icon: 'repos.png',
-      url: 'https://github.com/' + user + '?tab=repositories'
-    }
-  ].concat(fetchRepositories(user))
+  var url = 'https://github.com/' + user + '?tab=repositories'
+
+  if (LaunchBar.options.commandKey == 1) {
+    LaunchBar.openURL(url)
+  } else {
+    return [
+      {
+        title: 'View All Repositories',
+        icon: 'repos.png',
+        url: url
+      }
+    ].concat(fetchRepositories(user))
+  }
 }
 
 function fetchRepositories(user, cursor) {
@@ -149,7 +165,6 @@ function fetchRepositories(user, cursor) {
     repositoryEdges = result.data.repositoryOwner.repositories.edges;
 
     menuItems = repositoryEdges.map(repositoryMenuItemFromEdge);
-
     repositoryMenuItems = repositoryMenuItems.concat(menuItems);
 
     while (repositoryEdges.length == 30) {

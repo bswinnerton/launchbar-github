@@ -91,6 +91,11 @@ function openUser(user) {
       title: 'View Pull Requests',
       icon: 'pull-request.png',
       url: 'https://github.com/search?utf8=%E2%9C%93&q=author%3A' + user + '+is%3Apr&ref=simplesearch'
+    },
+    {
+      title: 'View Gists',
+      icon: 'gist.png',
+      url: 'https://gist.github.com/' + user
     }
   ]
 }

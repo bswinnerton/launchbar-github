@@ -40,7 +40,6 @@ class Account {
       query($login: String!, $cursor: String) {
         repositoryOwner(login: $login) {
           repositories(first: 30, after: $cursor, orderBy: {field: CREATED_AT, direction: DESC}) {
-            totalCount
             edges {
               cursor
               node {
@@ -61,7 +60,6 @@ class Account {
 
     let result = executeQuery(query, variables);
     let repositoryEdges = result.data.repositoryOwner.repositories.edges;
-    let totalCount = result.data.repositoryOwner.repositories.totalCount;
 
     if (repositoryEdges.length > 0) {
       let repos = repositoryEdges.map(function(edge) {

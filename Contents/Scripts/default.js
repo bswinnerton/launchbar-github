@@ -3,9 +3,9 @@
 // FIXME: Instead of having global state, it'd be better to maintain a cache
 var repositoryMenuItems = [];
 
-const SET_TOKEN_FORMAT = /^!set-token (.*)$/
-const ISSUE_OR_PR_FORMAT = /^([^\/]+\/[^\/#]+)(?:\/pull\/|\/issues\/|#)(\d+)$/
-const REPOSITORY_FORMAT = /^([^\/]+)\/([^\/#]+)$/
+const SET_TOKEN_FORMAT    = /^!set-token (.*)$/
+const ISSUE_OR_PR_FORMAT  = /^([^\/]+\/[^\/#]+)(?:\/pull\/|\/issues\/|#)(\d+)$/
+const REPOSITORY_FORMAT   = /^([^\/]+)\/([^\/#]+)$/
 
 function run(argument) {
   runWithString(argument);

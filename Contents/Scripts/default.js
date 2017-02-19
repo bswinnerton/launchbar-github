@@ -1,7 +1,7 @@
 include('account.js');
 
 // FIXME: Instead of having global state, it'd be better to maintain a cache
-var repositoryMenuItems = [];
+let repositoryMenuItems = [];
 
 const SET_TOKEN_FORMAT    = /^!set-token (.*)$/;
 const ISSUE_OR_PR_FORMAT  = /^([^\/]+\/[^\/#]+)(?:\/pull\/|\/issues\/|#)(\d+)$/;
@@ -38,7 +38,7 @@ function runWithString(string) {
   // Matching:
   // rails
   else if (match = string.match(ACCOUNT_FORMAT)) {
-    var account = new Account(match[1])
+    let account = new Account(match[1])
     return openAccount(account);
   }
 
@@ -61,7 +61,7 @@ function openIssue(nameWithOwner, number) {
 }
 
 function openRepository(name, owner) {
-  var url = 'https://github.com/' + owner + '/' + name
+  let url = 'https://github.com/' + owner + '/' + name
 
   if (LaunchBar.options.commandKey == 1) {
     LaunchBar.openURL(url)

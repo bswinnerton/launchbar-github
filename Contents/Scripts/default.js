@@ -1,5 +1,8 @@
 // LaunchBar Action Script
 
+// FIXME: Instead of having global state, it'd be better to maintain a cache
+var repositoryMenuItems = [];
+
 function run(argument) {
   runWithString(argument);
 }
@@ -38,6 +41,9 @@ function runWithString(string) {
 
 function setToken(token) {
   Action.preferences.token = token;
+  LaunchBar.displayNotification({
+    title: 'GitHub access token set successfully'
+  });
 }
 
 function openIssue(nameWithOwner, number) {
@@ -78,11 +84,9 @@ function openUser(user) {
     {
       title: 'View Repositories',
       icon: 'repo.png',
-      children: [{
-        title: 'View All Repositories',
-        icon: 'repos.png',
-        url: 'https://github.com/' + user + '?tab=repositories'
-      }].concat(fetchRepositories(user))
+      action: 'openUserRepositories',
+      actionArgument: user,
+      actionReturnsItems: true
     },
     {
       title: 'View Issues',
@@ -97,7 +101,74 @@ function openUser(user) {
   ]
 }
 
-function fetchRepositories(user) {
+
+function openUserRepositories(user) {
+  return [
+    {
+      title: 'View All Repositories',
+      icon: 'repos.png',
+      url: 'https://github.com/' + user + '?tab=repositories'
+    }
+  ].concat(fetchRepositories(user))
+}
+
+function fetchRepositories(user, cursor) {
+  var query, variables, result, lastCursor, menuItems;
+
+  query = `
+    query($login: String!, $cursor: String) {
+      repositoryOwner(login: $login) {
+        repositories(first: 30, after: $cursor, orderBy: {field: CREATED_AT, direction: DESC}) {
+          edges {
+            cursor
+            node {
+              owner { login }
+              name
+              description
+              url
+            }
+          }
+        }
+      }
+    }
+  `;
+
+  variables = {
+    login: user,
+    cursor: cursor || null
+  };
+
+  result = executeQuery(query, variables);
+  repositoryEdges = result.data.repositoryOwner.repositories.edges;
+
+  menuItems = repositoryEdges.map(repositoryMenuItemFromEdge);
+
+  repositoryMenuItems = repositoryMenuItems.concat(menuItems);
+
+  while (repositoryEdges.length == 30) {
+    lastCusor = repositoryEdges[repositoryEdges.length - 1].cursor;
+    fetchRepositories(user, lastCusor);
+  }
+
+  return repositoryMenuItems
+}
+
+function repositoryMenuItemFromEdge(edge) {
+  var menuItem = {
+    title: edge.node.owner.login + '/' + edge.node.name,
+    url: edge.node.url,
+    icon: 'repo.png',
+  };
+
+  if (edge.node.description) {
+    menuItem.subtitle = edge.node.description;
+    menuItem.alwaysShowsSubtitle = true;
+  }
+
+  return menuItem
+}
+
+function executeQuery(query, variables) {
   if (!Action.preferences.token) {
     LaunchBar.openURL('https://github.com/prerelease/agreement');
     LaunchBar.openURL('https://github.com/settings/tokens');
@@ -110,46 +181,9 @@ function fetchRepositories(user) {
   }
 
   result = HTTP.post('https://api.github.com/graphql', {
-    headerFields: {
-      authorization: 'token ' + Action.preferences.token
-    },
-    body: JSON.stringify({
-      query: `
-        query($login:String!) {
-          repositoryOwner(login:$login) {
-            repositories(last:30,orderBy:{field:CREATED_AT,direction:DESC}) {
-              edges {
-                node {
-                  name
-                  description
-                  url
-                }
-              }
-            }
-          }
-        }
-      `,
-      variables: {
-        login: user
-      }
-    })
+    headerFields: { authorization: 'token ' + Action.preferences.token },
+    body: JSON.stringify({ query: query, variables: variables })
   });
 
-  parsedResult = JSON.parse(result.data);
-  repoEdges = parsedResult.data.repositoryOwner.repositories.edges;
-
-  return repoEdges.map(function(edge) {
-    var repository = {
-      title: user + '/' + edge.node.name,
-      url: edge.node.url,
-      icon: 'repo.png',
-    }
-
-    if (edge.node.description) {
-      repository.subtitle = edge.node.description
-      repository.alwaysShowsSubtitle = true
-    }
-
-    return repository
-  })
+  return JSON.parse(result.data);
 }

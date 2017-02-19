@@ -17,19 +17,13 @@ function runWithString(string) {
   // rails/rails/issues/123
   // rails/rails/pull/123
   else if (match = string.match(/^([^\/]+\/[^\/#]+)(?:\/pull\/|\/issues\/|#)(\d+)$/)) {
-    var nwo     = match[1],
-        number  = match[2];
-
-    return openIssue(nwo, number);
+    return openIssue(match[1], match[2]);
   }
 
   // Matching:
   // rails/rails
   else if (match = string.match(/^([^\/]+)\/([^\/#]+)$/)) {
-    var owner = match[1],
-        name  = match[2];
-
-    return openRepository(name, owner);
+    return openRepository(match[2], match[1]);
   }
 
   // Matching:
@@ -139,18 +133,23 @@ function fetchRepositories(user, cursor) {
   };
 
   result = executeQuery(query, variables);
-  repositoryEdges = result.data.repositoryOwner.repositories.edges;
 
-  menuItems = repositoryEdges.map(repositoryMenuItemFromEdge);
+  if (result.data.repositoryOwner) {
+    repositoryEdges = result.data.repositoryOwner.repositories.edges;
 
-  repositoryMenuItems = repositoryMenuItems.concat(menuItems);
+    menuItems = repositoryEdges.map(repositoryMenuItemFromEdge);
 
-  while (repositoryEdges.length == 30) {
-    lastCusor = repositoryEdges[repositoryEdges.length - 1].cursor;
-    fetchRepositories(user, lastCusor);
+    repositoryMenuItems = repositoryMenuItems.concat(menuItems);
+
+    while (repositoryEdges.length == 30) {
+      lastCusor = repositoryEdges[repositoryEdges.length - 1].cursor;
+      fetchRepositories(user, lastCusor);
+    }
+
+    return repositoryMenuItems
+  } else {
+    return []
   }
-
-  return repositoryMenuItems
 }
 
 function repositoryMenuItemFromEdge(edge) {

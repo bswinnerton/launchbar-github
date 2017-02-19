@@ -5,6 +5,9 @@ that can search various parts of GitHub based on your input.
 
 ## Actions
 
+At any point you can either hit enter to navigate into available options, or
+hit `⌘` + `enter` to go directly to the corresponding GitHub page.
+
 ### For a user or organization
 
 ![](screenshots/default.png)

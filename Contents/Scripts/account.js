@@ -66,7 +66,7 @@ class Account {
     if (repositoryEdges.length > 0) {
       let repos = repositoryEdges.map(function(edge) {
         let repo = edge.node
-        return new Repository(this, repo.name, repo.url, repo.description)
+        return new Repository(this, repo.name, repo.description)
       }, this);
 
       this._repositories = this._repositories.concat(repos);

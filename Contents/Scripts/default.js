@@ -32,7 +32,9 @@ function runWithString(string) {
   // Matching:
   // rails/rails
   else if (match = string.match(REPOSITORY_FORMAT)) {
-    return openRepository(match[2], match[1]);
+    let owner = new Account(match[2])
+    let repository = new Repository(owner, match[1]);
+    return openRepository(repository);
   }
 
   // Matching:
@@ -60,29 +62,27 @@ function openIssue(nameWithOwner, number) {
   LaunchBar.openURL('https://github.com/' + nameWithOwner + '/issues/' + number);
 }
 
-function openRepository(name, owner) {
-  let url = 'https://github.com/' + owner + '/' + name
-
+function openRepository(repository) {
   if (LaunchBar.options.commandKey == 1) {
-    LaunchBar.openURL(url)
+    LaunchBar.openURL(repository.url)
   } else {
     return [
       {
         title: 'View Repository',
-        subtitle: '@' + owner + '/' + name,
+        subtitle: repository.slug,
         alwaysShowsSubtitle: true,
         icon: 'repo.png',
-        url: url
+        url: repository.url,
       },
       {
         title: 'View Issues',
         icon: 'issue.png',
-        url: url + '/issues/'
+        url: repository.issuesURL,
       },
       {
         title: 'View Pull Requests',
         icon: 'pull-request.png',
-        url: url + '/pulls/'
+        url: repository.pullRequestsURL,
       }
     ]
   }

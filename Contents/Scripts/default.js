@@ -25,17 +25,17 @@ function runWithString(string) {
   // rails/rails/issues/123
   // rails/rails/pull/123
   else if (match = string.match(ISSUE_OR_PR_FORMAT)) {
-    let owner = new Account(match[1])
-    let repository = new Repository(owner, match[2]);
-    let issue = new Issue(repository, match[3])
+    let owner       = new Account(match[1])
+    let repository  = new Repository(owner, match[2]);
+    let issue       = new Issue(repository, match[3])
     return openIssue(issue);
   }
 
   // Matching:
   // rails/rails
   else if (match = string.match(REPOSITORY_FORMAT)) {
-    let owner = new Account(match[1])
-    let repository = new Repository(owner, match[2]);
+    let owner       = new Account(match[1])
+    let repository  = new Repository(owner, match[2]);
     return openRepository(repository);
   }
 
@@ -143,29 +143,5 @@ function openAccountRepositories(login) {
     ].concat(account.repositories().map(function(repository) {
       return repository.toMenuItem()
     }));
-  }
-}
-
-function executeQuery(query, variables) {
-  if (!Action.preferences.token) {
-    LaunchBar.openURL('https://github.com/prerelease/agreement');
-    LaunchBar.openURL('https://github.com/settings/tokens');
-    LaunchBar.alert("It looks like this is the first time you're using this " +
-      "action.\n\nPlease go to https://github.com/prerelease/agreement and " +
-      "accept the agreement.\n\nOnce signed, go to " +
-      "https://github.com/settings/tokens and create token with 'repo' scope " +
-      "and set it by invoking this action and typing !set-token <token>");
-    return
-  }
-
-  result = HTTP.post('https://api.github.com/graphql', {
-    headerFields: { authorization: 'token ' + Action.preferences.token },
-    body: JSON.stringify({ query: query, variables: variables })
-  });
-
-  LaunchBar.debugLog(JSON.stringify(result));
-
-  if (result.data) {
-    return JSON.parse(result.data);
   }
 }

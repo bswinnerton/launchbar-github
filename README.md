@@ -44,5 +44,14 @@ Actions folder:
 
 ```
 mkdir -p ~/Library/Application\ Support/LaunchBar/Actions/
-git clone https://github.com/bswinnerton/GitHub.lbaction ~/Library/Application\ Support/LaunchBar/Actions/GitHub.lbaction
+git clone https://github.com/bswinnerton/github.lbaction ~/Library/Application\ Support/LaunchBar/Actions/github.lbaction
+```
+
+## Updating
+
+This action can be updated by pulling the latest changes from Git.
+
+```
+cd ~/Library/Application\ Support/LaunchBar/Actions/github.lbaction
+git pull origin master
 ```

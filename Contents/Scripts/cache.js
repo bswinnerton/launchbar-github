@@ -35,7 +35,7 @@ class Cache {
     let results   = func();
     let cacheData = { expiresAt: expiresAt, results: results };
 
-    File.writeJSON(cacheData, path);
+    File.writeJSON(cacheData, path, {'prettyPrint' : Action.debugLogEnabled});
 
     return results;
   }

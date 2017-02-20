@@ -14,7 +14,7 @@ class App {
     // Matching:
     // set-token <token>
     if (match = input.match(SET_TOKEN_FORMAT)) {
-      return this.setToken(match[1])
+      return this.setToken(match[1]);
     }
 
     // Matching:
@@ -22,16 +22,16 @@ class App {
     // rails/rails/issues/123
     // rails/rails/pull/123
     else if (match = input.match(ISSUE_OR_PR_FORMAT)) {
-      let owner       = new Account(match[1])
+      let owner       = new Account(match[1]);
       let repository  = new Repository(owner, match[2]);
-      let issue       = new Issue(repository, match[3])
+      let issue       = new Issue(repository, match[3]);
       return this.openIssue(issue);
     }
 
     // Matching:
     // rails/rails
     else if (match = input.match(REPOSITORY_FORMAT)) {
-      let owner       = new Account(match[1])
+      let owner       = new Account(match[1]);
       let repository  = new Repository(owner, match[2]);
       return this.openRepository(repository);
     }
@@ -39,7 +39,7 @@ class App {
     // Matching:
     // rails
     else if (match = input.match(ACCOUNT_FORMAT)) {
-      let account = new Account(match[1])
+      let account = new Account(match[1]);
       return this.openAccount(account);
     }
 
@@ -63,7 +63,7 @@ class App {
 
   openRepository(repository) {
     if (LaunchBar.options.commandKey == 1) {
-      LaunchBar.openURL(repository.url)
+      LaunchBar.openURL(repository.url);
     } else {
       return [
         {
@@ -83,13 +83,13 @@ class App {
           icon: 'pull-request.png',
           url: repository.pullRequestsURL,
         }
-      ]
+      ];
     }
   }
 
   openAccount(account) {
     if (LaunchBar.options.commandKey == 1) {
-      LaunchBar.openURL(account.profileURL)
+      LaunchBar.openURL(account.profileURL);
     } else {
       return [
         {
@@ -121,15 +121,15 @@ class App {
           icon: 'gist.png',
           url: account.gistsURL,
         }
-      ]
+      ];
     }
   }
 
   openAccountRepositories(login) {
-    let account = new Account(login)
+    let account = new Account(login);
 
     if (LaunchBar.options.commandKey == 1) {
-      LaunchBar.openURL(account.repositoriesURL)
+      LaunchBar.openURL(account.repositoriesURL);
     } else {
       return [
         {
@@ -138,13 +138,13 @@ class App {
           url: account.repositoriesURL
         }
       ].concat(account.repositories().map(function(repository) {
-        return repository.toMenuItem()
+        return repository.toMenuItem();
       }));
     }
   }
 }
 
-let app = new App;
+let app = new App();
 
 function run(argument) {
   return app.run(argument);

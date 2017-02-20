@@ -61,8 +61,8 @@ class Account {
 
     if (repositoryEdges.length > 0) {
       let repos = repositoryEdges.map(function(edge) {
-        let repo = edge.node
-        return new Repository(this, repo.name, repo.description)
+        let repo = edge.node;
+        return new Repository(this, repo.name, repo.description);
       }, this);
 
       this._repositories = this._repositories.concat(repos);
@@ -70,7 +70,7 @@ class Account {
       let lastEdge = repositoryEdges[repositoryEdges.length - 1];
       this._fetchRepositories(lastEdge.cursor);
     } else {
-      return
+      return;
     }
   }
 
@@ -86,7 +86,7 @@ class Account {
         "https://github.com/settings/tokens and create token with 'repo' " +
         "scope and set it by invoking this action and typing " +
         "!set-token <token>");
-      return
+      return;
     }
 
     result = HTTP.post('https://api.github.com/graphql', {

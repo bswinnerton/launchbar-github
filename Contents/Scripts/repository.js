@@ -14,11 +14,11 @@ class Repository {
   }
 
   get issuesURL() {
-    return this.url + '/issues'
+    return this.url + '/issues';
   }
 
   get pullRequestsURL() {
-    return this.url + '/pulls'
+    return this.url + '/pulls';
   }
 
   get slug() {
@@ -30,7 +30,7 @@ class Repository {
       title: this.nameWithOwner,
       url: this.url,
       icon: 'repo.png',
-    }
+    };
 
     if (this.description) {
       menuItem.subtitle = this.description;

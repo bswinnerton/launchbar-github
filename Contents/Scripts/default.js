@@ -2,16 +2,24 @@ let module = {exports: {}};
 
 include('account.js');
 include('issue.js');
+include('link-shortener.js');
 include('repository.js');
 
-class App {
-  run(input) {
+class GitHubLB {
+  run(input, options) {
+    const GITHUB_LINK_FORMAT  = /^https?:\/\/((www|gist|raw)\.)?github\.(io|com)/;
     const SET_TOKEN_FORMAT    = /^!set-token (.*)$/;
     const ISSUE_OR_PR_FORMAT  = /^([^\/]+)\/([^\/#]+)(?:\/pull\/|\/issues\/|#)(\d+)$/;
     const REPOSITORY_FORMAT   = /^([^\/]+)\/([^\/#]+)$/;
     const ACCOUNT_FORMAT      = /^(\w+)$/;
 
     let match;
+
+    // Matching:
+    // https://github.com/bswinnerton/dotfiles/blob/master/ack/ackrc.symlink#L6
+    if (input.match(GITHUB_LINK_FORMAT)) {
+      return this.openLinkShortner(input);
+    }
 
     // Matching:
     // set-token <token>
@@ -50,6 +58,27 @@ class App {
     else {
       LaunchBar.openURL('https://github.com/' + input);
     }
+  }
+
+  openLinkShortner(link, options) {
+    return [
+      {
+        title: 'Shorten link',
+        icon: 'link.png',
+        action: 'shortenLink',
+        actionArgument: link,
+      },
+    ];
+  }
+
+  shortenLink(link) {
+    let linkShortener = new LinkShortner(link);
+    let shortLink     = linkShortener.run();
+
+    LaunchBar.setClipboardString(shortLink);
+    LaunchBar.displayNotification({
+      title: 'Copied ' + shortLink + ' to your clipboard',
+    });
   }
 
   setToken(token) {
@@ -146,7 +175,7 @@ class App {
   }
 }
 
-let app = new App();
+let app = new GitHubLB();
 
 function run(argument) {
   return app.run(argument);
@@ -156,11 +185,19 @@ function runWithString(string) {
   return app.run(string);
 }
 
+function runWithURL(url, details) {
+  return app.run(url, details);
+}
+
 // Unfortunately when the script output uses an action argument (like
 // openAccount does), it needs to be able to find the function from the global
-// scope.
+// scope. The following functions are workarounds to the appropriate actions.
 //
 // https://developer.obdev.at/launchbar-developer-documentation/#/script-output.
 function openAccountRepositories(string) {
   return app.openAccountRepositories(string);
+}
+
+function shortenLink(link, details) {
+  return app.shortenLink(link);
 }

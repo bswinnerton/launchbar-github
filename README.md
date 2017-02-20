@@ -26,6 +26,17 @@ hit `⌘` + `enter` to go directly to the corresponding GitHub page.
 ![](screenshots/default.png)
 ![](screenshots/issue.png)
 
+### Shortening a link
+
+At any time, paste a GitHub link into LaunchBar and hit `tab`. Start typing
+"github" and you should see the action appear, hit `enter`. Once complete, the
+action will ask you if you want to shorten the link, hit `enter` and the
+shortened link will be copied to your clipboard.
+
+![](screenshots/shorten-link.png)
+![](screenshots/shorten-link-expanded.png)
+![](screenshots/shorten-link-final.png)
+
 ## Installing
 
 Installing should be as simple as cloning this repository to your LaunchBar

@@ -53,7 +53,7 @@ class App {
   setToken(token) {
     Action.preferences.token = token;
     LaunchBar.displayNotification({
-      title: 'GitHub access token set successfully'
+      title: 'GitHub access token set successfully',
     });
   }
 
@@ -135,7 +135,7 @@ class App {
         {
           title: 'View All Repositories',
           icon: 'repos.png',
-          url: account.repositoriesURL
+          url: account.repositoriesURL,
         }
       ].concat(account.repositories().map(function(repository) {
         return repository.toMenuItem();

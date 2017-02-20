@@ -32,5 +32,5 @@ Installing should be as simple as cloning this repository to your LaunchBar
 Actions folder:
 
 ```
-git clone https://github.com/bswinnerton/GitHub.lbaction ~/Library/Application\ Support/LaunchBar/Actions
+git clone https://github.com/bswinnerton/GitHub.lbaction ~/Library/Application\ Support/LaunchBar/Actions/GitHub.lbaction
 ```

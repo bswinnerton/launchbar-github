@@ -81,7 +81,7 @@ class Account {
       LaunchBar.openURL('https://github.com/prerelease/agreement');
       LaunchBar.openURL('https://github.com/settings/tokens');
       LaunchBar.alert("It looks like this is the first time you're using " +
-        "this action.\n\nPlease go to https://github.com/settings/tokens" +
+        "this action.\n\nPlease go to https://github.com/settings/tokens " +
         "and create token with 'repo' scope and set it by invoking the " +
         "github action and typing !set-token <token>");
       return;

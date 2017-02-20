@@ -101,3 +101,5 @@ class Account {
     }
   }
 }
+
+exports.Account = Account;

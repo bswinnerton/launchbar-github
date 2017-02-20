@@ -1,3 +1,5 @@
+let module = {exports: {}};
+
 include('account.js');
 include('issue.js');
 include('repository.js');
@@ -68,7 +70,7 @@ class App {
       return [
         {
           title: 'View Repository',
-          subtitle: repository.slug,
+          subtitle: repository.nameWithOwner,
           alwaysShowsSubtitle: true,
           icon: 'repo.png',
           url: repository.url,

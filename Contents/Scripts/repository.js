@@ -21,10 +21,6 @@ class Repository {
     return this.url + '/pulls';
   }
 
-  get slug() {
-    return '@' + this.nameWithOwner;
-  }
-
   toMenuItem() {
     let menuItem = {
       title: this.nameWithOwner,
@@ -40,3 +36,5 @@ class Repository {
     return menuItem;
   }
 }
+
+module.exports.Repository = Repository;

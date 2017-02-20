@@ -1,4 +1,4 @@
-class LinkShortner {
+class LinkShortener {
   constructor(link) {
     this.link = link;
   }
@@ -15,3 +15,5 @@ class LinkShortner {
     return 'https://git.io/' + result.data;
   }
 }
+
+module.exports.LinkShortener = LinkShortener;

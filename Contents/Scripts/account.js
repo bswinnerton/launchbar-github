@@ -100,4 +100,4 @@ class Account {
   }
 }
 
-exports.Account = Account;
+module.exports.Account = Account;

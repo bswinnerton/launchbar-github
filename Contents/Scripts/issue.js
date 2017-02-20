@@ -9,4 +9,4 @@ class Issue {
   }
 }
 
-exports.Issue = Issue;
+module.exports.Issue = Issue;

@@ -9,7 +9,7 @@ describe('Issue', function() {
   let repo  = new Repository(org, 'rails');
   let issue = new Issue(repo, '123');
 
-  describe('#url()', function() {
+  describe('#url', function() {
     it('returns the URL of an issue', function() {
       assert.equal('https://github.com/rails/rails/issues/123', issue.url);
     });

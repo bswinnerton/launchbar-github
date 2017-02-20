@@ -61,14 +61,18 @@ class GitHubLB {
   }
 
   openLinkShortnerMenu(link, options) {
-    return [
-      {
-        title: 'Shorten link',
-        icon: 'link.png',
-        action: 'shortenLink',
-        actionArgument: link,
-      },
-    ];
+    if (LaunchBar.options.commandKey == 1) {
+      this.shortenLink(link);
+    } else {
+      return [
+        {
+          title: 'Shorten link',
+          icon: 'link.png',
+          action: 'shortenLink',
+          actionArgument: link,
+        },
+      ];
+    }
   }
 
   openRepositoryMenu(repository) {
@@ -154,7 +158,7 @@ class GitHubLB {
   }
 
   shortenLink(link) {
-    let linkShortener = new LinkShortner(link);
+    let linkShortener = new LinkShortener(link);
     let shortLink     = linkShortener.run();
 
     LaunchBar.setClipboardString(shortLink);

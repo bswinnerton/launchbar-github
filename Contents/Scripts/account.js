@@ -78,7 +78,6 @@ class Account {
     let result;
 
     if (!Action.preferences.token) {
-      LaunchBar.openURL('https://github.com/prerelease/agreement');
       LaunchBar.openURL('https://github.com/settings/tokens');
       LaunchBar.alert("It looks like this is the first time you're using " +
         "this action.\n\nPlease go to https://github.com/settings/tokens " +

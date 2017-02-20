@@ -1,7 +1,6 @@
 class Account {
   constructor(login) {
     this.login = login;
-    this._repositories = [];
   }
 
   get handle() {
@@ -29,11 +28,20 @@ class Account {
   }
 
   repositories() {
-    this._fetchRepositories();
-    return this._repositories;
+    let cache = new Cache();
+    let cacheKey = this.login + '-repositories';
+
+    let repositoryEdges = cache.fetch(cacheKey, 3600, () => {
+      return this._fetchRepositories();
+    });
+
+    return repositoryEdges.map(function(edge) {
+      let repo = edge.node;
+      return new Repository(this, repo.name, repo.description);
+    }, this);
   }
 
-  _fetchRepositories(cursor) {
+  _fetchRepositories(cursor, allEdges = []) {
     const query = `
       query($login: String!, $cursor: String) {
         repositoryOwner(login: $login) {
@@ -60,18 +68,13 @@ class Account {
     let repositoryEdges = result.data.repositoryOwner.repositories.edges;
 
     if (repositoryEdges.length > 0) {
-      let repos = repositoryEdges.map(function(edge) {
-        let repo = edge.node;
-        return new Repository(this, repo.name, repo.description);
-      }, this);
-
-      this._repositories = this._repositories.concat(repos);
+      allEdges = allEdges.concat(repositoryEdges);
 
       let lastEdge = repositoryEdges[repositoryEdges.length - 1];
-      this._fetchRepositories(lastEdge.cursor);
-    } else {
-      return;
+      return this._fetchRepositories(lastEdge.cursor, allEdges);
     }
+
+    return allEdges;
   }
 
   _executeQuery(query, variables) {

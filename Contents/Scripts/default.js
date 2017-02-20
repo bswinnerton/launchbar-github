@@ -1,6 +1,7 @@
 let module = {exports: {}};
 
 include('account.js');
+include('cache.js');
 include('issue.js');
 include('link-shortener.js');
 include('repository.js');

@@ -18,7 +18,7 @@ class GitHubLB {
     // Matching:
     // https://github.com/bswinnerton/dotfiles/blob/master/ack/ackrc.symlink#L6
     if (input.match(GITHUB_LINK_FORMAT)) {
-      return this.openLinkShortner(input);
+      return this.openLinkShortnerMenu(input);
     }
 
     // Matching:
@@ -35,7 +35,7 @@ class GitHubLB {
       let owner       = new Account(match[1]);
       let repository  = new Repository(owner, match[2]);
       let issue       = new Issue(repository, match[3]);
-      return this.openIssue(issue);
+      return LaunchBar.openURL(issue.url);
     }
 
     // Matching:
@@ -43,24 +43,24 @@ class GitHubLB {
     else if (match = input.match(REPOSITORY_FORMAT)) {
       let owner       = new Account(match[1]);
       let repository  = new Repository(owner, match[2]);
-      return this.openRepository(repository);
+      return this.openRepositoryMenu(repository);
     }
 
     // Matching:
     // rails
     else if (match = input.match(ACCOUNT_FORMAT)) {
       let account = new Account(match[1]);
-      return this.openAccount(account);
+      return this.openAccountMenu(account);
     }
 
     // Matching everything else:
     // rails/rails/tree/master/Gemfile
     else {
-      LaunchBar.openURL('https://github.com/' + input);
+      return LaunchBar.openURL('https://github.com/' + input);
     }
   }
 
-  openLinkShortner(link, options) {
+  openLinkShortnerMenu(link, options) {
     return [
       {
         title: 'Shorten link',
@@ -71,28 +71,7 @@ class GitHubLB {
     ];
   }
 
-  shortenLink(link) {
-    let linkShortener = new LinkShortner(link);
-    let shortLink     = linkShortener.run();
-
-    LaunchBar.setClipboardString(shortLink);
-    LaunchBar.displayNotification({
-      title: 'Copied ' + shortLink + ' to your clipboard',
-    });
-  }
-
-  setToken(token) {
-    Action.preferences.token = token;
-    LaunchBar.displayNotification({
-      title: 'GitHub access token set successfully',
-    });
-  }
-
-  openIssue(issue) {
-    LaunchBar.openURL(issue.url);
-  }
-
-  openRepository(repository) {
+  openRepositoryMenu(repository) {
     if (LaunchBar.options.commandKey == 1) {
       LaunchBar.openURL(repository.url);
     } else {
@@ -118,7 +97,7 @@ class GitHubLB {
     }
   }
 
-  openAccount(account) {
+  openAccountMenu(account) {
     if (LaunchBar.options.commandKey == 1) {
       LaunchBar.openURL(account.profileURL);
     } else {
@@ -156,7 +135,7 @@ class GitHubLB {
     }
   }
 
-  openAccountRepositories(login) {
+  openAccountRepositoriesMenu(login) {
     let account = new Account(login);
 
     if (LaunchBar.options.commandKey == 1) {
@@ -172,6 +151,23 @@ class GitHubLB {
         return repository.toMenuItem();
       }));
     }
+  }
+
+  shortenLink(link) {
+    let linkShortener = new LinkShortner(link);
+    let shortLink     = linkShortener.run();
+
+    LaunchBar.setClipboardString(shortLink);
+    LaunchBar.displayNotification({
+      title: 'Copied ' + shortLink + ' to your clipboard',
+    });
+  }
+
+  setToken(token) {
+    Action.preferences.token = token;
+    LaunchBar.displayNotification({
+      title: 'GitHub access token set successfully',
+    });
   }
 }
 
@@ -195,7 +191,7 @@ function runWithURL(url, details) {
 //
 // https://developer.obdev.at/launchbar-developer-documentation/#/script-output.
 function openAccountRepositories(string) {
-  return app.openAccountRepositories(string);
+  return app.openAccountRepositoriesMenu(string);
 }
 
 function shortenLink(link, details) {

@@ -1,0 +1,4 @@
+test:
+  override:
+    - nvm install stable && nvm alias default stable
+    - npm test

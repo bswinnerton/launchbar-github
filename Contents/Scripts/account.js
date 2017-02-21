@@ -40,7 +40,9 @@ class Account {
     }, this);
   }
 
-  _fetchRepositories(cursor, allEdges = []) {
+  _fetchRepositories(cursor, allEdges) {
+    allEdges = allEdges || [];
+
     const query = `
       query($login: String!, $cursor: String) {
         repositoryOwner(login: $login) {

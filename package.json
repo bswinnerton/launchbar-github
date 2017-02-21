@@ -4,7 +4,7 @@
   "description": "A LaunchBar action to find resources on GitHub.",
   "main": "Contents/Scripts/default.js",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha --use_strict"
   },
   "repository": {
     "type": "git",

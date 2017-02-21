@@ -6,6 +6,7 @@ include('commit.js');
 include('graphql.js');
 include('issue.js');
 include('link-shortener.js');
+include('pull-request.js');
 include('repository.js');
 
 class GitHubLB {
@@ -114,8 +115,8 @@ class GitHubLB {
   }
 
   openCommitPullRequestsMenu(commit) {
-    if (commit.pullRequests.length > 1) {
-
+    if (commit.pullRequests().length > 1) {
+      return commit.pullRequests().map(function(pr) { return pr.toMenuItem(); });
     } else {
       LaunchBar.openURL(commit.pullRequests()[0].url);
     }

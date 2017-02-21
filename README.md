@@ -59,6 +59,12 @@ mkdir -p ~/Library/Application\ Support/LaunchBar/Actions/
 git clone https://github.com/bswinnerton/github.lbaction ~/Library/Application\ Support/LaunchBar/Actions/github.lbaction
 ```
 
+You'll need to get an access token from GitHub if you'd like to use any of the
+features that return data directly in LaunchBar. To do so, go to
+https://github.com/settings/tokens/new and create a new token with the `repo`
+scope selected. Take the token and entering the GitHub action and typing
+`!set-token <token>`.
+
 ## Updating
 
 This action can be updated by pulling the latest changes from Git.

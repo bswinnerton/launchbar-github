@@ -1,4 +1,3 @@
-test:
-  override:
-    - nvm install stable && nvm alias default stable
-    - npm test
+machine:
+  node:
+    version: 7.5.0

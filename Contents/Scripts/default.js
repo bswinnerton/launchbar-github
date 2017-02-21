@@ -2,6 +2,8 @@ let module = {exports: {}};
 
 include('account.js');
 include('cache.js');
+include('commit.js');
+include('graphql.js');
 include('issue.js');
 include('link-shortener.js');
 include('repository.js');
@@ -12,6 +14,7 @@ class GitHubLB {
     const SET_TOKEN_FORMAT    = /^!set-token (.*)$/;
     const ISSUE_OR_PR_FORMAT  = /^([^\/]+)\/([^\/#]+)(?:\/pull\/|\/issues\/|#)(\d+)$/;
     const REPOSITORY_FORMAT   = /^([^\/]+)\/([^\/#]+)$/;
+    const COMMIT_SHA_FORMAT   = /^\b[0-9a-f]{5,40}\b$/;
     const ACCOUNT_FORMAT      = /^(\w+)$/;
 
     let match;
@@ -45,6 +48,14 @@ class GitHubLB {
       let owner       = new Account(match[1]);
       let repository  = new Repository(owner, match[2]);
       return this.openRepositoryMenu(repository);
+    }
+
+    // Matching:
+    // 911a93ac
+    // 911a93ac26c4f5919d1ebdf67a9e3db31c5b9dce
+    else if (match = input.match(COMMIT_SHA_FORMAT)) {
+      let commit = new Commit(match[0]);
+      return this.openCommitPullRequestsMenu(commit);
     }
 
     // Matching:
@@ -99,6 +110,14 @@ class GitHubLB {
           url: repository.pullRequestsURL,
         }
       ];
+    }
+  }
+
+  openCommitPullRequestsMenu(commit) {
+    if (commit.pullRequests.length > 1) {
+
+    } else {
+      LaunchBar.openURL(commit.pullRequests()[0].url);
     }
   }
 

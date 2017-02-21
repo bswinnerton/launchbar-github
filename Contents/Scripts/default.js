@@ -1,16 +1,3 @@
-let module = {exports: {}};
-
-include('cache.js');
-const cache = new Cache();
-
-include('account.js');
-include('commit.js');
-include('graphql.js');
-include('issue.js');
-include('link-shortener.js');
-include('pull-request.js');
-include('repository.js');
-
 class GitHubLB {
   run(input, options) {
     const GITHUB_LINK_FORMAT  = /^https?:\/\/((www|gist|raw)\.)?github\.(io|com)/;

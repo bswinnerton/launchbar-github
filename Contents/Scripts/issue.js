@@ -8,5 +8,3 @@ class Issue {
     return 'https://github.com/' + this.repository.nameWithOwner + '/issues/' + this.number;
   }
 }
-
-module.exports.Issue = Issue;

@@ -36,5 +36,3 @@ class Repository {
     return menuItem;
   }
 }
-
-module.exports.Repository = Repository;

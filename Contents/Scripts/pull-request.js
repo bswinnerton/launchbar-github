@@ -23,5 +23,3 @@ class PullRequest {
     };
   }
 }
-
-module.exports.PullRequest = PullRequest;

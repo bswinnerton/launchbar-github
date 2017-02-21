@@ -21,5 +21,3 @@ GraphQL.execute = function(query, variables) {
     return JSON.parse(result.data);
   }
 }
-
-module.exports.GraphQL = GraphQL;

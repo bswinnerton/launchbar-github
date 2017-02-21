@@ -26,6 +26,18 @@ hit `⌘` + `enter` to go directly to the corresponding GitHub page.
 ![](screenshots/default.png)
 ![](screenshots/issue.png)
 
+### For a commit
+
+At any time, paste a commit SHA into LaunchBar and hit `tab`. Start typing
+"github" and you should see the action appear, hit `enter`. Once complete, the
+action will bring you to the pull request that introduced the commit. If the
+commit is associated with multiple pull requests, they will be displayed in a
+list.
+
+![](screenshots/commit.png)
+![](screenshots/commit-expanded.png)
+![](screenshots/commit-pr-list.png)
+
 ### Shortening a link
 
 At any time, paste a GitHub link into LaunchBar and hit `tab`. Start typing

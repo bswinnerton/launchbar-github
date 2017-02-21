@@ -1,7 +1,9 @@
 let module = {exports: {}};
 
-include('account.js');
 include('cache.js');
+const cache = new Cache();
+
+include('account.js');
 include('commit.js');
 include('graphql.js');
 include('issue.js');

@@ -28,8 +28,7 @@ class Account {
   }
 
   repositories() {
-    let cache = new Cache();
-    let cacheKey = this.login + '-repositories';
+    let cacheKey = 'account-repositories-for-' + this.login;
 
     let repositoryEdges = cache.fetch(cacheKey, 3600, () => {
       return this._fetchRepositories();

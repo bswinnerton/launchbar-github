@@ -73,3 +73,34 @@ This action can be updated by pulling the latest changes from Git.
 cd ~/Library/Application\ Support/LaunchBar/Actions/github.lbaction
 git pull origin master
 ```
+
+## Development
+
+This LaunchBar plugin is written in Javascript. Because I value both writing
+Javascript in ES6, _and_ support for the action to run in older OS X
+environments, [Babel](https://babeljs.io/) is used to convert the files in
+`Contents/Scripts/` into "vanilla Javascript" that can be parsed by most OS X
+JS engines.
+
+If you're looking to contribute to this repository, you'll need to bootstrap
+the project by running:
+
+```
+script/bootstrap
+```
+
+This will install all dependencies for you. From there, you can run:
+
+```
+script/server
+```
+
+Which will listen for changes to any files in `Contents/Scripts/` and
+automatically compile your Javascript into a single file that can be executed by
+LaunchBar.
+
+If at any time you would like to run the tests, you can run:
+
+```
+script/test
+```

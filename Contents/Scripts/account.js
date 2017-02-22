@@ -30,7 +30,7 @@ class Account {
   repositories() {
     let cacheKey = 'account-repositories-for-' + this.login;
 
-    let repositoryEdges = cache.fetch(cacheKey, 3600, () => {
+    let repositoryEdges = Cache.fetch(cacheKey, 3600, () => {
       return this._fetchRepositories();
     });
 
@@ -79,4 +79,4 @@ class Account {
   }
 }
 
-module.exports.Account = Account;
+if (typeof module !== 'undefined') { module.exports.Account = Account; }

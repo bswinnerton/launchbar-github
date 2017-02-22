@@ -20,6 +20,6 @@ GraphQL.execute = function(query, variables) {
   if (result.data) {
     return JSON.parse(result.data);
   }
-}
+};
 
-module.exports.GraphQL = GraphQL;
+if (typeof module !== 'undefined') { module.exports.GraphQL = GraphQL; }

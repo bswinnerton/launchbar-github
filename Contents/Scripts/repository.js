@@ -37,4 +37,4 @@ class Repository {
   }
 }
 
-module.exports.Repository = Repository;
+if (typeof module !== 'undefined') { module.exports.Repository = Repository; }

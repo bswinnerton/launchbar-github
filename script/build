@@ -1,0 +1,4 @@
+#!/bin/bash
+
+rm -f Contents/Scripts/bundle.js
+./node_modules/.bin/babel Contents/Scripts/default.js Contents/Scripts/ --presets es2015 --out-file Contents/Scripts/bundle.js

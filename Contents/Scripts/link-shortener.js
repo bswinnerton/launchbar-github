@@ -16,4 +16,4 @@ class LinkShortener {
   }
 }
 
-module.exports.LinkShortener = LinkShortener;
+if (typeof module !== 'undefined') { module.exports.LinkShortener = LinkShortener; }

@@ -6,7 +6,7 @@ class Commit {
   pullRequests() {
     let cacheKey = 'commit-pull-requests-for-' + this.sha;
 
-    let pullRequestEdges = cache.fetch(cacheKey, 604800, () => {
+    let pullRequestEdges = Cache.fetch(cacheKey, 604800, () => {
       return this._fetchPullRequests();
     });
 
@@ -52,4 +52,4 @@ class Commit {
   }
 }
 
-module.exports.Commit = Commit;
+if (typeof module !== 'undefined') { module.exports.Commit = Commit; }

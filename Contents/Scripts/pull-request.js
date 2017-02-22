@@ -24,4 +24,4 @@ class PullRequest {
   }
 }
 
-module.exports.PullRequest = PullRequest;
+if (typeof module !== 'undefined') { module.exports.PullRequest = PullRequest; }

@@ -9,4 +9,4 @@ class Issue {
   }
 }
 
-module.exports.Issue = Issue;
+if (typeof module !== 'undefined') { module.exports.Issue = Issue; }

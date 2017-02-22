@@ -36,7 +36,7 @@ describe('Repository', function() {
       assert.deepEqual({
         title: 'rails/rails',
         url: 'https://github.com/rails/rails',
-        icon: 'repo.png',
+        icon: 'repoTemplate.png',
         subtitle: 'A Ruby web framework',
         alwaysShowsSubtitle: true
       }, repo.toMenuItem());

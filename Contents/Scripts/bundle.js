@@ -81,7 +81,7 @@ var GitHubLB = function () {
       } else {
         return [{
           title: 'Shorten link',
-          icon: 'link.png',
+          icon: 'linkTemplate.png',
           action: 'shortenLink',
           actionArgument: link
         }];
@@ -97,15 +97,15 @@ var GitHubLB = function () {
           title: 'View Repository',
           subtitle: repository.nameWithOwner,
           alwaysShowsSubtitle: true,
-          icon: 'repo.png',
+          icon: 'repoTemplate.png',
           url: repository.url
         }, {
           title: 'View Issues',
-          icon: 'issue.png',
+          icon: 'issueTemplate.png',
           url: repository.issuesURL
         }, {
           title: 'View Pull Requests',
-          icon: 'pull-request.png',
+          icon: 'pullRequestTemplate.png',
           url: repository.pullRequestsURL
         }];
       }
@@ -131,25 +131,25 @@ var GitHubLB = function () {
           title: 'View Profile',
           subtitle: account.handle,
           alwaysShowsSubtitle: true,
-          icon: 'person.png',
+          icon: 'personTemplate.png',
           url: account.profileURL
         }, {
           title: 'View Repositories',
-          icon: 'repo.png',
+          icon: 'repoTemplate.png',
           action: 'openAccountRepositories',
           actionArgument: account.login,
           actionReturnsItems: true
         }, {
           title: 'View Issues',
-          icon: 'issue.png',
+          icon: 'issueTemplate.png',
           url: account.issuesURL
         }, {
           title: 'View Pull Requests',
-          icon: 'pull-request.png',
+          icon: 'pullRequestTemplate.png',
           url: account.pullRequestsURL
         }, {
           title: 'View Gists',
-          icon: 'gist.png',
+          icon: 'gistTemplate.png',
           url: account.gistsURL
         }];
       }
@@ -164,7 +164,7 @@ var GitHubLB = function () {
       } else {
         return [{
           title: 'View All Repositories',
-          icon: 'repos.png',
+          icon: 'reposTemplate.png',
           url: account.repositoriesURL
         }].concat(account.repositories().map(function (repository) {
           return repository.toMenuItem();
@@ -510,7 +510,7 @@ var GitHubLB = function () {
       } else {
         return [{
           title: 'Shorten link',
-          icon: 'link.png',
+          icon: 'linkTemplate.png',
           action: 'shortenLink',
           actionArgument: link
         }];
@@ -526,15 +526,15 @@ var GitHubLB = function () {
           title: 'View Repository',
           subtitle: repository.nameWithOwner,
           alwaysShowsSubtitle: true,
-          icon: 'repo.png',
+          icon: 'repoTemplate.png',
           url: repository.url
         }, {
           title: 'View Issues',
-          icon: 'issue.png',
+          icon: 'issueTemplate.png',
           url: repository.issuesURL
         }, {
           title: 'View Pull Requests',
-          icon: 'pull-request.png',
+          icon: 'pullRequestTemplate.png',
           url: repository.pullRequestsURL
         }];
       }
@@ -560,25 +560,25 @@ var GitHubLB = function () {
           title: 'View Profile',
           subtitle: account.handle,
           alwaysShowsSubtitle: true,
-          icon: 'person.png',
+          icon: 'personTemplate.png',
           url: account.profileURL
         }, {
           title: 'View Repositories',
-          icon: 'repo.png',
+          icon: 'repoTemplate.png',
           action: 'openAccountRepositories',
           actionArgument: account.login,
           actionReturnsItems: true
         }, {
           title: 'View Issues',
-          icon: 'issue.png',
+          icon: 'issueTemplate.png',
           url: account.issuesURL
         }, {
           title: 'View Pull Requests',
-          icon: 'pull-request.png',
+          icon: 'pullRequestTemplate.png',
           url: account.pullRequestsURL
         }, {
           title: 'View Gists',
-          icon: 'gist.png',
+          icon: 'gistTemplate.png',
           url: account.gistsURL
         }];
       }
@@ -593,7 +593,7 @@ var GitHubLB = function () {
       } else {
         return [{
           title: 'View All Repositories',
-          icon: 'repos.png',
+          icon: 'reposTemplate.png',
           url: account.repositoriesURL
         }].concat(account.repositories().map(function (repository) {
           return repository.toMenuItem();
@@ -806,7 +806,7 @@ var Repository = function () {
       var menuItem = {
         title: this.nameWithOwner,
         url: this.url,
-        icon: 'repo.png'
+        icon: 'repoTemplate.png'
       };
 
       if (this.description) {

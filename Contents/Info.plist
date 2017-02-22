@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>CFBundleIconFile</key>
-	<string>github.png</string>
+	<string>githubTemplate.png</string>
 	<key>CFBundleIdentifier</key>
 	<string>com.github.LaunchBar.action.GitHub</string>
 	<key>CFBundleName</key>

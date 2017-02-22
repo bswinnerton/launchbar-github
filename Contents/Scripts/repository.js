@@ -25,7 +25,7 @@ class Repository {
     let menuItem = {
       title: this.nameWithOwner,
       url: this.url,
-      icon: 'repo.png',
+      icon: 'repoTemplate.png',
     };
 
     if (this.description) {

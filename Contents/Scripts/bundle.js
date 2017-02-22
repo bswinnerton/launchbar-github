@@ -331,7 +331,7 @@ Cache.fetch = function (key, ttl, func) {
 };
 
 Cache.read = function (key) {
-  var path = Action.cachePath + '/' + 'v1-' + key + '.json';
+  var path = Cache.filePath(key);
 
   if (File.exists(path)) {
     var cacheData = File.readJSON(path);
@@ -351,7 +351,7 @@ Cache.read = function (key) {
 };
 
 Cache.write = function (key, ttl, func) {
-  var path = Action.cachePath + '/' + 'v1-' + key + '.json';;
+  var path = Cache.filePath(key);
   var currentTime = Math.floor(new Date() / 1000);
   var expiresAt = currentTime + ttl;
   var results = func();
@@ -360,6 +360,10 @@ Cache.write = function (key, ttl, func) {
   File.writeJSON(cacheData, path, { 'prettyPrint': Action.debugLogEnabled });
 
   return results;
+};
+
+Cache.filePath = function (key) {
+  return Action.cachePath + '/' + 'v1-' + key + '.json';
 };
 
 if (typeof module !== 'undefined') {

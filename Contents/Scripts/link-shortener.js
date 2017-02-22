@@ -15,3 +15,5 @@ class LinkShortener {
     return 'https://git.io/' + result.data;
   }
 }
+
+if (typeof module !== 'undefined') { module.exports.LinkShortener = LinkShortener; }

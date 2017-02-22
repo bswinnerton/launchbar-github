@@ -36,3 +36,5 @@ class Repository {
     return menuItem;
   }
 }
+
+if (typeof module !== 'undefined') { module.exports.Repository = Repository; }

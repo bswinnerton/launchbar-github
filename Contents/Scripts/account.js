@@ -78,3 +78,5 @@ class Account {
     return allEdges;
   }
 }
+
+if (typeof module !== 'undefined') { module.exports.Account = Account; }

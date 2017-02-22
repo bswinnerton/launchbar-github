@@ -308,6 +308,10 @@ var Account = function () {
 
   return Account;
 }();
+
+if (typeof module !== 'undefined') {
+  module.exports.Account = Account;
+}
 'use strict';
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -357,6 +361,10 @@ Cache.write = function (key, ttl, func) {
 
   return results;
 };
+
+if (typeof module !== 'undefined') {
+  module.exports.Cache = Cache;
+}
 'use strict';
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -407,6 +415,10 @@ var Commit = function () {
 
   return Commit;
 }();
+
+if (typeof module !== 'undefined') {
+  module.exports.Commit = Commit;
+}
 'use strict';
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -652,6 +664,10 @@ GraphQL.execute = function (query, variables) {
     return JSON.parse(result.data);
   }
 };
+
+if (typeof module !== 'undefined') {
+  module.exports.GraphQL = GraphQL;
+}
 'use strict';
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -675,6 +691,10 @@ var Issue = function () {
 
   return Issue;
 }();
+
+if (typeof module !== 'undefined') {
+  module.exports.Issue = Issue;
+}
 'use strict';
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -705,6 +725,10 @@ var LinkShortener = function () {
 
   return LinkShortener;
 }();
+
+if (typeof module !== 'undefined') {
+  module.exports.LinkShortener = LinkShortener;
+}
 'use strict';
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -745,6 +769,10 @@ var PullRequest = function () {
 
   return PullRequest;
 }();
+
+if (typeof module !== 'undefined') {
+  module.exports.PullRequest = PullRequest;
+}
 'use strict';
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -800,3 +828,7 @@ var Repository = function () {
 
   return Repository;
 }();
+
+if (typeof module !== 'undefined') {
+  module.exports.Repository = Repository;
+}

@@ -41,3 +41,5 @@ Cache.write = function(key, ttl, func) {
 
   return results;
 };
+
+if (typeof module !== 'undefined') { module.exports.Cache = Cache; }

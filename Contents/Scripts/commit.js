@@ -51,3 +51,5 @@ class Commit {
     return result.data.search.edges;
   }
 }
+
+if (typeof module !== 'undefined') { module.exports.Commit = Commit; }

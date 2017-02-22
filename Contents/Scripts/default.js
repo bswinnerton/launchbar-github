@@ -175,6 +175,8 @@ class GitHubLB {
     LaunchBar.displayNotification({
       title: 'Copied ' + shortLink + ' to your clipboard',
     });
+
+    LaunchBar.executeAppleScript('tell application "LaunchBar" to hide');
   }
 
   setToken(token) {
@@ -182,6 +184,8 @@ class GitHubLB {
     LaunchBar.displayNotification({
       title: 'GitHub access token set successfully',
     });
+
+    LaunchBar.executeAppleScript('tell application "LaunchBar" to hide');
   }
 }
 

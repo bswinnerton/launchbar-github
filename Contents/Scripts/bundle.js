@@ -181,6 +181,8 @@ var GitHubLB = function () {
       LaunchBar.displayNotification({
         title: 'Copied ' + shortLink + ' to your clipboard'
       });
+
+      LaunchBar.executeAppleScript('tell application "LaunchBar" to hide');
     }
   }, {
     key: 'setToken',
@@ -189,6 +191,8 @@ var GitHubLB = function () {
       LaunchBar.displayNotification({
         title: 'GitHub access token set successfully'
       });
+
+      LaunchBar.executeAppleScript('tell application "LaunchBar" to hide');
     }
   }]);
 
@@ -606,6 +610,8 @@ var GitHubLB = function () {
       LaunchBar.displayNotification({
         title: 'Copied ' + shortLink + ' to your clipboard'
       });
+
+      LaunchBar.executeAppleScript('tell application "LaunchBar" to hide');
     }
   }, {
     key: 'setToken',
@@ -614,6 +620,8 @@ var GitHubLB = function () {
       LaunchBar.displayNotification({
         title: 'GitHub access token set successfully'
       });
+
+      LaunchBar.executeAppleScript('tell application "LaunchBar" to hide');
     }
   }]);
 

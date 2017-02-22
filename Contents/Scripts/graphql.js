@@ -20,4 +20,4 @@ GraphQL.execute = function(query, variables) {
   if (result.data) {
     return JSON.parse(result.data);
   }
-}
+};

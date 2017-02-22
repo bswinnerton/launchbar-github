@@ -310,24 +310,28 @@ var Account = function () {
 }();
 'use strict';
 
-var Cache = {};
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Cache = function Cache() {
+  _classCallCheck(this, Cache);
+};
 
 Cache.fetch = function (key, ttl, func) {
-  var results = this.read(key);
+  var results = Cache.read(key);
 
   if (results) {
     return results;
   } else {
-    return this.write(key, ttl, func);
+    return Cache.write(key, ttl, func);
   }
 };
 
 Cache.read = function (key) {
-  var path = this._path(key);
+  var path = Action.cachePath + '/' + 'v1-' + key + '.json';
 
   if (File.exists(path)) {
     var cacheData = File.readJSON(path);
-    var currentTime = this._currentTime();
+    var currentTime = Math.floor(new Date() / 1000);
 
     if (currentTime < cacheData.expiresAt) {
       LaunchBar.debugLog('Cache hit: ' + path);
@@ -343,22 +347,15 @@ Cache.read = function (key) {
 };
 
 Cache.write = function (key, ttl, func) {
-  var path = this._path(key);
-  var expiresAt = this._currentTime() + ttl;
+  var path = Action.cachePath + '/' + 'v1-' + key + '.json';;
+  var currentTime = Math.floor(new Date() / 1000);
+  var expiresAt = currentTime + ttl;
   var results = func();
   var cacheData = { expiresAt: expiresAt, results: results };
 
   File.writeJSON(cacheData, path, { 'prettyPrint': Action.debugLogEnabled });
 
   return results;
-};
-
-Cache._currentTime = function () {
-  return Math.floor(new Date() / 1000);
-};
-
-Cache._path = function (key) {
-  return Action.cachePath + '/' + 'v1-' + key + '.json';
 };
 'use strict';
 

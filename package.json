@@ -5,7 +5,7 @@
   "main": "Contents/Scripts/default.js",
   "scripts": {
     "test": "mocha --use_strict",
-    "build": "rm Contents/Scripts/compiled-default.js; babel Contents/Scripts/default.js Contents/Scripts/ --presets es2015 --out-file Contents/Scripts/compiled-default.js"
+    "build": "rm Contents/Scripts/bundle.js; babel Contents/Scripts/default.js Contents/Scripts/ --presets es2015 --out-file Contents/Scripts/bundle.js"
   },
   "repository": {
     "type": "git",

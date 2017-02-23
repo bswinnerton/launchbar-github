@@ -30,7 +30,7 @@ describe('PullRequest', function() {
         title: 'Fix off by one bug',
         subtitle: 'obama/whitehouse.gov#42',
         alwaysShowsSubtitle: true,
-        icon: 'pull-request.png',
+        icon: 'pullRequestTemplate.png',
         url: 'https://github.com/obama/whitehouse.gov/pull/42',
       }, pullRequest.toMenuItem());
     });

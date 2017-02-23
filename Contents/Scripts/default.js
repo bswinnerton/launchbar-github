@@ -167,10 +167,13 @@ class GitHubLB {
   openCommitPullRequestsMenu(commit) {
     if (commit.pullRequests().length > 1) {
       return commit.pullRequests().map(function(pr) { return pr.toMenuItem(); });
-    } else {
+    } else if (commit.pullRequests().length === 1) {
       LaunchBar.openURL(commit.pullRequests()[0].url);
-      //LaunchBar.executeAppleScript('tell application "LaunchBar" to hide');
+    } else {
+      LaunchBar.openURL('https://github.com/search?q=' + commit.sha +'&type=Commits&utf8=%E2%9C%93');
     }
+
+    //LaunchBar.executeAppleScript('tell application "LaunchBar" to hide');
   }
 
   openAccountMenu(account) {

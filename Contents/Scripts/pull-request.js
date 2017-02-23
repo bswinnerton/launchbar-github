@@ -18,7 +18,7 @@ class PullRequest {
       title: this.title,
       subtitle: this.shortURL,
       alwaysShowsSubtitle: true,
-      icon: 'pull-request.png',
+      icon: 'pullRequestTemplate.png',
       url: this.url,
     };
   }

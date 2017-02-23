@@ -44,7 +44,7 @@
 			<key>LBReturnsResult</key>
 			<true/>
 			<key>LBScriptName</key>
-			<string>bundle.js</string>
+			<string>bundle.min.js</string>
 		</dict>
 	</dict>
 	<key>LBTextInputTitle</key>

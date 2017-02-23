@@ -169,6 +169,7 @@ class GitHubLB {
       return commit.pullRequests().map(function(pr) { return pr.toMenuItem(); });
     } else {
       LaunchBar.openURL(commit.pullRequests()[0].url);
+      LaunchBar.executeAppleScript('tell application "LaunchBar" to hide');
     }
   }
 

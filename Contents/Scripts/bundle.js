@@ -176,6 +176,7 @@ var GitHubLB = function () {
         });
       } else {
         LaunchBar.openURL(commit.pullRequests()[0].url);
+        LaunchBar.executeAppleScript('tell application "LaunchBar" to hide');
       }
     }
   }, {
@@ -681,6 +682,7 @@ var GitHubLB = function () {
         });
       } else {
         LaunchBar.openURL(commit.pullRequests()[0].url);
+        LaunchBar.executeAppleScript('tell application "LaunchBar" to hide');
       }
     }
   }, {

@@ -3,7 +3,7 @@ class GitHubLB {
     this.defaultMenuItems = [
       {
         title: 'My Repositories',
-        url: 'https://github.com/',
+        url: 'https://github.com/' + Action.preferences.viewerHandle,
         icon: 'repoTemplate.png',
       },
       {
@@ -48,7 +48,7 @@ class GitHubLB {
   conflictingHandleMenuItem(handle) {
     return [{
       title: '@' + handle,
-      subtitle: 'Looking for @' + handle + '?',
+      subtitle: 'Looking for the user @' + handle + '?',
       alwaysShowsSubtitle: true,
       icon: 'personTemplate.png',
       action: 'openAccountMenu',
@@ -57,8 +57,8 @@ class GitHubLB {
   }
 
   displayMenuItemFor(input) {
+    const SET_TOKEN_FORMAT    = /^!([set\-token]*)(.*)$/;
     const GITHUB_LINK_FORMAT  = /^https?:\/\/((www|gist|raw)\.)?github\.(io|com)/;
-    const SET_TOKEN_FORMAT    = /^!set-token (.*)$/;
     const ISSUE_OR_PR_FORMAT  = /^([^\/]+)\/([^\/#]+)(?:\/pull\/|\/issues\/|#)(\d+)$/;
     const REPOSITORY_FORMAT   = /^([^\/]+)\/([^\/#]+)?$/;
     const COMMIT_SHA_FORMAT   = /^\b[0-9a-f]{5,40}\b$/;
@@ -67,15 +67,19 @@ class GitHubLB {
     let match;
 
     // Matching:
-    // https://github.com/bswinnerton/dotfiles/blob/master/ack/ackrc.symlink#L6
-    if (input.match(GITHUB_LINK_FORMAT)) {
-      return this.openLinkShortnerMenu(input);
+    // set-token <token>
+    if (match = input.match(SET_TOKEN_FORMAT)) {
+      if (match[1] === 'set-token' && (match[2] !== '' && match[2] !== ' ')) {
+        return this.setToken(match[2].replace(/^\s+/, ''));
+      } else {
+        return [];
+      }
     }
 
     // Matching:
-    // set-token <token>
-    if (match = input.match(SET_TOKEN_FORMAT)) {
-      return this.setToken(match[1]);
+    // https://github.com/bswinnerton/dotfiles/blob/master/ack/ackrc.symlink#L6
+    if (input.match(GITHUB_LINK_FORMAT)) {
+      return this.openLinkShortnerMenu(input);
     }
 
     // Matching:
@@ -238,11 +242,26 @@ class GitHubLB {
 
   setToken(token) {
     Action.preferences.token = token;
-    LaunchBar.displayNotification({
-      title: 'GitHub access token set successfully',
-    });
 
-    LaunchBar.executeAppleScript('tell application "LaunchBar" to hide');
+    let results = GraphQL.execute(`query { viewer { login } }`);
+
+    if (results.data) {
+      let handle = results.data.viewer.login;
+
+      Action.preferences.viewerHandle = handle;
+
+      LaunchBar.displayNotification({
+        title: '👋 Hi @' + handle,
+        string: 'Your access token was set successfully.',
+      });
+
+      //LaunchBar.executeAppleScript('tell application "LaunchBar" to hide');
+    } else {
+      LaunchBar.displayNotification({
+        title: 'That looks like an invalid token',
+        string: 'Please try again.',
+      });
+    }
   }
 }
 

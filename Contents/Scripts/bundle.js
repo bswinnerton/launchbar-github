@@ -10,7 +10,7 @@ var GitHubLB = function () {
 
     this.defaultMenuItems = [{
       title: 'My Repositories',
-      url: 'https://github.com/',
+      url: 'https://github.com/' + Action.preferences.viewerHandle,
       icon: 'repoTemplate.png'
     }, {
       title: 'My Issues',
@@ -55,7 +55,7 @@ var GitHubLB = function () {
     value: function conflictingHandleMenuItem(handle) {
       return [{
         title: '@' + handle,
-        subtitle: 'Looking for @' + handle + '?',
+        subtitle: 'Looking for the user @' + handle + '?',
         alwaysShowsSubtitle: true,
         icon: 'personTemplate.png',
         action: 'openAccountMenu',
@@ -65,8 +65,8 @@ var GitHubLB = function () {
   }, {
     key: 'displayMenuItemFor',
     value: function displayMenuItemFor(input) {
+      var SET_TOKEN_FORMAT = /^!([set\-token]*)(.*)$/;
       var GITHUB_LINK_FORMAT = /^https?:\/\/((www|gist|raw)\.)?github\.(io|com)/;
-      var SET_TOKEN_FORMAT = /^!set-token (.*)$/;
       var ISSUE_OR_PR_FORMAT = /^([^\/]+)\/([^\/#]+)(?:\/pull\/|\/issues\/|#)(\d+)$/;
       var REPOSITORY_FORMAT = /^([^\/]+)\/([^\/#]+)?$/;
       var COMMIT_SHA_FORMAT = /^\b[0-9a-f]{5,40}\b$/;
@@ -75,15 +75,19 @@ var GitHubLB = function () {
       var match = void 0;
 
       // Matching:
-      // https://github.com/bswinnerton/dotfiles/blob/master/ack/ackrc.symlink#L6
-      if (input.match(GITHUB_LINK_FORMAT)) {
-        return this.openLinkShortnerMenu(input);
+      // set-token <token>
+      if (match = input.match(SET_TOKEN_FORMAT)) {
+        if (match[1] === 'set-token' && match[2] !== '' && match[2] !== ' ') {
+          return this.setToken(match[2].replace(/^\s+/, ''));
+        } else {
+          return [];
+        }
       }
 
       // Matching:
-      // set-token <token>
-      if (match = input.match(SET_TOKEN_FORMAT)) {
-        return this.setToken(match[1]);
+      // https://github.com/bswinnerton/dotfiles/blob/master/ack/ackrc.symlink#L6
+      if (input.match(GITHUB_LINK_FORMAT)) {
+        return this.openLinkShortnerMenu(input);
       }
 
       // Matching:
@@ -241,11 +245,26 @@ var GitHubLB = function () {
     key: 'setToken',
     value: function setToken(token) {
       Action.preferences.token = token;
-      LaunchBar.displayNotification({
-        title: 'GitHub access token set successfully'
-      });
 
-      LaunchBar.executeAppleScript('tell application "LaunchBar" to hide');
+      var results = GraphQL.execute('query { viewer { login } }');
+
+      if (results.data) {
+        var handle = results.data.viewer.login;
+
+        Action.preferences.viewerHandle = handle;
+
+        LaunchBar.displayNotification({
+          title: '👋 Hi @' + handle,
+          string: 'Your access token was set successfully.'
+        });
+
+        //LaunchBar.executeAppleScript('tell application "LaunchBar" to hide');
+      } else {
+        LaunchBar.displayNotification({
+          title: 'That looks like an invalid token',
+          string: 'Please try again.'
+        });
+      }
     }
   }]);
 
@@ -496,7 +515,7 @@ var GitHubLB = function () {
 
     this.defaultMenuItems = [{
       title: 'My Repositories',
-      url: 'https://github.com/',
+      url: 'https://github.com/' + Action.preferences.viewerHandle,
       icon: 'repoTemplate.png'
     }, {
       title: 'My Issues',
@@ -541,7 +560,7 @@ var GitHubLB = function () {
     value: function conflictingHandleMenuItem(handle) {
       return [{
         title: '@' + handle,
-        subtitle: 'Looking for @' + handle + '?',
+        subtitle: 'Looking for the user @' + handle + '?',
         alwaysShowsSubtitle: true,
         icon: 'personTemplate.png',
         action: 'openAccountMenu',
@@ -551,8 +570,8 @@ var GitHubLB = function () {
   }, {
     key: 'displayMenuItemFor',
     value: function displayMenuItemFor(input) {
+      var SET_TOKEN_FORMAT = /^!([set\-token]*)(.*)$/;
       var GITHUB_LINK_FORMAT = /^https?:\/\/((www|gist|raw)\.)?github\.(io|com)/;
-      var SET_TOKEN_FORMAT = /^!set-token (.*)$/;
       var ISSUE_OR_PR_FORMAT = /^([^\/]+)\/([^\/#]+)(?:\/pull\/|\/issues\/|#)(\d+)$/;
       var REPOSITORY_FORMAT = /^([^\/]+)\/([^\/#]+)?$/;
       var COMMIT_SHA_FORMAT = /^\b[0-9a-f]{5,40}\b$/;
@@ -561,15 +580,19 @@ var GitHubLB = function () {
       var match = void 0;
 
       // Matching:
-      // https://github.com/bswinnerton/dotfiles/blob/master/ack/ackrc.symlink#L6
-      if (input.match(GITHUB_LINK_FORMAT)) {
-        return this.openLinkShortnerMenu(input);
+      // set-token <token>
+      if (match = input.match(SET_TOKEN_FORMAT)) {
+        if (match[1] === 'set-token' && match[2] !== '' && match[2] !== ' ') {
+          return this.setToken(match[2].replace(/^\s+/, ''));
+        } else {
+          return [];
+        }
       }
 
       // Matching:
-      // set-token <token>
-      if (match = input.match(SET_TOKEN_FORMAT)) {
-        return this.setToken(match[1]);
+      // https://github.com/bswinnerton/dotfiles/blob/master/ack/ackrc.symlink#L6
+      if (input.match(GITHUB_LINK_FORMAT)) {
+        return this.openLinkShortnerMenu(input);
       }
 
       // Matching:
@@ -727,11 +750,26 @@ var GitHubLB = function () {
     key: 'setToken',
     value: function setToken(token) {
       Action.preferences.token = token;
-      LaunchBar.displayNotification({
-        title: 'GitHub access token set successfully'
-      });
 
-      LaunchBar.executeAppleScript('tell application "LaunchBar" to hide');
+      var results = GraphQL.execute('query { viewer { login } }');
+
+      if (results.data) {
+        var handle = results.data.viewer.login;
+
+        Action.preferences.viewerHandle = handle;
+
+        LaunchBar.displayNotification({
+          title: '👋 Hi @' + handle,
+          string: 'Your access token was set successfully.'
+        });
+
+        //LaunchBar.executeAppleScript('tell application "LaunchBar" to hide');
+      } else {
+        LaunchBar.displayNotification({
+          title: 'That looks like an invalid token',
+          string: 'Please try again.'
+        });
+      }
     }
   }]);
 

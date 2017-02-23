@@ -1,5 +1,51 @@
 class GitHubLB {
+  constructor() {
+    this.defaultMenuItems = [
+      {
+        title: 'My Repositories',
+        url: 'https://github.com/',
+        icon: 'repoTemplate.png',
+      },
+      {
+        title: 'My Issues',
+        url: 'https://github.com/issues',
+        icon: 'issueTemplate.png',
+      },
+      {
+        title: 'My Pull Requests',
+        url: 'https://github.com/pulls',
+        icon: 'pullRequestTemplate.png',
+      },
+      {
+        title: 'My Gists',
+        url: 'https://gist.github.com/',
+        icon: 'gistTemplate.png',
+      },
+    ];
+  }
+
   run(input, options) {
+    if (input.length > 0) {
+      let matchedDefaultMenuItems = this.matchingDefaultMenuItems(input);
+
+      if (matchedDefaultMenuItems.length > 0) {
+        return matchedDefaultMenuItems;
+      } else {
+        return this.displayMenuItemFor(input);
+      }
+    } else {
+      return this.defaultMenuItems;
+    }
+  }
+
+  matchingDefaultMenuItems(input) {
+    return this.defaultMenuItems.filter(function(item) {
+      let regex = new RegExp(input, 'i');
+      return item.title.match(regex);
+    });
+  }
+
+  displayMenuItemFor(input) {
     const GITHUB_LINK_FORMAT  = /^https?:\/\/((www|gist|raw)\.)?github\.(io|com)/;
     const SET_TOKEN_FORMAT    = /^!set-token (.*)$/;
     const ISSUE_OR_PR_FORMAT  = /^([^\/]+)\/([^\/#]+)(?:\/pull\/|\/issues\/|#)(\d+)$/;

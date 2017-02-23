@@ -7,11 +7,52 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 var GitHubLB = function () {
   function GitHubLB() {
     _classCallCheck(this, GitHubLB);
+
+    this.defaultMenuItems = [{
+      title: 'My Repositories',
+      url: 'https://github.com/',
+      icon: 'repoTemplate.png'
+    }, {
+      title: 'My Issues',
+      url: 'https://github.com/issues',
+      icon: 'issueTemplate.png'
+    }, {
+      title: 'My Pull Requests',
+      url: 'https://github.com/pulls',
+      icon: 'pullRequestTemplate.png'
+    }, {
+      title: 'My Gists',
+      url: 'https://gist.github.com/',
+      icon: 'gistTemplate.png'
+    }];
   }
 
   _createClass(GitHubLB, [{
     key: 'run',
     value: function run(input, options) {
+      if (input.length > 0) {
+        var matchedDefaultMenuItems = this.matchingDefaultMenuItems(input);
+
+        if (matchedDefaultMenuItems.length > 0) {
+          return matchedDefaultMenuItems;
+        } else {
+          return this.displayMenuItemFor(input);
+        }
+      } else {
+        return this.defaultMenuItems;
+      }
+    }
+  }, {
+    key: 'matchingDefaultMenuItems',
+    value: function matchingDefaultMenuItems(input) {
+      return this.defaultMenuItems.filter(function (item) {
+        var regex = new RegExp(input, 'i');
+        return item.title.match(regex);
+      });
+    }
+  }, {
+    key: 'displayMenuItemFor',
+    value: function displayMenuItemFor(input) {
       var GITHUB_LINK_FORMAT = /^https?:\/\/((www|gist|raw)\.)?github\.(io|com)/;
       var SET_TOKEN_FORMAT = /^!set-token (.*)$/;
       var ISSUE_OR_PR_FORMAT = /^([^\/]+)\/([^\/#]+)(?:\/pull\/|\/issues\/|#)(\d+)$/;
@@ -436,11 +477,52 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 var GitHubLB = function () {
   function GitHubLB() {
     _classCallCheck(this, GitHubLB);
+
+    this.defaultMenuItems = [{
+      title: 'My Repositories',
+      url: 'https://github.com/',
+      icon: 'repoTemplate.png'
+    }, {
+      title: 'My Issues',
+      url: 'https://github.com/issues',
+      icon: 'issueTemplate.png'
+    }, {
+      title: 'My Pull Requests',
+      url: 'https://github.com/pulls',
+      icon: 'pullRequestTemplate.png'
+    }, {
+      title: 'My Gists',
+      url: 'https://gist.github.com/',
+      icon: 'gistTemplate.png'
+    }];
   }
 
   _createClass(GitHubLB, [{
     key: 'run',
     value: function run(input, options) {
+      if (input.length > 0) {
+        var matchedDefaultMenuItems = this.matchingDefaultMenuItems(input);
+
+        if (matchedDefaultMenuItems.length > 0) {
+          return matchedDefaultMenuItems;
+        } else {
+          return this.displayMenuItemFor(input);
+        }
+      } else {
+        return this.defaultMenuItems;
+      }
+    }
+  }, {
+    key: 'matchingDefaultMenuItems',
+    value: function matchingDefaultMenuItems(input) {
+      return this.defaultMenuItems.filter(function (item) {
+        var regex = new RegExp(input, 'i');
+        return item.title.match(regex);
+      });
+    }
+  }, {
+    key: 'displayMenuItemFor',
+    value: function displayMenuItemFor(input) {
       var GITHUB_LINK_FORMAT = /^https?:\/\/((www|gist|raw)\.)?github\.(io|com)/;
       var SET_TOKEN_FORMAT = /^!set-token (.*)$/;
       var ISSUE_OR_PR_FORMAT = /^([^\/]+)\/([^\/#]+)(?:\/pull\/|\/issues\/|#)(\d+)$/;

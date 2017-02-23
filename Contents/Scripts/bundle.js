@@ -56,7 +56,7 @@ var GitHubLB = function () {
       var GITHUB_LINK_FORMAT = /^https?:\/\/((www|gist|raw)\.)?github\.(io|com)/;
       var SET_TOKEN_FORMAT = /^!set-token (.*)$/;
       var ISSUE_OR_PR_FORMAT = /^([^\/]+)\/([^\/#]+)(?:\/pull\/|\/issues\/|#)(\d+)$/;
-      var REPOSITORY_FORMAT = /^([^\/]+)\/([^\/#]+)$/;
+      var REPOSITORY_FORMAT = /^([^\/]+)\/([^\/#]+)?$/;
       var COMMIT_SHA_FORMAT = /^\b[0-9a-f]{5,40}\b$/;
       var ACCOUNT_FORMAT = /^(\w+)$/;
 
@@ -89,7 +89,7 @@ var GitHubLB = function () {
         // rails/rails
         else if (match = input.match(REPOSITORY_FORMAT)) {
             var _owner = new Account(match[1]);
-            var _repository = new Repository(_owner, match[2]);
+            var _repository = new Repository(_owner, match[2] || '<repo>');
             return this.openRepositoryMenu(_repository);
           }
 
@@ -526,7 +526,7 @@ var GitHubLB = function () {
       var GITHUB_LINK_FORMAT = /^https?:\/\/((www|gist|raw)\.)?github\.(io|com)/;
       var SET_TOKEN_FORMAT = /^!set-token (.*)$/;
       var ISSUE_OR_PR_FORMAT = /^([^\/]+)\/([^\/#]+)(?:\/pull\/|\/issues\/|#)(\d+)$/;
-      var REPOSITORY_FORMAT = /^([^\/]+)\/([^\/#]+)$/;
+      var REPOSITORY_FORMAT = /^([^\/]+)\/([^\/#]+)?$/;
       var COMMIT_SHA_FORMAT = /^\b[0-9a-f]{5,40}\b$/;
       var ACCOUNT_FORMAT = /^(\w+)$/;
 
@@ -559,7 +559,7 @@ var GitHubLB = function () {
         // rails/rails
         else if (match = input.match(REPOSITORY_FORMAT)) {
             var _owner = new Account(match[1]);
-            var _repository = new Repository(_owner, match[2]);
+            var _repository = new Repository(_owner, match[2] || '<repo>');
             return this.openRepositoryMenu(_repository);
           }
 

@@ -49,7 +49,7 @@ class GitHubLB {
     const GITHUB_LINK_FORMAT  = /^https?:\/\/((www|gist|raw)\.)?github\.(io|com)/;
     const SET_TOKEN_FORMAT    = /^!set-token (.*)$/;
     const ISSUE_OR_PR_FORMAT  = /^([^\/]+)\/([^\/#]+)(?:\/pull\/|\/issues\/|#)(\d+)$/;
-    const REPOSITORY_FORMAT   = /^([^\/]+)\/([^\/#]+)$/;
+    const REPOSITORY_FORMAT   = /^([^\/]+)\/([^\/#]+)?$/;
     const COMMIT_SHA_FORMAT   = /^\b[0-9a-f]{5,40}\b$/;
     const ACCOUNT_FORMAT      = /^(\w+)$/;
 
@@ -82,7 +82,7 @@ class GitHubLB {
     // rails/rails
     else if (match = input.match(REPOSITORY_FORMAT)) {
       let owner       = new Account(match[1]);
-      let repository  = new Repository(owner, match[2]);
+      let repository  = new Repository(owner, (match[2] || '<repo>'));
       return this.openRepositoryMenu(repository);
     }
 

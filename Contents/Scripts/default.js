@@ -29,7 +29,7 @@ class GitHubLB {
       let matchedDefaultMenuItems = this.matchingDefaultMenuItems(input);
 
       if (matchedDefaultMenuItems.length > 0) {
-        return matchedDefaultMenuItems;
+        return matchedDefaultMenuItems.concat(this.conflictingHandleMenuItem(input));
       } else {
         return this.displayMenuItemFor(input);
       }
@@ -43,6 +43,17 @@ class GitHubLB {
       let regex = new RegExp(input, 'i');
       return item.title.match(regex);
     });
+  }
+
+  conflictingHandleMenuItem(handle) {
+    return [{
+      title: '@' + handle,
+      subtitle: 'Looking for @' + handle + '?',
+      alwaysShowsSubtitle: true,
+      icon: 'personTemplate.png',
+      action: 'openAccountMenu',
+      actionArgument: handle,
+    }];
   }
 
   displayMenuItemFor(input) {
@@ -256,6 +267,10 @@ function runWithURL(url, details) {
 // https://developer.obdev.at/launchbar-developer-documentation/#/script-output.
 function openAccountRepositories(string) {
   return app.openAccountRepositoriesMenu(string);
+}
+
+function openAccountMenu(string) {
+  return app.openAccountMenu(string);
 }
 
 function shortenLink(link, details) {

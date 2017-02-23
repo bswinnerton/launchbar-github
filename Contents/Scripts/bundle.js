@@ -117,9 +117,13 @@ var GitHubLB = function () {
         return commit.pullRequests().map(function (pr) {
           return pr.toMenuItem();
         });
-      } else {
+      } else if (commit.pullRequests().length === 1) {
         LaunchBar.openURL(commit.pullRequests()[0].url);
+      } else {
+        LaunchBar.openURL('https://github.com/search?q=' + commit.sha + '&type=Commits&utf8=%E2%9C%93');
       }
+
+      LaunchBar.executeAppleScript('tell application "LaunchBar" to hide');
     }
   }, {
     key: 'openAccountMenu',
@@ -417,7 +421,11 @@ var Commit = function () {
 
       var result = GraphQL.execute(query, variables);
 
-      return result.data.search.edges;
+      if (result.data) {
+        return result.data.search.edges;
+      } else {
+        return [];
+      }
     }
   }]);
 
@@ -546,9 +554,13 @@ var GitHubLB = function () {
         return commit.pullRequests().map(function (pr) {
           return pr.toMenuItem();
         });
-      } else {
+      } else if (commit.pullRequests().length === 1) {
         LaunchBar.openURL(commit.pullRequests()[0].url);
+      } else {
+        LaunchBar.openURL('https://github.com/search?q=' + commit.sha + '&type=Commits&utf8=%E2%9C%93');
       }
+
+      LaunchBar.executeAppleScript('tell application "LaunchBar" to hide');
     }
   }, {
     key: 'openAccountMenu',
@@ -763,7 +775,7 @@ var PullRequest = function () {
         title: this.title,
         subtitle: this.shortURL,
         alwaysShowsSubtitle: true,
-        icon: 'pull-request.png',
+        icon: 'pullRequestTemplate.png',
         url: this.url
       };
     }

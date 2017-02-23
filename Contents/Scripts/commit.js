@@ -48,7 +48,12 @@ class Commit {
 
     let result = GraphQL.execute(query, variables);
 
-    return result.data.search.edges;
+    if (result.data) {
+      return result.data.search.edges;
+    } else {
+      return [];
+    }
+
   }
 }
 

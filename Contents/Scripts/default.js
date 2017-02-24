@@ -64,7 +64,7 @@ class GitHubLB {
   displayMenuItemFor(input) {
     const GITHUB_LINK_FORMAT  = /^https?:\/\/((www|gist|raw)\.)?github\.(io|com)/;
     const ISSUE_OR_PR_FORMAT  = /^([^\/]+)\/([^\/#]+)(?:\/pull\/|\/issues\/|#)(\d+)$/;
-    const REPOSITORY_FORMAT   = /^([^\/]+)\/([^\/#]+)?$/;
+    const REPOSITORY_FORMAT   = /^(\w+)\/(\w+)?\s*(\w+)?$/;
     const COMMIT_SHA_FORMAT   = /^\b[0-9a-f]{5,40}\b$/;
     const ACCOUNT_FORMAT      = /^(\w+)$/;
 
@@ -84,6 +84,9 @@ class GitHubLB {
       let owner       = new Account(match[1]);
       let repository  = new Repository(owner, match[2]);
       let issue       = new Issue(repository, match[3]);
+      //FIXME: If we're fuzzy searching as someone types, we can't immediately
+      // open the URL. We'll need to suggest a menu item, and then have the user
+      // click it.
       return LaunchBar.openURL(issue.url);
     }
 
@@ -92,7 +95,7 @@ class GitHubLB {
     else if (match = input.match(REPOSITORY_FORMAT)) {
       let owner       = new Account(match[1]);
       let repository  = new Repository(owner, (match[2] || '<repo>'));
-      return this.openRepositoryMenu(repository);
+      return this.openRepositoryMenu(repository, match[3]);
     }
 
     // Matching:
@@ -113,6 +116,9 @@ class GitHubLB {
     // Matching everything else:
     // rails/rails/tree/master/Gemfile
     else {
+      //FIXME: If we're fuzzy searching as someone types, we can't immediately
+      // open the URL. We'll need to suggest a menu item, and then have the user
+      // click it.
       return LaunchBar.openURL('https://github.com/' + input);
     }
   }
@@ -143,11 +149,11 @@ class GitHubLB {
     }
   }
 
-  openRepositoryMenu(repository) {
+  openRepositoryMenu(repository, secondarySelection) {
     if (LaunchBar.options.commandKey == 1) {
       LaunchBar.openURL(repository.url);
     } else {
-      return [
+      let repositoryMenuItems = [
         {
           title: 'View Repository',
           subtitle: repository.nameWithOwner,
@@ -166,6 +172,15 @@ class GitHubLB {
           url: repository.pullRequestsURL,
         }
       ];
+
+      if (secondarySelection) {
+        return repositoryMenuItems.filter(function(item) {
+          let regex = new RegExp(secondarySelection, 'i');
+          return item.title.match(regex);
+        });
+      } else {
+        return repositoryMenuItems;
+      }
     }
   }
 
@@ -175,8 +190,14 @@ class GitHubLB {
     if (pullRequests.length > 1) {
       return pullRequests.map(function(pr) { return pr.toMenuItem(); });
     } else if (pullRequests.length === 1) {
+      //FIXME: If we're fuzzy searching as someone types, we can't immediately
+      // open the URL. We'll need to suggest a menu item, and then have the user
+      // click it.
       LaunchBar.openURL(pullRequests[0].url);
     } else {
+      //FIXME: If we're fuzzy searching as someone types, we can't immediately
+      // open the URL. We'll need to suggest a menu item, and then have the user
+      // click it.
       LaunchBar.openURL('https://github.com/search?q=' + commit.sha +'&type=Commits&utf8=%E2%9C%93');
     }
 

@@ -66,13 +66,20 @@ class Account {
     };
 
     let result = GraphQL.execute(query, variables);
-    let repositoryEdges = result.data.repositoryOwner.repositories.edges;
 
-    if (repositoryEdges.length > 0) {
-      allEdges = allEdges.concat(repositoryEdges);
+    if (result.data) {
+      let repositoryEdges = result.data.repositoryOwner.repositories.edges;
 
-      let lastEdge = repositoryEdges[repositoryEdges.length - 1];
-      return this._fetchRepositories(lastEdge.cursor, allEdges);
+      if (repositoryEdges.length > 0) {
+        allEdges = allEdges.concat(repositoryEdges);
+
+        let lastEdge = repositoryEdges[repositoryEdges.length - 1];
+        return this._fetchRepositories(lastEdge.cursor, allEdges);
+      }
+    } else {
+      LaunchBar.displayNotification({
+        title: "Couldn't access the GitHub API",
+      });
     }
 
     return allEdges;

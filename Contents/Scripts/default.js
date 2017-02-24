@@ -165,10 +165,12 @@ class GitHubLB {
   }
 
   openCommitPullRequestsMenu(commit) {
-    if (commit.pullRequests().length > 1) {
-      return commit.pullRequests().map(function(pr) { return pr.toMenuItem(); });
-    } else if (commit.pullRequests().length === 1) {
-      LaunchBar.openURL(commit.pullRequests()[0].url);
+    let pullRequests = commit.pullRequests();
+
+    if (pullRequests.length > 1) {
+      return pullRequests.map(function(pr) { return pr.toMenuItem(); });
+    } else if (pullRequests.length === 1) {
+      LaunchBar.openURL(pullRequests[0].url);
     } else {
       LaunchBar.openURL('https://github.com/search?q=' + commit.sha +'&type=Commits&utf8=%E2%9C%93');
     }

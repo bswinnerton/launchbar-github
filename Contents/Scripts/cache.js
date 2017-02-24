@@ -35,9 +35,11 @@ Cache.write = function(key, ttl, func) {
   let currentTime = Math.floor(new Date() / 1000);
   let expiresAt   = currentTime + ttl;
   let results     = func();
-  let cacheData   = { expiresAt: expiresAt, results: results };
 
-  File.writeJSON(cacheData, path, {'prettyPrint' : Action.debugLogEnabled});
+  if (results.length > 0) {
+    let cacheData   = { expiresAt: expiresAt, results: results };
+    File.writeJSON(cacheData, path, {'prettyPrint' : Action.debugLogEnabled});
+  }
 
   return results;
 };

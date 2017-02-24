@@ -67,7 +67,7 @@ class Account {
 
     let result = GraphQL.execute(query, variables);
 
-    if (result.data) {
+    if (result) {
       let repositoryEdges = result.data.repositoryOwner.repositories.edges;
 
       if (repositoryEdges.length > 0) {
@@ -77,9 +77,7 @@ class Account {
         return this._fetchRepositories(lastEdge.cursor, allEdges);
       }
     } else {
-      LaunchBar.displayNotification({
-        title: "Couldn't access the GitHub API",
-      });
+      return [];
     }
 
     return allEdges;

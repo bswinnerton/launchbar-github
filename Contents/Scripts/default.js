@@ -320,7 +320,7 @@ class GitHubLB {
     } else {
       LaunchBar.displayNotification({
         title: 'That looks like an invalid token',
-        string: 'Please try again.',
+        string: 'Please try again by going back to settings.',
       });
     }
   }

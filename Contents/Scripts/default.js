@@ -136,17 +136,15 @@ class GitHubLB {
     }
   }
 
-  openIssueMenu(issue, secondarySelection) {
-    if (LaunchBar.options.commandKey == 1) {
-      LaunchBar.openURL(issue.url);
+  openIssueMenu(issue) {
+    if (issue.number) {
+      return [{
+        title: 'Open the issue: ' + issue.repository.nameWithOwner + '#' + issue.number,
+        icon: 'issueTemplate.png',
+        url: issue.url,
+      }];
     } else {
-      return [
-        {
-          title: 'Open ' + issue.repository.nameWithOwner + '#' + issue.number,
-          icon: 'issueTemplate.png',
-          url: issue.url,
-        }
-      ];
+      return [];
     }
   }
 
@@ -276,6 +274,7 @@ class GitHubLB {
 
     if (LaunchBar.options.commandKey == 1) {
       LaunchBar.openURL(account.repositoriesURL);
+      LaunchBar.executeAppleScript('tell application "LaunchBar" to hide');
     } else {
       return [
         {

@@ -46,7 +46,7 @@ class Account {
     const query = `
       query($login: String!, $cursor: String) {
         repositoryOwner(login: $login) {
-          repositories(first: 30, after: $cursor, orderBy: {field: CREATED_AT, direction: DESC}) {
+          repositories(first: 30, after: $cursor, orderBy: {field: PUSHED_AT, direction: DESC}) {
             edges {
               cursor
               node {

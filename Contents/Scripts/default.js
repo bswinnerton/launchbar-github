@@ -91,7 +91,7 @@ class GitHubLB {
     // rails/rails
     else if (match = input.match(REPOSITORY_FORMAT)) {
       let owner = new Account(match[1]);
-      return this.openRepositorysMenu(owner, match[2]);
+      return this.openRepositoriesMenu(owner, match[2]);
     }
 
     // Matching:
@@ -148,23 +148,23 @@ class GitHubLB {
     }
   }
 
-  openRepositorysMenu(account, selection) {
-    let repositories =  account.repositories().map(function(repository) {
+  openRepositoriesMenu(account, selection) {
+    let repositories = account.repositories();
+
+    if (selection) {
+      repositories = repositories.filter(function(repository) {
+        let regex = new RegExp(selection, 'i');
+        return repository.name.match(regex);
+      });
+    }
+
+    return repositories.map(function(repository) {
       let menuItem = repository.toMenuItem();
       delete menuItem.url;
       menuItem.action = 'openRepositoryMenu';
       menuItem.actionArgument = repository.nameWithOwner;
       return menuItem;
     });
-
-    if (selection) {
-      return repositories.filter(function(item) {
-        let regex = new RegExp(selection, 'i');
-        return item.title.match(regex);
-      });
-    } else {
-      return repositories;
-    }
   }
 
   openRepositoryMenu(repository, secondarySelection) {

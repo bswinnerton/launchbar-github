@@ -5,8 +5,8 @@ GraphQL.execute = function(query, variables) {
     LaunchBar.openURL('https://github.com/settings/tokens');
     LaunchBar.alert("It looks like this is the first time you're using " +
       "this action.\n\nPlease go to https://github.com/settings/tokens " +
-      "and create token with 'repo' scope and set it by invoking the " +
-      "github action and going to settings.");
+      "and create token with 'repo' and 'user' scope and set it by invoking " +
+      "the github action and going to settings.");
     return;
   }
 

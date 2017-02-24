@@ -77,9 +77,7 @@ class Account {
         return this._fetchRepositories(lastEdge.cursor, allEdges);
       }
     } else {
-      LaunchBar.displayNotification({
-        title: "Couldn't access the GitHub API",
-      });
+      return [];
     }
 
     return allEdges;

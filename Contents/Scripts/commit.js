@@ -4,7 +4,7 @@ class Commit {
   }
 
   get searchURL() {
-    return 'https://github.com/search?q=' + this.sha +'&type=Commits&utf8=%E2%9C%93'
+    return 'https://github.com/search?q=' + this.sha +'&type=Commits&utf8=%E2%9C%93';
   }
 
   pullRequests() {
@@ -46,18 +46,14 @@ class Commit {
       }
     `;
 
-    let variables = {
-      sha: this.sha,
-    };
-
-    let result = GraphQL.execute(query, variables);
+    let variables = { sha: this.sha };
+    let result    = GraphQL.execute(query, variables);
 
     if (result.data) {
       return result.data.search.edges;
     } else {
       return [];
     }
-
   }
 }
 

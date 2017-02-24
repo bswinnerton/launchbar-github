@@ -284,9 +284,9 @@ class GitHubLB {
   setToken(token) {
     Action.preferences.token = token;
 
-    let results = GraphQL.execute(`query { viewer { login } }`);
+    let result = GraphQL.execute(`query { viewer { login } }`);
 
-    if (results.data) {
+    if (result.data) {
       let handle = results.data.viewer.login;
 
       Action.preferences.viewerHandle = handle;

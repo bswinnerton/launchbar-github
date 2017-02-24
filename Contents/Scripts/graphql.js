@@ -6,7 +6,7 @@ GraphQL.execute = function(query, variables) {
     LaunchBar.alert("It looks like this is the first time you're using " +
       "this action.\n\nPlease go to https://github.com/settings/tokens " +
       "and create token with 'repo' scope and set it by invoking the " +
-      "github action and typing !set-token <token>");
+      "github action and going to settings.");
     return;
   }
 
@@ -17,8 +17,16 @@ GraphQL.execute = function(query, variables) {
 
   LaunchBar.debugLog(JSON.stringify(result));
 
-  if (result.data) {
+  LaunchBar.alert(JSON.stringify(result));
+
+  if (result.data && result.data.data) {
     return JSON.parse(result.data);
+  } else {
+    LaunchBar.displayNotification({
+      title: "Couldn't access the GitHub API",
+    });
+
+    return [];
   }
 };
 

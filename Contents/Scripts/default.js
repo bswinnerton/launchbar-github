@@ -90,9 +90,8 @@ class GitHubLB {
     // Matching:
     // rails/rails
     else if (match = input.match(REPOSITORY_FORMAT)) {
-      let owner       = new Account(match[1]);
-      let repository  = new Repository(owner, (match[2] || '<repo>'));
-      return this.openRepositoryMenu(repository, match[3]);
+      let owner = new Account(match[1]);
+      return this.openRepositorysMenu(owner, match[2]);
     }
 
     // Matching:
@@ -151,9 +150,29 @@ class GitHubLB {
     }
   }
 
+  openRepositorysMenu(account, selection) {
+    let repositories =  account.repositories().map(function(repository) {
+      let menuItem = repository.toMenuItem();
+      delete menuItem.url;
+      menuItem.action = 'openRepositoryMenu';
+      menuItem.actionArgument = repository.nameWithOwner;
+      return menuItem;
+    });
+
+    if (selection) {
+      return repositories.filter(function(item) {
+        let regex = new RegExp(selection, 'i');
+        return item.title.match(regex);
+      });
+    } else {
+      return repositories;
+    }
+  }
+
   openRepositoryMenu(repository, secondarySelection) {
     if (LaunchBar.options.commandKey == 1) {
       LaunchBar.openURL(repository.url);
+      LaunchBar.executeAppleScript('tell application "LaunchBar" to hide');
     } else {
       let repositoryMenuItems = [
         {
@@ -207,6 +226,7 @@ class GitHubLB {
   openAccountMenu(account, secondarySelection) {
     if (LaunchBar.options.commandKey == 1) {
       LaunchBar.openURL(account.profileURL);
+      LaunchBar.executeAppleScript('tell application "LaunchBar" to hide');
     } else {
       let accountMenuItems = [
         {
@@ -343,4 +363,11 @@ function openSettingsMenu() {
 
 function setToken(token) {
   return app.setToken(token);
+}
+
+function openRepositoryMenu(nameWithOwner) {
+  let match       = nameWithOwner.match(/^(.*)\/(.*)$/);
+  let owner       = new Account(match[1]);
+  let repository  = new Repository(owner, match[2]);
+  return app.openRepositoryMenu(repository);
 }

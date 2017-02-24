@@ -66,7 +66,7 @@ class GitHubLB {
     const ISSUE_OR_PR_FORMAT  = /^(\w+)\/(\w+)#(\d+)?\s*(\w+)?$/;
     const REPOSITORY_FORMAT   = /^(\w+)\/(\w+)?\s*(\w+)?$/;
     const COMMIT_SHA_FORMAT   = /^\b[0-9a-f]{5,40}\b$/;
-    const ACCOUNT_FORMAT      = /^(\w+)$/;
+    const ACCOUNT_FORMAT      = /^(\w+)?\s*(\w+)?$/;
 
     let match;
 
@@ -107,16 +107,7 @@ class GitHubLB {
     // rails
     else if (match = input.match(ACCOUNT_FORMAT)) {
       let account = new Account(match[1]);
-      return this.openAccountMenu(account);
-    }
-
-    // Matching everything else:
-    // rails/rails/tree/master/Gemfile
-    else {
-      //FIXME: If we're fuzzy searching as someone types, we can't immediately
-      // open the URL. We'll need to suggest a menu item, and then have the user
-      // click it.
-      //return LaunchBar.openURL('https://github.com/' + input);
+      return this.openAccountMenu(account, match[2]);
     }
   }
 
@@ -213,12 +204,11 @@ class GitHubLB {
     }
   }
 
-  //TODO: Add secondarySelection
-  openAccountMenu(account) {
+  openAccountMenu(account, secondarySelection) {
     if (LaunchBar.options.commandKey == 1) {
       LaunchBar.openURL(account.profileURL);
     } else {
-      return [
+      let accountMenuItems = [
         {
           title: 'View Profile',
           subtitle: account.handle,
@@ -249,6 +239,15 @@ class GitHubLB {
           url: account.gistsURL,
         }
       ];
+
+      if (secondarySelection) {
+        return accountMenuItems.filter(function(item) {
+          let regex = new RegExp(secondarySelection, 'i');
+          return item.title.match(regex);
+        });
+      } else {
+        return accountMenuItems;
+      }
     }
   }
 

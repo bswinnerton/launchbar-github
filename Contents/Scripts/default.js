@@ -63,7 +63,7 @@ class GitHubLB {
 
   displayMenuItemFor(input) {
     const GITHUB_LINK_FORMAT  = /^https?:\/\/((www|gist|raw)\.)?github\.(io|com)/;
-    const ISSUE_OR_PR_FORMAT  = /^([^\/]+)\/([^\/#]+)(?:\/pull\/|\/issues\/|#)(\d+)$/;
+    const ISSUE_OR_PR_FORMAT  = /^(\w+)\/(\w+)#(\d+)?\s*(\w+)?$/;
     const REPOSITORY_FORMAT   = /^(\w+)\/(\w+)?\s*(\w+)?$/;
     const COMMIT_SHA_FORMAT   = /^\b[0-9a-f]{5,40}\b$/;
     const ACCOUNT_FORMAT      = /^(\w+)$/;
@@ -84,10 +84,8 @@ class GitHubLB {
       let owner       = new Account(match[1]);
       let repository  = new Repository(owner, match[2]);
       let issue       = new Issue(repository, match[3]);
-      //FIXME: If we're fuzzy searching as someone types, we can't immediately
-      // open the URL. We'll need to suggest a menu item, and then have the user
-      // click it.
-      return LaunchBar.openURL(issue.url);
+
+      return this.openIssueMenu(issue, match[4]);
     }
 
     // Matching:
@@ -119,7 +117,7 @@ class GitHubLB {
       //FIXME: If we're fuzzy searching as someone types, we can't immediately
       // open the URL. We'll need to suggest a menu item, and then have the user
       // click it.
-      return LaunchBar.openURL('https://github.com/' + input);
+      //return LaunchBar.openURL('https://github.com/' + input);
     }
   }
 
@@ -145,6 +143,20 @@ class GitHubLB {
           action: 'shortenLink',
           actionArgument: link,
         },
+      ];
+    }
+  }
+
+  openIssueMenu(issue, secondarySelection) {
+    if (LaunchBar.options.commandKey == 1) {
+      LaunchBar.openURL(issue.url);
+    } else {
+      return [
+        {
+          title: 'Open ' + issue.repository.nameWithOwner + '#' + issue.number,
+          icon: 'issueTemplate.png',
+          url: issue.url,
+        }
       ];
     }
   }
@@ -204,6 +216,7 @@ class GitHubLB {
     //LaunchBar.executeAppleScript('tell application "LaunchBar" to hide');
   }
 
+  //TODO: Add secondarySelection
   openAccountMenu(account) {
     if (LaunchBar.options.commandKey == 1) {
       LaunchBar.openURL(account.profileURL);

@@ -21,6 +21,11 @@ class GitHubLB {
         url: 'https://gist.github.com/',
         icon: 'gistTemplate.png',
       },
+      {
+        title: 'Settings',
+        icon: 'gearTemplate.png',
+        action: 'openSettingsMenu',
+      }
     ];
   }
 
@@ -57,7 +62,6 @@ class GitHubLB {
   }
 
   displayMenuItemFor(input) {
-    const SET_TOKEN_FORMAT    = /^!([set\-token]*)(.*)$/;
     const GITHUB_LINK_FORMAT  = /^https?:\/\/((www|gist|raw)\.)?github\.(io|com)/;
     const ISSUE_OR_PR_FORMAT  = /^([^\/]+)\/([^\/#]+)(?:\/pull\/|\/issues\/|#)(\d+)$/;
     const REPOSITORY_FORMAT   = /^([^\/]+)\/([^\/#]+)?$/;
@@ -65,16 +69,6 @@ class GitHubLB {
     const ACCOUNT_FORMAT      = /^(\w+)$/;
 
     let match;
-
-    // Matching:
-    // set-token <token>
-    if (match = input.match(SET_TOKEN_FORMAT)) {
-      if (match[1] === 'set-token' && (match[2] !== '' && match[2] !== ' ')) {
-        return this.setToken(match[2].replace(/^\s+/, ''));
-      } else {
-        return [];
-      }
-    }
 
     // Matching:
     // https://github.com/bswinnerton/dotfiles/blob/master/ack/ackrc.symlink#L6
@@ -121,6 +115,17 @@ class GitHubLB {
     else {
       return LaunchBar.openURL('https://github.com/' + input);
     }
+  }
+
+  openSettingsMenu(input) {
+    return [
+      {
+        title: 'Set GitHub access token from clipboard',
+        icon: 'keyTemplate.png',
+        action: 'setToken',
+        actionArgument: LaunchBar.getClipboardString(),
+      },
+    ];
   }
 
   openLinkShortnerMenu(link, options) {
@@ -300,4 +305,12 @@ function openAccountMenu(string) {
 
 function shortenLink(link, details) {
   return app.shortenLink(link);
+}
+
+function openSettingsMenu() {
+  return app.openSettingsMenu();
+}
+
+function setToken(token) {
+  return app.setToken(token);
 }

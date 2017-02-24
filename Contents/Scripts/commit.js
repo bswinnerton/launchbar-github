@@ -3,6 +3,10 @@ class Commit {
     this.sha = sha;
   }
 
+  get searchURL() {
+    return 'https://github.com/search?q=' + this.sha +'&type=Commits&utf8=%E2%9C%93'
+  }
+
   pullRequests() {
     let cacheKey = 'commit-pull-requests-for-' + this.sha;
 

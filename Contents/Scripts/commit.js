@@ -49,7 +49,7 @@ class Commit {
     let variables = { sha: this.sha };
     let result    = GraphQL.execute(query, variables);
 
-    if (result.data) {
+    if (result) {
       return result.data.search.edges;
     } else {
       return [];

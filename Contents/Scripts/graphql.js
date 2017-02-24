@@ -17,16 +17,15 @@ GraphQL.execute = function(query, variables) {
 
   LaunchBar.debugLog(JSON.stringify(result));
 
-  LaunchBar.alert(JSON.stringify(result));
+  if (result.data) {
+    let body = JSON.parse(result.data);
 
-  if (result.data && result.data.data) {
-    return JSON.parse(result.data);
-  } else {
-    LaunchBar.displayNotification({
-      title: "Couldn't access the GitHub API",
-    });
-
-    return [];
+    if (body.data) {
+      return body;
+    } else {
+      LaunchBar.displayNotification({title: "Couldn't access the GitHub API"});
+      return [];
+    }
   }
 };
 

@@ -287,7 +287,7 @@ class GitHubLB {
     let result = GraphQL.execute(`query { viewer { login } }`);
 
     if (result.data) {
-      let handle = results.data.viewer.login;
+      let handle = result.data.viewer.login;
 
       Action.preferences.viewerHandle = handle;
 

@@ -67,7 +67,7 @@ class Account {
 
     let result = GraphQL.execute(query, variables);
 
-    if (result.data) {
+    if (result) {
       let repositoryEdges = result.data.repositoryOwner.repositories.edges;
 
       if (repositoryEdges.length > 0) {

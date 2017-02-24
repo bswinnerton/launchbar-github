@@ -296,7 +296,7 @@ class GitHubLB {
         string: 'Your access token was set successfully.',
       });
 
-      //LaunchBar.executeAppleScript('tell application "LaunchBar" to hide');
+      LaunchBar.executeAppleScript('tell application "LaunchBar" to hide');
     } else {
       LaunchBar.displayNotification({
         title: 'That looks like an invalid token',

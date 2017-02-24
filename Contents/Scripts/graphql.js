@@ -23,7 +23,14 @@ GraphQL.execute = function(query, variables) {
     if (body.data) {
       return body;
     } else {
-      LaunchBar.displayNotification({title: "Couldn't access the GitHub API"});
+      if (body.message) {
+        LaunchBar.displayNotification({
+          title: "Couldn't access the GitHub API",
+          string: body.message,
+        });
+      } else {
+        LaunchBar.displayNotification({title: "Couldn't access the GitHub API"});
+      }
       return [];
     }
   }

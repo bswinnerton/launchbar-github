@@ -84,7 +84,6 @@ class GitHubLB {
       let owner       = new Account(match[1]);
       let repository  = new Repository(owner, match[2]);
       let issue       = new Issue(repository, match[3]);
-
       return this.openIssueMenu(issue, match[4]);
     }
 
@@ -202,18 +201,16 @@ class GitHubLB {
     if (pullRequests.length > 1) {
       return pullRequests.map(function(pr) { return pr.toMenuItem(); });
     } else if (pullRequests.length === 1) {
-      //FIXME: If we're fuzzy searching as someone types, we can't immediately
-      // open the URL. We'll need to suggest a menu item, and then have the user
-      // click it.
-      LaunchBar.openURL(pullRequests[0].url);
+      return [pullRequests[0].toMenuItem()];
     } else {
-      //FIXME: If we're fuzzy searching as someone types, we can't immediately
-      // open the URL. We'll need to suggest a menu item, and then have the user
-      // click it.
-      LaunchBar.openURL('https://github.com/search?q=' + commit.sha +'&type=Commits&utf8=%E2%9C%93');
+      return [
+        {
+          title: 'Search for commit: ' + commit.sha,
+          url: commit.searchURL,
+          icon: 'commitTemplate.png', //TODO
+        },
+      ];
     }
-
-    //LaunchBar.executeAppleScript('tell application "LaunchBar" to hide');
   }
 
   //TODO: Add secondarySelection

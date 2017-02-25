@@ -11,6 +11,7 @@ GraphQL.execute = function(query, variables) {
   }
 
   let requestBody = { query: query, variables: variables };
+  let response = [];
 
   if (GraphQL._requestIsLocked(requestBody)) {
     LaunchBar.alert('request is locked, aborting');
@@ -29,7 +30,7 @@ GraphQL.execute = function(query, variables) {
       let body = JSON.parse(result.data);
 
       if (body.data) {
-        return body;
+        response = body;
       } else {
         if (body.message) {
           LaunchBar.displayNotification({
@@ -39,11 +40,12 @@ GraphQL.execute = function(query, variables) {
         } else {
           LaunchBar.displayNotification({title: "Couldn't access the GitHub API"});
         }
-        return [];
+        response = [];
       }
     }
 
     GraphQL._deleteRequestLock(requestBody);
+    return response;
   }
 };
 
@@ -51,15 +53,12 @@ GraphQL._requestIsLocked = function(body) {
   let requestLocksFile = Action.supportPath + '/request-locks.json';
 
   if (!File.exists(requestLocksFile)) {
-    LaunchBar.alert("locks file doesn't exist, creating");
     File.writeJSON({}, requestLocksFile);
   }
 
   if (body in File.readJSON(requestLocksFile)) {
-    LaunchBar.alert("request is locked");
     return true;
   } else {
-    LaunchBar.alert("request is not locked");
     return false;
   }
 };
@@ -69,7 +68,6 @@ GraphQL._createRequestLock = function(body) {
   let requestLocks      = File.readJSON(requestLocksFile);
   let request           = JSON.stringify(body);
 
-  LaunchBar.alert("creating request lock for: " + body);
   requestLocks[request] = true;
   File.writeJSON(requestLocks, requestLocksFile);
 };
@@ -79,7 +77,6 @@ GraphQL._deleteRequestLock = function(body) {
   let requestLocks      = File.readJSON(requestLocksFile);
   let request           = JSON.stringify(body);
 
-  LaunchBar.alert("deleting request lock for: " + body);
   delete requestLocks[request];
   File.writeJSON(requestLocks, requestLocksFile);
 };

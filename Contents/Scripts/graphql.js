@@ -10,30 +10,78 @@ GraphQL.execute = function(query, variables) {
     return;
   }
 
-  let result = HTTP.post('https://api.github.com/graphql', {
-    headerFields: { authorization: 'token ' + Action.preferences.token },
-    body: JSON.stringify({ query: query, variables: variables })
-  });
+  let requestBody = { query: query, variables: variables };
 
-  LaunchBar.debugLog(JSON.stringify(result));
+  if (GraphQL._requestIsLocked(requestBody)) {
+    LaunchBar.alert('request is locked, aborting');
+    return;
+  } else {
+    GraphQL._createRequestLock(requestBody);
 
-  if (result.data) {
-    let body = JSON.parse(result.data);
+    let result = HTTP.post('https://api.github.com/graphql', {
+      headerFields: { authorization: 'token ' + Action.preferences.token },
+      body: JSON.stringify(requestBody)
+    });
 
-    if (body.data) {
-      return body;
-    } else {
-      if (body.message) {
-        LaunchBar.displayNotification({
-          title: "Couldn't access the GitHub API",
-          string: body.message,
-        });
+    LaunchBar.debugLog(JSON.stringify(result));
+
+    if (result.data) {
+      let body = JSON.parse(result.data);
+
+      if (body.data) {
+        return body;
       } else {
-        LaunchBar.displayNotification({title: "Couldn't access the GitHub API"});
+        if (body.message) {
+          LaunchBar.displayNotification({
+            title: "Couldn't access the GitHub API",
+            string: body.message,
+          });
+        } else {
+          LaunchBar.displayNotification({title: "Couldn't access the GitHub API"});
+        }
+        return [];
       }
-      return [];
     }
+
+    GraphQL._deleteRequestLock(requestBody);
   }
+};
+
+GraphQL._requestIsLocked = function(body) {
+  let requestLocksFile = Action.supportPath + '/request-locks.json';
+
+  if (!File.exists(requestLocksFile)) {
+    LaunchBar.alert("locks file doesn't exist, creating");
+    File.writeJSON({}, requestLocksFile);
+  }
+
+  if (body in File.readJSON(requestLocksFile)) {
+    LaunchBar.alert("request is locked");
+    return true;
+  } else {
+    LaunchBar.alert("request is not locked");
+    return false;
+  }
+};
+
+GraphQL._createRequestLock = function(body) {
+  let requestLocksFile  = Action.supportPath + '/request-locks.json';
+  let requestLocks      = File.readJSON(requestLocksFile);
+  let request           = JSON.stringify(body);
+
+  LaunchBar.alert("creating request lock for: " + body);
+  requestLocks[request] = true;
+  File.writeJSON(requestLocks, requestLocksFile);
+};
+
+GraphQL._deleteRequestLock = function(body) {
+  let requestLocksFile  = Action.supportPath + '/request-locks.json';
+  let requestLocks      = File.readJSON(requestLocksFile);
+  let request           = JSON.stringify(body);
+
+  LaunchBar.alert("deleting request lock for: " + body);
+  delete requestLocks[request];
+  File.writeJSON(requestLocks, requestLocksFile);
 };
 
 if (typeof module !== 'undefined') { module.exports.GraphQL = GraphQL; }

@@ -215,7 +215,7 @@ class GitHubLB {
         {
           title: 'Search for commit: ' + commit.sha,
           url: commit.searchURL,
-          icon: 'commitTemplate.png', //TODO
+          icon: 'commitTemplate.png',
         },
       ];
     }

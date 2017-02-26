@@ -10,12 +10,16 @@ GraphQL.execute = function(query, variables) {
     return;
   }
 
+  let requestHeaders  = { authorization: 'token ' + Action.preferences.token };
+  let requestBody     = { query: query, variables: variables };
+
   let result = HTTP.post('https://api.github.com/graphql', {
-    headerFields: { authorization: 'token ' + Action.preferences.token },
-    body: JSON.stringify({ query: query, variables: variables })
+    headerFields: requestHeaders,
+    body: JSON.stringify(requestBody)
   });
 
-  LaunchBar.debugLog(JSON.stringify(result));
+  LaunchBar.debugLog('action=github.lbaction request=' + JSON.stringify(requestBody));
+  LaunchBar.debugLog('action=github.lbaction response=' + JSON.stringify(result));
 
   if (result.data) {
     let body = JSON.parse(result.data);

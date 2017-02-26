@@ -43,6 +43,11 @@ class Account {
   _fetchRepositories(cursor, allEdges) {
     allEdges = allEdges || [];
 
+    // Limit the results to the first 120 repositories
+    if (allEdges.length >= 120) {
+      return allEdges;
+    }
+
     const query = `
       query($login: String!, $cursor: String) {
         repositoryOwner(login: $login) {

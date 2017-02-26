@@ -10,8 +10,9 @@ GraphQL.execute = function(query, variables) {
     return;
   }
 
-  let requestBody = { query: query, variables: variables };
-  let response = [];
+  let requestHeaders  = { authorization: 'token ' + Action.preferences.token };
+  let requestBody     = { query: query, variables: variables };
+  let response        = [];
 
   if (GraphQL._requestIsLocked(requestBody)) {
     LaunchBar.alert('request is locked, aborting');
@@ -20,17 +21,18 @@ GraphQL.execute = function(query, variables) {
     GraphQL._createRequestLock(requestBody);
 
     let result = HTTP.post('https://api.github.com/graphql', {
-      headerFields: { authorization: 'token ' + Action.preferences.token },
+      headerFields: requestHeaders,
       body: JSON.stringify(requestBody)
     });
 
-    LaunchBar.debugLog(JSON.stringify(result));
+    LaunchBar.debugLog('action=github.lbaction request=' + JSON.stringify(requestBody));
+    LaunchBar.debugLog('action=github.lbaction response=' + JSON.stringify(result));
 
     if (result.data) {
       let body = JSON.parse(result.data);
 
       if (body.data) {
-        response = body;
+        response = body.data;
       } else {
         if (body.message) {
           LaunchBar.displayNotification({

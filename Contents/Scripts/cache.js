@@ -18,14 +18,14 @@ Cache.read = function(key) {
     let currentTime = Math.floor(new Date() / 1000);
 
     if (currentTime < cacheData.expiresAt) {
-      LaunchBar.debugLog('Cache hit: ' + path);
+      LaunchBar.debugLog('action=github.lbaction cache=hit cachePath=' + path);
       return cacheData.results;
     } else {
-      LaunchBar.debugLog('Cache stale: expiresAt=' + cacheData.expiresAt + ' currentTime=' + currentTime);
+      LaunchBar.debugLog('action=github.lbaction cache=stale expiresAt=' + cacheData.expiresAt + ' currentTime=' + currentTime);
       return false;
     }
   } else {
-    LaunchBar.debugLog('Cache miss');
+    LaunchBar.debugLog('action=github.lbaction cache=miss');
     return false;
   }
 };

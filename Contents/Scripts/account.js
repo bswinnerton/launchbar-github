@@ -43,8 +43,8 @@ class Account {
   _fetchRepositories(cursor, allEdges) {
     allEdges = allEdges || [];
 
-    // Limit the results to the first 100 repositories
-    if (allEdges.length >= 100) {
+    // Limit the results to the first 120 repositories
+    if (allEdges.length >= 120) {
       return allEdges;
     }
 

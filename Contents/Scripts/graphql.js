@@ -15,7 +15,6 @@ GraphQL.execute = function(query, variables) {
   let response        = [];
 
   if (GraphQL._requestIsLocked(requestBody)) {
-    LaunchBar.alert('request is locked, aborting');
     return;
   } else {
     GraphQL._createRequestLock(requestBody);
@@ -55,12 +54,15 @@ GraphQL._requestIsLocked = function(body) {
   let requestLocksFile = Action.supportPath + '/request-locks.json';
 
   if (!File.exists(requestLocksFile)) {
+    LaunchBar.debugLog('action=github.lbaction requestLock=NoLocksFile');
     File.writeJSON({}, requestLocksFile);
   }
 
   if (body in File.readJSON(requestLocksFile)) {
+    LaunchBar.debugLog('action=github.lbaction requestLock=locked');
     return true;
   } else {
+    LaunchBar.debugLog('action=github.lbaction requestLock=notLocked');
     return false;
   }
 };
@@ -70,6 +72,7 @@ GraphQL._createRequestLock = function(body) {
   let requestLocks      = File.readJSON(requestLocksFile);
   let request           = JSON.stringify(body);
 
+  LaunchBar.debugLog('action=github.lbaction requestLock=creating');
   requestLocks[request] = true;
   File.writeJSON(requestLocks, requestLocksFile);
 };
@@ -79,6 +82,7 @@ GraphQL._deleteRequestLock = function(body) {
   let requestLocks      = File.readJSON(requestLocksFile);
   let request           = JSON.stringify(body);
 
+  LaunchBar.debugLog('action=github.lbaction requestLock=deleting');
   delete requestLocks[request];
   File.writeJSON(requestLocks, requestLocksFile);
 };

@@ -1,9 +1,11 @@
 class GitHubLB {
   constructor() {
+    let handle = Action.preferences.viewerHandle || '';
+
     this.defaultMenuItems = [
       {
         title: 'My Repositories',
-        url: 'https://github.com/' + Action.preferences.viewerHandle,
+        url: 'https://github.com/' + handle + '?tab=repositories',
         icon: 'repoTemplate.png',
       },
       {

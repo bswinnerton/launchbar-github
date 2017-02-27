@@ -45,7 +45,7 @@ Cache.write = function(key, ttl, func) {
 };
 
 Cache.filePath = function(key) {
-  return Action.cachePath + '/' + 'v1-' + key + '.json';
+  return Action.cachePath + '/' + 'v2-' + key + '.json';
 };
 
 if (typeof module !== 'undefined') { module.exports.Cache = Cache; }

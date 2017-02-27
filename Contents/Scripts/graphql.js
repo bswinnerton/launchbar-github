@@ -18,8 +18,8 @@ GraphQL.execute = function(query, variables) {
     body: JSON.stringify(requestBody)
   });
 
-  LaunchBar.debugLog('action=github.lbaction request=' + JSON.stringify(requestBody));
-  LaunchBar.debugLog('action=github.lbaction response=' + JSON.stringify(result));
+  LaunchBar.debugLog('action=launchbar-github request=' + JSON.stringify(requestBody));
+  LaunchBar.debugLog('action=launchbar-github response=' + JSON.stringify(result));
 
   if (result.data) {
     let body = JSON.parse(result.data);

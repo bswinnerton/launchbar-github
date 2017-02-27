@@ -23,7 +23,7 @@
 		<key>LBTwitter</key>
 		<string>bswinnerton</string>
 		<key>LBWebsiteURL</key>
-		<string>https://github.com/bswinnerton/GitHub.lbaction</string>
+		<string>https://github.com/bswinnerton/launchbar-github</string>
 	</dict>
 	<key>LBScripts</key>
 	<dict>

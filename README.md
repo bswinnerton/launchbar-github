@@ -56,7 +56,7 @@ Actions folder:
 
 ```
 mkdir -p ~/Library/Application\ Support/LaunchBar/Actions/
-git clone https://github.com/bswinnerton/github.lbaction ~/Library/Application\ Support/LaunchBar/Actions/github.lbaction
+git clone https://github.com/bswinnerton/launchbar-github ~/Library/Application\ Support/LaunchBar/Actions/github.lbaction
 ```
 
 ### GitHub Access Token

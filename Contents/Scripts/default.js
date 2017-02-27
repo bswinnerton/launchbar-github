@@ -25,6 +25,7 @@ class GitHubLB {
         title: 'Settings',
         icon: 'gearTemplate.png',
         action: 'openSettingsMenu',
+        actionReturnsItems: true,
       }
     ];
   }
@@ -163,6 +164,7 @@ class GitHubLB {
       delete menuItem.url;
       menuItem.action = 'openRepositoryMenu';
       menuItem.actionArgument = repository.nameWithOwner;
+      menuItem.actionReturnsItems = true;
       return menuItem;
     });
   }

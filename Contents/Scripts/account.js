@@ -34,18 +34,12 @@ class Account {
       return this._fetchRepositories();
     });
 
-    return repositoryEdges.reduce(function(repositories, edge) {
+    return repositoryEdges.map(function(edge) {
       let repo  = edge.node;
       let owner = new Account(repo.owner.login);
 
-      // Only return repositories that the account directly owns
-      if (owner.login === this.login) {
-        let repository = new Repository(owner, repo.name, repo.description);
-        repositories.push(repository);
-      }
-
-      return repositories;
-    }.bind(this), []);
+      return new Repository(owner, repo.name, repo.description);
+    });
   }
 
   _fetchRepositories(cursor, allEdges) {
@@ -54,7 +48,7 @@ class Account {
     const query = `
       query($login: String!, $cursor: String) {
         repositoryOwner(login: $login) {
-          repositories(first: 30, after: $cursor, orderBy: {field: PUSHED_AT, direction: DESC}) {
+          repositories(first: 30, after: $cursor, affiliation:[OWNER], orderBy: {field: PUSHED_AT, direction: DESC}) {
             edges {
               cursor
               node {

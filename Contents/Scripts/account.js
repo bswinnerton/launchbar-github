@@ -35,8 +35,8 @@ class Account {
     });
 
     return repositoryEdges.map(function(edge) {
-      let repo        = edge.node;
-      let owner       = new Account(repo.owner.login);
+      let repo  = edge.node;
+      let owner = new Account(repo.owner.login);
 
       return new Repository(owner, repo.name, repo.description);
     });

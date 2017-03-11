@@ -8,7 +8,11 @@ GraphQL.execute = function(query, variables) {
       "the github action and going to settings.");
   }
 
-  let requestHeaders  = { authorization: 'token ' + Action.preferences.token };
+  let requestHeaders = {
+    'Authorization':  'token ' + Action.preferences.token,
+    'User-Agent':     'github-launchbar-v' + Action.version,
+  };
+
   let requestBody     = { query: query, variables: variables };
 
   let result = HTTP.post('https://api.github.com/graphql', {

@@ -9,7 +9,7 @@
 	<key>CFBundleName</key>
 	<string>GitHub</string>
 	<key>CFBundleVersion</key>
-	<string>0.1.0</string>
+	<string>0.1.1</string>
 	<key>LBAbbreviation</key>
 	<string>GH</string>
 	<key>LBDescription</key>

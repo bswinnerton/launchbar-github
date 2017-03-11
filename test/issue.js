@@ -19,13 +19,19 @@ describe('Issue', function() {
     });
   });
 
+  describe('#shortURL', function() {
+    it('returns the shorthand URL of an issue', function() {
+      assert.equal('rails/rails#123', issue.shortURL);
+    });
+  });
+
   describe('#toMenuItem()', function() {
     it("returns an object formatted to be displayed in LaunchBar if the title exists", function() {
       assert.deepEqual({
         title: 'Fix all the things',
         url: 'https://github.com/rails/rails/issues/123',
         icon: 'issueTemplate.png',
-        subtitle: 'View rails/rails#123',
+        subtitle: 'View Issue: rails/rails#123',
         alwaysShowsSubtitle: true
       }, issue.toMenuItem());
     });

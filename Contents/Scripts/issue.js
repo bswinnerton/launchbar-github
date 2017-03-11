@@ -9,7 +9,13 @@ class Issue {
     return 'https://github.com/' + this.repository.nameWithOwner + '/issues/' + this.number;
   }
 
+  get shortURL() {
+    return this.repository.nameWithOwner + '#' + this.number;
+  }
+
   toMenuItem() {
+    let showMoreText = 'View Issue: ' + this.shortURL;
+
     let menuItem = {
       url: this.url,
       icon: 'issueTemplate.png',
@@ -17,10 +23,10 @@ class Issue {
 
     if (this.title) {
       menuItem.title = this.title;
-      menuItem.subtitle = 'View Issue: ' + this.repository.nameWithOwner + '#' + this.number;
+      menuItem.subtitle = showMoreText;
       menuItem.alwaysShowsSubtitle = true;
     } else {
-      menuItem.title = 'View Issue: ' + this.repository.nameWithOwner + '#' + this.number;
+      menuItem.title = showMoreText;
     }
 
     return menuItem;

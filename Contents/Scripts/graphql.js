@@ -10,7 +10,7 @@ GraphQL.execute = function(query, variables) {
 
   let requestHeaders = {
     'Authorization':  'token ' + Action.preferences.token,
-    'User-Agent':     'github-launchbar-v' + Action.version,
+    'User-Agent':     'github-launchbar-' + GitHubLB.VERSION,
   };
 
   let requestBody     = { query: query, variables: variables };

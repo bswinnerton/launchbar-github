@@ -329,6 +329,8 @@ class GitHubLB {
   }
 }
 
+GitHubLB.VERSION = 'v' + Action.version + '-' + LaunchBar.version;
+
 let app = new GitHubLB();
 
 function run(argument) {

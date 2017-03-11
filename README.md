@@ -10,8 +10,8 @@ hit `⌘` + `enter` to go directly to the corresponding GitHub page.
 
 ### For a user or organization
 
-![](screenshots/default.png)
-![](screenshots/user.png)
+<p align="center"><img src="screenshots/default.png" width="668px" /></p>
+<p align="center"><img src="screenshots/user.png" width="668px" /></p>
 
 Simply add a `/` to the end of a user or organization and the repositories will
 be fetched.

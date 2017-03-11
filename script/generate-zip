@@ -1,0 +1,6 @@
+#!/bin/bash
+
+mkdir -p ./github.lbaction
+cp -R ./Contents ./github.lbaction
+zip -r github.lbaction.zip ./github.lbaction
+rm -rf ./github.lbaction

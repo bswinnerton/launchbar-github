@@ -51,6 +51,7 @@ shortened link will be copied to your clipboard.
 ![](screenshots/shorten-link.png)
 ![](screenshots/shorten-link-expanded.png)
 ![](screenshots/shorten-link-final.png)
+![](screenshots/shorten-link-notification.png)
 
 ## Installing
 

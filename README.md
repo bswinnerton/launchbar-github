@@ -14,20 +14,20 @@ hit `⌘` + `enter` to go directly to the corresponding GitHub page.
 <p align="center"><img src="screenshots/user.png" width="668px" /></p>
 
 Simply add a `/` to the end of a user or organization and the repositories will
-be fetched.
+be fetched:
 
-![](screenshots/user-repos-expanded.png)
+<p align="center"><img src="screenshots/user-repos-expanded.png" width="668px" /></p>
 
 ### For a repository
 
-![](screenshots/default.png)
-![](screenshots/repo.png)
-![](screenshots/repo-expanded.png)
+<p align="center"><img src="screenshots/default.png" width="668px" /></p>
+<p align="center"><img src="screenshots/repo.png" width="668px" /></p>
+<p align="center"><img src="screenshots/repo-expanded.png" width="668px" /></p>
 
 ### For an issue or pull request
 
-![](screenshots/default.png)
-![](screenshots/issue.png)
+<p align="center"><img src="screenshots/default.png" width="668px" /></p>
+<p align="center"><img src="screenshots/issue.png" width="668px" /></p>
 
 ### For a commit
 
@@ -37,9 +37,9 @@ action will bring you to the pull request that introduced the commit. If the
 commit is associated with multiple pull requests, they will be displayed in a
 list.
 
-![](screenshots/commit.png)
-![](screenshots/commit-expanded.png)
-![](screenshots/commit-pr-list.png)
+<p align="center"><img src="screenshots/commit.png" width="668px" /></p>
+<p align="center"><img src="screenshots/commit-expanded.png" width="668px" /></p>
+<p align="center"><img src="screenshots/commit-pr-list.png" width="668px" /></p>
 
 ### Shortening a link
 
@@ -48,10 +48,10 @@ At any time, paste a GitHub link into LaunchBar and hit `tab`. Start typing
 action will ask you if you want to shorten the link, hit `enter` and the
 shortened link will be copied to your clipboard.
 
-![](screenshots/shorten-link.png)
-![](screenshots/shorten-link-expanded.png)
-![](screenshots/shorten-link-final.png)
-![](screenshots/shorten-link-notification.png)
+<p align="center"><img src="screenshots/shorten-link.png" width="668px" /></p>
+<p align="center"><img src="screenshots/shorten-link-expanded.png" width="668px" /></p>
+<p align="center"><img src="screenshots/shorten-link-final.png" width="668px" /></p>
+<p align="center"><img src="screenshots/shorten-link-notification.png" width="378px" /></p>
 
 ## Installing
 

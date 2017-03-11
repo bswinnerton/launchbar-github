@@ -54,8 +54,9 @@ shortened link will be copied to your clipboard.
 
 ## Installing
 
-Installing should be as simple as cloning this repository to your LaunchBar
-Actions folder:
+The action can either be downloaded from the [Releases](https://git.io/vyose)
+page, or if you'd like to use the latest features as they come out (from
+`master`), you can clone this repository to your LaunchBar Actions folder:
 
 ```
 mkdir -p ~/Library/Application\ Support/LaunchBar/Actions/

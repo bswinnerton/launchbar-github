@@ -14,7 +14,7 @@ class Issue {
       title: this.title,
       url: this.url,
       icon: 'issueTemplate.png',
-      subtitle: this.repository.nameWithOwner + '#' + this.number,
+      subtitle: 'View ' + this.repository.nameWithOwner + '#' + this.number,
       alwaysShowsSubtitle: true,
     };
   }

@@ -25,7 +25,7 @@ describe('Issue', function() {
         title: 'Fix all the things',
         url: 'https://github.com/rails/rails/issues/123',
         icon: 'issueTemplate.png',
-        subtitle: 'rails/rails#123',
+        subtitle: 'View rails/rails#123',
         alwaysShowsSubtitle: true
       }, issue.toMenuItem());
     });

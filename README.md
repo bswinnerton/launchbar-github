@@ -3,7 +3,7 @@
 This is a GitHub [LaunchBar](https://www.obdev.at/products/launchbar) action
 that can search various parts of GitHub based on your input.
 
-<p align="center"><img src="screenshots/default.gif" width="432px" /></p>
+<p align="center"><img src="screenshots/default.gif" width="500px" /></p>
 
 ## Actions
 

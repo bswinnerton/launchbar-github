@@ -20,13 +20,23 @@ describe('Issue', function() {
   });
 
   describe('#toMenuItem()', function() {
-    it("returns an object formatted to be displayed in LaunchBar", function() {
+    it("returns an object formatted to be displayed in LaunchBar if the title exists", function() {
       assert.deepEqual({
         title: 'Fix all the things',
         url: 'https://github.com/rails/rails/issues/123',
         icon: 'issueTemplate.png',
         subtitle: 'View rails/rails#123',
         alwaysShowsSubtitle: true
+      }, issue.toMenuItem());
+    });
+
+    it("returns an object formatted to be displayed in LaunchBar if no title exists", function() {
+      let issue = new Issue(repo, '123');
+
+      assert.deepEqual({
+        title: 'View Issue: rails/rails#123',
+        url: 'https://github.com/rails/rails/issues/123',
+        icon: 'issueTemplate.png',
       }, issue.toMenuItem());
     });
   });

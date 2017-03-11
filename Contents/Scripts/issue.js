@@ -10,13 +10,20 @@ class Issue {
   }
 
   toMenuItem() {
-    return {
-      title: this.title,
+    let menuItem = {
       url: this.url,
       icon: 'issueTemplate.png',
-      subtitle: 'View ' + this.repository.nameWithOwner + '#' + this.number,
-      alwaysShowsSubtitle: true,
     };
+
+    if (this.title) {
+      menuItem.title = this.title;
+      menuItem.subtitle = 'View ' + this.repository.nameWithOwner + '#' + this.number;
+      menuItem.alwaysShowsSubtitle = true;
+    } else {
+      menuItem.title = 'View Issue: ' + this.repository.nameWithOwner + '#' + this.number;
+    }
+
+    return menuItem;
   }
 }
 

@@ -17,7 +17,7 @@ class Issue {
 
     if (this.title) {
       menuItem.title = this.title;
-      menuItem.subtitle = 'View ' + this.repository.nameWithOwner + '#' + this.number;
+      menuItem.subtitle = 'View Issue: ' + this.repository.nameWithOwner + '#' + this.number;
       menuItem.alwaysShowsSubtitle = true;
     } else {
       menuItem.title = 'View Issue: ' + this.repository.nameWithOwner + '#' + this.number;

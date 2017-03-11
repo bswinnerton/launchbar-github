@@ -36,9 +36,16 @@ Cache.write = function(key, ttl, func) {
   let expiresAt   = currentTime + ttl;
   let results     = func();
 
-  if (results.length > 0) {
+  function writeFile() {
     let cacheData = { expiresAt: expiresAt, results: results };
     File.writeJSON(cacheData, path, {'prettyPrint' : Action.debugLogEnabled});
+  }
+
+  // Only write to the file if the array or object is not empty
+  if (results instanceof Array && results.length > 0) {
+    writeFile.call(this);
+  } else if (Object.keys(results).length > 0 && results.constructor === Object) {
+    writeFile.call(this);
   }
 
   return results;

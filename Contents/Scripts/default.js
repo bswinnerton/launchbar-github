@@ -141,11 +141,17 @@ class GitHubLB {
 
   openIssueMenu(issue) {
     if (issue.number) {
-      return [{
-        title: 'Open the issue: ' + issue.repository.nameWithOwner + '#' + issue.number,
-        icon: 'issueTemplate.png',
-        url: issue.url,
-      }];
+      let fetchedIssue = Issue.fetch(issue.repository, issue.number);
+
+      if (fetchedIssue) {
+        return [fetchedIssue.toMenuItem()];
+      } else {
+        return [{
+          title: 'Open the issue: ' + issue.repository.nameWithOwner + '#' + issue.number,
+          icon: 'issueTemplate.png',
+          url: issue.url,
+        }];
+      }
     } else {
       return [];
     }

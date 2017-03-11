@@ -66,10 +66,10 @@ class GitHubLB {
 
   displayMenuItemFor(input) {
     const GITHUB_LINK_FORMAT  = /^https?:\/\/((www|gist|raw)\.)?github\.(io|com)/;
-    const ISSUE_OR_PR_FORMAT  = /^(\w+)\/(\w+)#(\d+)?\s*(\w+)?$/;
-    const REPOSITORY_FORMAT   = /^(\w+)\/(.*)?\s*(\w+)?$/;
+    const ISSUE_OR_PR_FORMAT  = /^(.*)\/(.*)#(\d+)?\s*(.*)?$/;
+    const REPOSITORY_FORMAT   = /^(.*)\/(.*)?\s*(.*)?$/;
     const COMMIT_SHA_FORMAT   = /^\b[0-9a-f]{5,40}\b$/;
-    const ACCOUNT_FORMAT      = /^(\w+)?\s*(\w+)?$/;
+    const ACCOUNT_FORMAT      = /^(.*)?\s*(.*)?$/;
 
     let match;
 

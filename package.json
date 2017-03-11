@@ -1,5 +1,5 @@
 {
-  "name": "github.lbaction",
+  "name": "launchbar-github",
   "version": "0.1.0",
   "description": "A LaunchBar action to find resources on GitHub.",
   "main": "Contents/Scripts/default.js",
@@ -10,14 +10,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/bswinnerton/github.lbaction.git"
+    "url": "git+https://github.com/bswinnerton/launchbar-github.git"
   },
   "author": "Brooks Swinnerton",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/bswinnerton/github.lbaction/issues"
+    "url": "https://github.com/bswinnerton/launchbar-github/issues"
   },
-  "homepage": "https://github.com/bswinnerton/github.lbaction#readme",
+  "homepage": "https://github.com/bswinnerton/launchbar-github#readme",
   "devDependencies": {
     "babel-cli": "^6.23.0",
     "babel-preset-es2015": "^6.22.0",

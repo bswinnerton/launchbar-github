@@ -7,7 +7,7 @@ class GitHubLB {
         title: 'My Repositories',
         icon: 'repoTemplate.png',
         action: 'openAccountRepositories',
-        actionArgument: Action.preferences.viewerHandle,
+        actionArgument: handle,
         actionReturnsItems: true,
       },
       {

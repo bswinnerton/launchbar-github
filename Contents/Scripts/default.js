@@ -5,8 +5,10 @@ class GitHubLB {
     this.defaultMenuItems = [
       {
         title: 'My Repositories',
-        url: 'https://github.com/' + handle + '?tab=repositories',
         icon: 'repoTemplate.png',
+        action: 'openAccountRepositories',
+        actionArgument: handle,
+        actionReturnsItems: true,
       },
       {
         title: 'My Issues',

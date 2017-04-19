@@ -27,7 +27,7 @@ class Commit {
   _fetchPullRequests() {
     const query = `
       query($sha: String!) {
-        search(query:$sha, type:ISSUE, last:30) {
+        search(query:$sha, type:ISSUE, last:100) {
           edges {
             node {
               ... on PullRequest {

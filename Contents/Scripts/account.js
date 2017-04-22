@@ -49,7 +49,7 @@ class Account {
       const query = `
         query {
           viewer {
-            pullRequests(last:50) {
+            pullRequests(last:100) {
               edges {
                 node {
                   title

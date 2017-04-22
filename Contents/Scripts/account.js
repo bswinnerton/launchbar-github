@@ -43,7 +43,7 @@ class Account {
   }
 
   pullRequests() {
-    let cacheKey = 'account-pullRequests-for-' + this.login;
+    let cacheKey = 'account-pull-requests-for-' + this.login;
 
     let pullRequestEdges = Cache.fetch(cacheKey, 3600, () => {
       const query = `

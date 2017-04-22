@@ -42,6 +42,53 @@ class Account {
     });
   }
 
+  pullRequests() {
+    let cacheKey = 'account-pullRequests-for-' + this.login;
+
+    let pullRequestEdges = Cache.fetch(cacheKey, 3600, () => {
+      const query = `
+        query {
+          viewer {
+            pullRequests(last:30) {
+              edges {
+                node {
+                  title
+                  number
+                  repository {
+                    name
+                    owner {
+                      login
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      `;
+
+      let variables = {};
+
+      let result = GraphQL.execute(query, variables);
+
+      if (result) {
+        return result.data.viewer.pullRequests.edges;
+      } else {
+        return [];
+      }
+    });
+
+    return pullRequestEdges.map(function(edge) {
+      let number  = edge.node.number;
+      let title   = edge.node.title;
+
+      let owner = new Account(edge.node.repository.owner.login);
+      let repo  = new Repository(owner, edge.node.repository.name);
+
+      return new PullRequest(number, repo, title);
+    });
+  }
+
   _fetchRepositories(cursor, allEdges) {
     allEdges = allEdges || [];
 

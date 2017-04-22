@@ -68,8 +68,7 @@ class Account {
       `;
 
       let variables = {};
-
-      let result = GraphQL.execute(query, variables);
+      let result    = GraphQL.execute(query, variables);
 
       if (result) {
         return result.data.viewer.pullRequests.edges;
@@ -79,11 +78,12 @@ class Account {
     });
 
     return pullRequestEdges.map(function(edge) {
-      let number  = edge.node.number;
-      let title   = edge.node.title;
+      let pullRequest = edge.node;
+      let number      = pullRequest.number;
+      let title       = pullRequest.title;
 
-      let owner = new Account(edge.node.repository.owner.login);
-      let repo  = new Repository(owner, edge.node.repository.name);
+      let owner = new Account(pullRequest.repository.owner.login);
+      let repo  = new Repository(owner, pullRequest.repository.name);
 
       return new PullRequest(number, repo, title);
     });

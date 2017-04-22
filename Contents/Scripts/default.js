@@ -11,12 +11,12 @@ class GitHubLB {
         actionReturnsItems: true,
       },
       {
-        title: 'My Issues',
+        title: 'My Open Issues',
         url: 'https://github.com/issues',
         icon: 'issueTemplate.png',
       },
       {
-        title: 'My Pull Requests',
+        title: 'My Open Pull Requests',
         icon: 'pullRequestTemplate.png',
         action: 'openAccountPullRequests',
         actionArgument: handle,

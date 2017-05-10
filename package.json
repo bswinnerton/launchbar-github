@@ -1,6 +1,6 @@
 {
   "name": "launchbar-github",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "A LaunchBar action to find resources on GitHub.",
   "main": "Contents/Scripts/default.js",
   "scripts": {

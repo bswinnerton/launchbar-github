@@ -38,12 +38,17 @@ Issue.fetch = function(repository, number) {
   let name      = repository.name;
   let cacheKey  = 'issue-' + number + '-for-' + login + '-' + name;
 
-  let issueish = Cache.fetch(cacheKey, 604800, () => {
+  let issueOrPullRequest = Cache.fetch(cacheKey, 604800, () => {
     const query = `
       query($login: String!, $name: String!, $number: Int!) {
         repository(owner: $login, name: $name) {
-          issueish(number: $number) {
-            title
+          issueOrPullRequest(number: $number) {
+            ... on Issue {
+              title
+            }
+            ... on PullRequest {
+              title
+            }
           }
         }
       }
@@ -53,14 +58,14 @@ Issue.fetch = function(repository, number) {
     let result    = GraphQL.execute(query, variables);
 
     if (result.data) {
-      return result.data.repository.issueish;
+      return result.data.repository.issueOrPullRequest;
     } else {
       return {};
     }
   });
 
-  if (issueish) {
-    return new Issue(repository, number, issueish.title);
+  if (issueOrPullRequest) {
+    return new Issue(repository, number, issueOrPullRequest.title);
   } else {
     return null;
   }

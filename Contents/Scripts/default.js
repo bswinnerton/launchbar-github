@@ -11,14 +11,16 @@ class GitHubLB {
         actionReturnsItems: true,
       },
       {
-        title: 'My Issues',
+        title: 'My Open Issues',
         url: 'https://github.com/issues',
         icon: 'issueTemplate.png',
       },
       {
-        title: 'My Pull Requests',
-        url: 'https://github.com/pulls',
+        title: 'My Open Pull Requests',
         icon: 'pullRequestTemplate.png',
+        action: 'openAccountPullRequests',
+        actionArgument: handle,
+        actionReturnsItems: true,
       },
       {
         title: 'My Gists',
@@ -291,6 +293,25 @@ class GitHubLB {
     }
   }
 
+  openAccountPullRequests(login) {
+    let account = new Account(login);
+
+    if (LaunchBar.options.commandKey == 1) {
+      LaunchBar.openURL('https://github.com/pulls');
+      LaunchBar.executeAppleScript('tell application "LaunchBar" to hide');
+    } else {
+      return [
+        {
+          title: 'View All Pull Requests',
+          icon: 'pullRequestTemplate.png',
+          url: 'https://github.com/pulls',
+        }
+      ].concat(account.pullRequests().map(function(pullRequest) {
+        return pullRequest.toMenuItem();
+      }));
+    }
+  }
+
   shortenLink(link) {
     let linkShortener = new LinkShortener(link);
     let shortLink     = linkShortener.run();
@@ -351,6 +372,10 @@ function runWithURL(url, details) {
 // https://developer.obdev.at/launchbar-developer-documentation/#/script-output.
 function openAccountRepositories(string) {
   return app.openAccountRepositoriesMenu(string);
+}
+
+function openAccountPullRequests(string) {
+  return app.openAccountPullRequests(string);
 }
 
 function openAccountMenu(string) {

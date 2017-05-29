@@ -44,4 +44,8 @@ describe('Account', function() {
   describe('#repositories()', function() {
     it("returns the user's repositories");
   });
+
+  describe('#pullRequests()', function() {
+    it("returns the user's pull requests");
+  });
 });

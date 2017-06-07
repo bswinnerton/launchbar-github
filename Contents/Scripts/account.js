@@ -49,7 +49,7 @@ class Account {
       const query = `
         query {
           viewer {
-            pullRequests(last:100, orderBy:{direction:DESC,field:CREATED_AT}) {
+            pullRequests(first:100,states:[OPEN],orderBy:{field:UPDATED_AT,direction:DESC}) {
               edges {
                 node {
                   title

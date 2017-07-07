@@ -251,12 +251,16 @@ class GitHubLB {
         {
           title: 'View Issues',
           icon: 'issueTemplate.png',
-          url: account.issuesURL,
+          action: 'openAccountIssues',
+          actionArgument: account.login,
+          actionReturnsItems: true,
         },
         {
           title: 'View Pull Requests',
           icon: 'pullRequestTemplate.png',
-          url: account.pullRequestsURL,
+          action: 'openAccountPullRequests',
+          actionArgument: account.login,
+          actionReturnsItems: true,
         },
         {
           title: 'View Gists',

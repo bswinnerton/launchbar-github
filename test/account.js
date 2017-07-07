@@ -48,4 +48,8 @@ describe('Account', function() {
   describe('#pullRequests()', function() {
     it("returns the user's pull requests");
   });
+
+  describe('#issues()', function() {
+    it("returns the user's issues");
+  });
 });

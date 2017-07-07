@@ -85,7 +85,7 @@ class Account {
       let owner = new Account(pullRequest.repository.owner.login);
       let repo  = new Repository(owner, pullRequest.repository.name);
 
-      return new PullRequest(number, repo, title);
+      return new PullRequest(repo, number, title);
     });
   }
 

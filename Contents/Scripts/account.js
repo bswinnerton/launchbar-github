@@ -89,6 +89,53 @@ class Account {
     });
   }
 
+  issues() {
+    let cacheKey = 'account-issues-for-' + this.login;
+
+    let issueEdges = Cache.fetch(cacheKey, 3600, () => {
+      const query = `
+        query {
+          viewer {
+            issues(first:3,states:[OPEN],orderBy:{field:UPDATED_AT,direction:DESC}) {
+              edges {
+                node {
+                  title
+                  number
+                  repository {
+                    name
+                    owner {
+                      login
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      `;
+
+      let variables = {};
+      let result    = GraphQL.execute(query, variables);
+
+      if (result) {
+        return result.data.viewer.issues.edges;
+      } else {
+        return [];
+      }
+    });
+
+    return issueEdges.map(function(edge) {
+      let issue = edge.node;
+      let number      = issue.number;
+      let title       = issue.title;
+
+      let owner = new Account(issue.repository.owner.login);
+      let repo  = new Repository(owner, issue.repository.name);
+
+      return new Issue(repo, number, title);
+    });
+  }
+
   _fetchRepositories(cursor, allEdges) {
     allEdges = allEdges || [];
 

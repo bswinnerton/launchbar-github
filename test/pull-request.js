@@ -10,7 +10,7 @@ describe('PullRequest', function() {
 
   let owner       = new Account('obama');
   let repo        = new Repository(owner, 'whitehouse.gov', 'My blog.');
-  let pullRequest = new PullRequest(number, repo, title);
+  let pullRequest = new PullRequest(repo, number, title);
 
   describe('#url', function() {
     it('returns the URL of the pull request', function() {

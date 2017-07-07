@@ -96,7 +96,7 @@ class Account {
       const query = `
         query {
           viewer {
-            issues(first:3,states:[OPEN],orderBy:{field:UPDATED_AT,direction:DESC}) {
+            issues(first:100,states:[OPEN],orderBy:{field:UPDATED_AT,direction:DESC}) {
               edges {
                 node {
                   title

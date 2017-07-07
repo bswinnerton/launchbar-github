@@ -1,7 +1,7 @@
 class PullRequest {
-  constructor(number, repository, title) {
-    this.number     = number;
+  constructor(repository, number, title) {
     this.repository = repository;
+    this.number     = number;
     this.title      = title;
   }
 

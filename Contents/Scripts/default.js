@@ -12,8 +12,10 @@ class GitHubLB {
       },
       {
         title: 'My Open Issues',
-        url: 'https://github.com/issues',
         icon: 'issueTemplate.png',
+        action: 'openAccountIssues',
+        actionArgument: handle,
+        actionReturnsItems: true,
       },
       {
         title: 'My Open Pull Requests',
@@ -312,6 +314,25 @@ class GitHubLB {
     }
   }
 
+  openAccountIssues(login) {
+    let account = new Account(login);
+
+    if (LaunchBar.options.commandKey == 1) {
+      LaunchBar.openURL('https://github.com/issues');
+      LaunchBar.executeAppleScript('tell application "LaunchBar" to hide');
+    } else {
+      return [
+        {
+          title: 'View All Issues',
+          icon: 'issueTemplate.png',
+          url: 'https://github.com/issues',
+        }
+      ].concat(account.issues().map(function(issue) {
+        return issue.toMenuItem();
+      }));
+    }
+  }
+
   shortenLink(link) {
     let linkShortener = new LinkShortener(link);
     let shortLink     = linkShortener.run();
@@ -376,6 +397,10 @@ function openAccountRepositories(string) {
 
 function openAccountPullRequests(string) {
   return app.openAccountPullRequests(string);
+}
+
+function openAccountIssues(string) {
+  return app.openAccountIssues(string);
 }
 
 function openAccountMenu(string) {

@@ -20,7 +20,7 @@ class Commit {
       let owner       = new Account(pr.repository.owner.login);
       let repository  = new Repository(owner, pr.repository.name);
 
-      return new PullRequest(pr.number, repository, pr.title);
+      return new PullRequest(repository, pr.number, pr.title);
     }, this);
   }
 

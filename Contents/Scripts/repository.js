@@ -1,8 +1,9 @@
 class Repository {
-  constructor(owner, name, description) {
+  constructor(owner, name, description, parent) {
     this.owner = owner;
     this.name = name;
     this.description = description;
+    this.parent = parent;
   }
 
   get nameWithOwner() {
@@ -21,11 +22,27 @@ class Repository {
     return this.url + '/pulls';
   }
 
+  get isFork() {
+    if (this.parent) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  get icon() {
+    if (this.isFork) {
+      return 'forkTemplate.png';
+    } else {
+      return 'repoTemplate.png';
+    }
+  }
+
   toMenuItem() {
     let menuItem = {
       title: this.nameWithOwner,
       url: this.url,
-      icon: 'repoTemplate.png',
+      icon: this.icon,
     };
 
     if (this.description) {

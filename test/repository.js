@@ -54,4 +54,14 @@ describe('Repository', function() {
       assert.equal(false, repo.isFork);
     });
   });
+
+  describe('#icon', function() {
+    it("returns a repository icon if the repo is not a fork", function() {
+      assert.equal('repoTemplate.png', repo.icon);
+    });
+
+    it("returns a fork icon if the repo is a fork", function() {
+      assert.equal('forkTemplate.png', fork.icon);
+    });
+  });
 });

@@ -4,8 +4,10 @@ const Account     = require('../Contents/Scripts/account.js').Account;
 const Repository  = require('../Contents/Scripts/repository.js').Repository;
 
 describe('Repository', function() {
-  let org   = new Account('rails');
-  let repo  = new Repository(org, 'rails', 'A Ruby web framework');
+  let org     = new Account('rails');
+  let forker  = new Account('spoon');
+  let repo    = new Repository(org, 'rails', 'A Ruby web framework');
+  let fork    = new Repository(forker, 'rails', 'A Ruby web framework', repo);
 
   describe('#nameWithOwner', function() {
     it('returns a formatted string of the account login and name', function() {
@@ -40,6 +42,26 @@ describe('Repository', function() {
         subtitle: 'A Ruby web framework',
         alwaysShowsSubtitle: true
       }, repo.toMenuItem());
+    });
+  });
+
+  describe('#isFork', function() {
+    it("returns true if the repository is a fork", function() {
+      assert.equal(true, fork.isFork);
+    });
+
+    it("returns false if the repository is not a fork", function() {
+      assert.equal(false, repo.isFork);
+    });
+  });
+
+  describe('#icon', function() {
+    it("returns a repository icon if the repo is not a fork", function() {
+      assert.equal('repoTemplate.png', repo.icon);
+    });
+
+    it("returns a fork icon if the repo is a fork", function() {
+      assert.equal('forkTemplate.png', fork.icon);
     });
   });
 });

@@ -37,8 +37,13 @@ class Account {
     return repositoryEdges.map(function(edge) {
       let repo  = edge.node;
       let owner = new Account(repo.owner.login);
+      let parent;
 
-      return new Repository(owner, repo.name, repo.description);
+      if (repo.parent) {
+        parent = new Repository(repo.parent.owner, repo.parent.name, repo.parent.description);
+      }
+
+      return new Repository(owner, repo.name, repo.description, parent);
     });
   }
 
@@ -142,18 +147,25 @@ class Account {
     const query = `
       query($login: String!, $cursor: String) {
         repositoryOwner(login: $login) {
-          repositories(first: 100, after: $cursor, affiliations:[OWNER], orderBy: {field: PUSHED_AT, direction: DESC}) {
+          repositories(first: 100, after: $cursor, affiliations: [OWNER], orderBy: {field: PUSHED_AT, direction: DESC}) {
             edges {
               cursor
               node {
-                name
-                description
-                owner {
-                  login
+                ...RepositoryInfo
+                parent {
+                  ...RepositoryInfo
                 }
               }
             }
           }
+        }
+      }
+
+      fragment RepositoryInfo on Repository {
+        name
+        description
+        owner {
+          login
         }
       }
     `;

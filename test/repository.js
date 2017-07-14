@@ -45,7 +45,7 @@ describe('Repository', function() {
     });
   });
 
-  describe('isFork', function() {
+  describe('#isFork', function() {
     it("returns true if the repository is a fork", function() {
       assert.equal(true, fork.isFork);
     });

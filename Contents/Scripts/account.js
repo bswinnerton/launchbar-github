@@ -41,8 +41,6 @@ class Account {
 
       if (repo.parent) {
         parent = new Repository(repo.parent.owner, repo.parent.name, repo.parent.description);
-      } else {
-        parent = null;
       }
 
       return new Repository(owner, repo.name, repo.description, parent);

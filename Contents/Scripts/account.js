@@ -123,7 +123,11 @@ class Account {
       let result    = GraphQL.execute(query, variables);
 
       if (result) {
-        return result.data.user.issues.edges;
+        if (result.data.user) {
+          return result.data.user.issues.edges;
+        } else {
+          return [];
+        }
       } else {
         return [];
       }

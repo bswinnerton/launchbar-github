@@ -64,4 +64,8 @@ describe('Repository', function() {
       assert.equal('forkTemplate.png', fork.icon);
     });
   });
+
+  describe('#pullRequests()', function() {
+    it("returns the repository's pull requests");
+  });
 });

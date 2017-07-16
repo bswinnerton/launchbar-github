@@ -152,9 +152,9 @@ class Repository {
     });
 
     return issueEdges.map(function(edge) {
-      let issue = edge.node;
-      let number      = issue.number;
-      let title       = issue.title;
+      let issue   = edge.node;
+      let number  = issue.number;
+      let title   = issue.title;
 
       let owner = new Account(issue.repository.owner.login);
       let repo  = new Repository(owner, issue.repository.name);

@@ -52,9 +52,9 @@ class Account {
 
     let pullRequestEdges = Cache.fetch(cacheKey, 3600, () => {
       const query = `
-        query($login:String!) {
-          user(login:$login) {
-            pullRequests(first:100,states:[OPEN],orderBy:{field:UPDATED_AT,direction:DESC}) {
+        query($login: String!) {
+          user(login: $login) {
+            pullRequests(first: 100, states: [OPEN], orderBy: {field: UPDATED_AT, direction: DESC}) {
               edges {
                 node {
                   title
@@ -103,9 +103,9 @@ class Account {
 
     let issueEdges = Cache.fetch(cacheKey, 3600, () => {
       const query = `
-        query($login:String!) {
-          user(login:$login) {
-            issues(first:100,states:[OPEN],orderBy:{field:UPDATED_AT,direction:DESC}) {
+        query($login: String!) {
+          user(login: $login) {
+            issues(first: 100, states: [OPEN], orderBy: {field: UPDATED_AT, direction: DESC}) {
               edges {
                 node {
                   title

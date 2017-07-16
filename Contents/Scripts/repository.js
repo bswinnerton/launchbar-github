@@ -103,6 +103,61 @@ class Repository {
       return new PullRequest(repo, number, title);
     });
   }
+
+  issues() {
+    let cacheKey = 'repository-issues-for-' + this.owner.login + '-' + this.name;
+
+    let issueEdges = Cache.fetch(cacheKey, 3600, () => {
+      const query = `
+        query($owner: String!, $name: String!) {
+          repository(owner: $owner, name: $name) {
+            issues(first: 100, states: [OPEN], orderBy: {field: UPDATED_AT, direction: DESC}) {
+              edges {
+                node {
+                  title
+                  number
+                  repository {
+                    name
+                    owner {
+                      login
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      `;
+
+      let variables = {
+        owner: this.owner.login,
+        name: this.name,
+      };
+
+      let result = GraphQL.execute(query, variables);
+
+      if (result) {
+        if (result.data.repository) {
+          return result.data.repository.issues.edges;
+        } else {
+          return [];
+        }
+      } else {
+        return [];
+      }
+    });
+
+    return issueEdges.map(function(edge) {
+      let issue = edge.node;
+      let number      = issue.number;
+      let title       = issue.title;
+
+      let owner = new Account(issue.repository.owner.login);
+      let repo  = new Repository(owner, issue.repository.name);
+
+      return new Issue(repo, number, title);
+    });
+  }
 }
 
 if (typeof module !== 'undefined') { module.exports.Repository = Repository; }

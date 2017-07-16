@@ -195,7 +195,9 @@ class GitHubLB {
         {
           title: 'View Pull Requests',
           icon: 'pullRequestTemplate.png',
-          url: repository.pullRequestsURL,
+          action: 'openRepositoryPullRequests',
+          actionArgument: repository.nameWithOwner,
+          actionReturnsItems: true,
         }
       ];
 
@@ -207,6 +209,23 @@ class GitHubLB {
       } else {
         return repositoryMenuItems;
       }
+    }
+  }
+
+  openRepositoryPullRequests(repository) {
+    if (LaunchBar.options.commandKey == 1) {
+      LaunchBar.openURL(repository.pullRequestsURL);
+      LaunchBar.executeAppleScript('tell application "LaunchBar" to hide');
+    } else {
+      return [
+        {
+          title: 'View All Pull Requests',
+          icon: 'pullRequestTemplate.png',
+          url: repository.pullRequestsURL,
+        }
+      ].concat(repository.pullRequests().map(function(pullRequest) {
+        return pullRequest.toMenuItem();
+      }));
     }
   }
 
@@ -428,4 +447,11 @@ function openRepositoryMenu(nameWithOwner) {
   let owner       = new Account(match[1]);
   let repository  = new Repository(owner, match[2]);
   return app.openRepositoryMenu(repository);
+}
+
+function openRepositoryPullRequests(nameWithOwner) {
+  let match       = nameWithOwner.match(/^(.*)\/(.*)$/);
+  let owner       = new Account(match[1]);
+  let repository  = new Repository(owner, match[2]);
+  return app.openRepositoryPullRequests(repository);
 }

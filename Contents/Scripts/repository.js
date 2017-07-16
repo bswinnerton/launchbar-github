@@ -86,7 +86,11 @@ class Repository {
       let result = GraphQL.execute(query, variables);
 
       if (result) {
-        return result.data.repository.pullRequests.edges;
+        if (result.data.repository) {
+          return result.data.repository.pullRequests.edges;
+        } else {
+          return [];
+        }
       } else {
         return [];
       }

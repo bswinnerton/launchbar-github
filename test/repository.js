@@ -68,4 +68,8 @@ describe('Repository', function() {
   describe('#pullRequests()', function() {
     it("returns the repository's pull requests");
   });
+
+  describe('#issues()', function() {
+    it("returns the repository's issues");
+  });
 });

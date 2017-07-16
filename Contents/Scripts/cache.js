@@ -1,3 +1,5 @@
+// The cache lives at ~/Library/Caches/at.obdev.LaunchBar/Actions/
+
 class Cache {}
 
 Cache.fetch = function(key, ttl, func) {

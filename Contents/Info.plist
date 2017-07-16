@@ -27,6 +27,17 @@
 	</dict>
 	<key>LBScripts</key>
 	<dict>
+		<key>LBActionURLScript</key>
+		<dict>
+			<key>LBKeepWindowActive</key>
+			<true/>
+			<key>LBResultType</key>
+			<string>unknown</string>
+			<key>LBReturnsResult</key>
+			<true/>
+			<key>LBScriptName</key>
+			<string>bundle.min.js</string>
+		</dict>
 		<key>LBDefaultScript</key>
 		<dict>
 			<key>LBAcceptedArgumentTypes</key>

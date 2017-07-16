@@ -425,7 +425,11 @@ function runWithString(string) {
 }
 
 function runWithURL(url, details) {
-  return app.run(url, details);
+  if (details.path.endsWith('setToken')) {
+    return app.setToken(details.queryParameters.token);
+  } else {
+    return app.run(url, details);
+  }
 }
 
 // Unfortunately when the script output uses an action argument (like

@@ -62,10 +62,11 @@ shortened link will be copied to your clipboard.
 The easiest way to install this action is by visiting
 http://launchbar-github.com/. You'll want to first
 [Download](http://launchbar-github.com/download) and then
-[Install](http://launchbar-github.com/install) the application.
+[Install](http://launchbar-github.com/install) the action.
 
-When clicking on Install, you'll be prompted to sign in with GitHub and once
-complete, will be automatically brought back into the LaunchBar application.
+When clicking on Install, you'll be prompted to sign in with GitHub. Once
+complete, you will be automatically brought back into the LaunchBar
+application and can start using the action.
 
 ### Manual
 

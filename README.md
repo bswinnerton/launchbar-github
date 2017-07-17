@@ -5,6 +5,8 @@ that can search various parts of GitHub based on your input.
 
 <p align="center"><img src="screenshots/default.gif" width="864px" /></p>
 
+Download and install the action [here](http://launchbar-github.com).
+
 ## Actions
 
 At any point you can either hit enter to navigate into available options, or

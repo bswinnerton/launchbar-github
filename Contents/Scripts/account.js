@@ -76,7 +76,7 @@ class Account {
       let result    = GraphQL.execute(query, variables);
 
       if (result) {
-        if (result.data.user) {
+        if (result.data && result.data.user) {
           return result.data.user.pullRequests.edges;
         } else {
           return [];
@@ -127,7 +127,7 @@ class Account {
       let result    = GraphQL.execute(query, variables);
 
       if (result) {
-        if (result.data.user) {
+        if (result.data && result.data.user) {
           return result.data.user.issues.edges;
         } else {
           return [];
@@ -186,13 +186,17 @@ class Account {
     let result = GraphQL.execute(query, variables);
 
     if (result) {
-      let repositoryEdges = result.data.repositoryOwner.repositories.edges;
+      if (result.data && result.data.repositoryOwner) {
+        let repositoryEdges = result.data.repositoryOwner.repositories.edges;
 
-      if (repositoryEdges.length > 0) {
-        allEdges = allEdges.concat(repositoryEdges);
+        if (repositoryEdges.length > 0) {
+          allEdges = allEdges.concat(repositoryEdges);
 
-        let lastEdge = repositoryEdges[repositoryEdges.length - 1];
-        return this._fetchRepositories(lastEdge.cursor, allEdges);
+          let lastEdge = repositoryEdges[repositoryEdges.length - 1];
+          return this._fetchRepositories(lastEdge.cursor, allEdges);
+        }
+      } else {
+        return [];
       }
     } else {
       return [];

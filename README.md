@@ -133,3 +133,18 @@ If at any time you would like to run the tests, you can run:
 ```
 script/test
 ```
+
+## Troubleshooting
+
+### I'm not seeing all of the repositories that I was expecting
+
+If you set your token using http://launchbar-github.com and are not seeing
+repositories belonging to an organization you are a part of, the organization
+may have enabled [Organization Application Policies](oap). OAP limits access to
+private resources on GitHub unless the OAuth application has been granted
+access. You can either [request access][request-oap-access] from an
+organization administrator, or instead use a Personal Access Token as [outlined
+above](#manual) to get around this problem.
+
+[oap]: https://developer.github.com/changes/2015-01-19-an-integrators-guide-to-organization-application-policies/
+[request-oap-access]: https://github.com/settings/connections/applications/7f3d43c8412a4385727e

@@ -57,8 +57,12 @@ Issue.fetch = function(repository, number) {
     let variables = { login: login, name: name, number: number };
     let result    = GraphQL.execute(query, variables);
 
-    if (result.data) {
-      return result.data.repository.issueOrPullRequest;
+    if (result) {
+      if (result.data && result.data.repository) {
+        return result.data.repository.issueOrPullRequest;
+      } else {
+        return {};
+      }
     } else {
       return {};
     }

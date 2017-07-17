@@ -86,7 +86,7 @@ class Repository {
       let result = GraphQL.execute(query, variables);
 
       if (result) {
-        if (result.data.repository) {
+        if (result.data && result.data.repository) {
           return result.data.repository.pullRequests.edges;
         } else {
           return [];
@@ -141,7 +141,7 @@ class Repository {
       let result = GraphQL.execute(query, variables);
 
       if (result) {
-        if (result.data.repository) {
+        if (result.data && result.data.repository) {
           return result.data.repository.issues.edges;
         } else {
           return [];

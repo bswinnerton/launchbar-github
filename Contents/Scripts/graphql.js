@@ -2,10 +2,14 @@ let GraphQL = {};
 
 GraphQL.execute = function(query, variables) {
   if (!Action.preferences.token) {
+    LaunchBar.openURL('http://launchbar-github.com/install');
+
     LaunchBar.alert("It looks like this is the first time you're using " +
-      "this action.\n\nPlease go to https://github.com/settings/tokens " +
-      "and create token with 'repo' and 'user' scope and set it by invoking " +
-      "the github action and going to settings.");
+      "this action.\n\nWe'll need to authenticate with GitHub in order " +
+      "for everything to work properly. On the following screen, please " +
+      "hit the green Authorize button.");
+
+    return [];
   }
 
   let requestHeaders = {
@@ -13,7 +17,7 @@ GraphQL.execute = function(query, variables) {
     'User-Agent':     'github-launchbar-' + GitHubLB.VERSION,
   };
 
-  let requestBody     = { query: query, variables: variables };
+  let requestBody = { query: query, variables: variables };
 
   let result = HTTP.post('https://api.github.com/graphql', {
     headerFields: requestHeaders,

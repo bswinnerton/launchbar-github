@@ -57,9 +57,22 @@ shortened link will be copied to your clipboard.
 
 ## Installing
 
-The action can either be downloaded from the [Releases](https://git.io/vyose)
-page, or if you'd like to use the latest features as they come out (from
-`master`), you can clone this repository to your LaunchBar Actions folder:
+### Automatic
+
+The easiest way to install this action is by visiting
+http://launchbar-github.com/. You'll want to first
+[Download](http://launchbar-github.com/download) and then
+[Install](http://launchbar-github.com/install) the application.
+
+When clicking on Install, you'll be prompted to sign in with GitHub and once
+complete, will be automatically brought back into the LaunchBar application.
+
+### Manual
+
+If for any reason that doesn't work, the action can either be downloaded from
+the [Releases](https://git.io/vyose) page, or if you'd like to use the latest
+features as they come out (from `master`), you can clone this repository to
+your LaunchBar Actions folder:
 
 ```
 mkdir -p ~/Library/Application\ Support/LaunchBar/Actions/

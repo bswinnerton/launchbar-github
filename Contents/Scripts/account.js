@@ -50,7 +50,7 @@ class Account {
   pullRequests() {
     let cacheKey = 'account-pull-requests-for-' + this.login;
 
-    let pullRequestEdges = Cache.fetch(cacheKey, 3600, () => {
+    let pullRequestEdges = Cache.fetch(cacheKey, 600, () => {
       const query = `
         query($login: String!) {
           user(login: $login) {
@@ -101,7 +101,7 @@ class Account {
   issues() {
     let cacheKey = 'account-issues-for-' + this.login;
 
-    let issueEdges = Cache.fetch(cacheKey, 3600, () => {
+    let issueEdges = Cache.fetch(cacheKey, 600, () => {
       const query = `
         query($login: String!) {
           user(login: $login) {

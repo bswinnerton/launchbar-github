@@ -26,8 +26,10 @@ class GitHubLB {
       },
       {
         title: 'My Gists',
-        url: 'https://gist.github.com/',
         icon: 'gistTemplate.png',
+        action: 'openAccountGists',
+        actionArgument: handle,
+        actionReturnsItems: true,
       },
       {
         title: 'Settings',
@@ -375,6 +377,25 @@ class GitHubLB {
     }
   }
 
+  openAccountGists(login) {
+    let account = new Account(login);
+
+    if (LaunchBar.options.commandKey == 1) {
+      LaunchBar.openURL('https://gist.github.com');
+      LaunchBar.executeAppleScript('tell application "LaunchBar" to hide');
+    } else {
+      return [
+        {
+          title: 'View All Gists',
+          icon: 'gistTemplate.png',
+          url: 'https://gist.github.com',
+        }
+      ].concat(account.gists().map(function(gist) {
+        return gist.toMenuItem();
+      }));
+    }
+  }
+
   shortenLink(link) {
     let linkShortener = new LinkShortener(link);
     let shortLink     = linkShortener.run();
@@ -447,6 +468,10 @@ function openAccountPullRequests(string) {
 
 function openAccountIssues(string) {
   return app.openAccountIssues(string);
+}
+
+function openAccountGists(string) {
+  return app.openAccountGists(string);
 }
 
 function openAccountMenu(string) {

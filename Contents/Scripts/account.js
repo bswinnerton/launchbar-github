@@ -154,8 +154,8 @@ class Account {
 
     let gistEdges = Cache.fetch(cacheKey, 600, () => {
       const query = `
-        query {
-          viewer {
+        query($login: String!) {
+          user(login: $login) {
             gists(first: 100, privacy: ALL, orderBy: {field: UPDATED_AT, direction: DESC}) {
               edges {
                 node {
@@ -168,7 +168,8 @@ class Account {
         }
       `;
 
-      let result = GraphQL.execute(query);
+      let variables = { login: this.login };
+      let result = GraphQL.execute(query, variables);
 
       if (result) {
         if (result.data && result.data.viewer) {

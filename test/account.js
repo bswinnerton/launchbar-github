@@ -52,4 +52,8 @@ describe('Account', function() {
   describe('#issues()', function() {
     it("returns the user's issues");
   });
+
+  describe('#gists()', function() {
+    it("returns the user's gists");
+  });
 });

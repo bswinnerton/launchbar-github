@@ -172,8 +172,8 @@ class Account {
       let result = GraphQL.execute(query, variables);
 
       if (result) {
-        if (result.data && result.data.viewer) {
-          return result.data.viewer.gists.edges;
+        if (result.data && result.data.user) {
+          return result.data.user.gists.edges;
         } else {
           return [];
         }

@@ -305,7 +305,9 @@ class GitHubLB {
         {
           title: 'View Gists',
           icon: 'gistTemplate.png',
-          url: account.gistsURL,
+          action: 'openAccountGists',
+          actionArgument: account.login,
+          actionReturnsItems: true,
         }
       ];
 

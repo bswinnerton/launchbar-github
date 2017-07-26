@@ -149,6 +149,48 @@ class Account {
     });
   }
 
+  gists() {
+    let cacheKey = 'account-gists-for-' + this.login;
+
+    let gistEdges = Cache.fetch(cacheKey, 600, () => {
+      const query = `
+        query($login: String!) {
+          user(login: $login) {
+            gists(first: 100, privacy: ALL, orderBy: {field: UPDATED_AT, direction: DESC}) {
+              edges {
+                node {
+                  name
+                  description
+                }
+              }
+            }
+          }
+        }
+      `;
+
+      let variables = { login: this.login };
+      let result = GraphQL.execute(query, variables);
+
+      if (result) {
+        if (result.data && result.data.viewer) {
+          return result.data.viewer.gists.edges;
+        } else {
+          return [];
+        }
+      } else {
+        return [];
+      }
+    });
+
+    return gistEdges.map(function(edge) {
+      let gist        = edge.node;
+      let name        = gist.name;
+      let description = gist.description;
+
+      return new Gist(name, description);
+    });
+  }
+
   _fetchRepositories(cursor, allEdges) {
     allEdges = allEdges || [];
 

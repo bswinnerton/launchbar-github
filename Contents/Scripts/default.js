@@ -160,7 +160,7 @@ class GitHubLB {
     if (LaunchBar.options.commandKey == 1) {
       let repository = new Repository(account, selection);
       LaunchBar.openURL(repository.url);
-      LaunchBar.executeAppleScript('tell application "LaunchBar" to hide');
+      LaunchBar.hide();
     } else {
       let repositories = account.repositories();
 
@@ -195,7 +195,7 @@ class GitHubLB {
   openRepositoryMenu(repository, secondarySelection) {
     if (LaunchBar.options.commandKey == 1) {
       LaunchBar.openURL(repository.url);
-      LaunchBar.executeAppleScript('tell application "LaunchBar" to hide');
+      LaunchBar.hide();
     } else {
       let repositoryMenuItems = [
         {
@@ -235,7 +235,7 @@ class GitHubLB {
   openRepositoryPullRequests(repository) {
     if (LaunchBar.options.commandKey == 1) {
       LaunchBar.openURL(repository.pullRequestsURL);
-      LaunchBar.executeAppleScript('tell application "LaunchBar" to hide');
+      LaunchBar.hide();
     } else {
       return [
         {
@@ -252,7 +252,7 @@ class GitHubLB {
   openRepositoryIssues(repository) {
     if (LaunchBar.options.commandKey == 1) {
       LaunchBar.openURL(repository.issuesURL);
-      LaunchBar.executeAppleScript('tell application "LaunchBar" to hide');
+      LaunchBar.hide();
     } else {
       return [
         {
@@ -287,7 +287,7 @@ class GitHubLB {
   openAccountMenu(account, secondarySelection) {
     if (LaunchBar.options.commandKey == 1) {
       LaunchBar.openURL(account.profileURL);
-      LaunchBar.executeAppleScript('tell application "LaunchBar" to hide');
+      LaunchBar.hide();
     } else {
       let accountMenuItems = [
         {
@@ -343,7 +343,7 @@ class GitHubLB {
 
     if (LaunchBar.options.commandKey == 1) {
       LaunchBar.openURL(account.repositoriesURL);
-      LaunchBar.executeAppleScript('tell application "LaunchBar" to hide');
+      LaunchBar.hide();
     } else {
       return [
         {
@@ -362,7 +362,7 @@ class GitHubLB {
 
     if (LaunchBar.options.commandKey == 1) {
       LaunchBar.openURL('https://github.com/pulls');
-      LaunchBar.executeAppleScript('tell application "LaunchBar" to hide');
+      LaunchBar.hide();
     } else {
       return [
         {
@@ -381,7 +381,7 @@ class GitHubLB {
 
     if (LaunchBar.options.commandKey == 1) {
       LaunchBar.openURL('https://github.com/issues');
-      LaunchBar.executeAppleScript('tell application "LaunchBar" to hide');
+      LaunchBar.hide();
     } else {
       return [
         {
@@ -400,7 +400,7 @@ class GitHubLB {
 
     if (LaunchBar.options.commandKey == 1) {
       LaunchBar.openURL('https://gist.github.com');
-      LaunchBar.executeAppleScript('tell application "LaunchBar" to hide');
+      LaunchBar.hide();
     } else {
       return [
         {
@@ -423,7 +423,7 @@ class GitHubLB {
       title: 'Copied ' + shortLink + ' to your clipboard',
     });
 
-    LaunchBar.executeAppleScript('tell application "LaunchBar" to hide');
+    LaunchBar.hide();
   }
 
   setToken(token) {
@@ -441,7 +441,7 @@ class GitHubLB {
         string: 'Your access token was set successfully.',
       });
 
-      LaunchBar.executeAppleScript('tell application "LaunchBar" to hide');
+      LaunchBar.hide();
     } else {
       LaunchBar.displayNotification({
         title: 'That looks like an invalid token',

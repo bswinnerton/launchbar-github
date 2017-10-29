@@ -1,3 +1,7 @@
 #!/bin/bash
 
+for file in test/helpers/*.sh; do
+  source "$file"
+done
+
 ./node_modules/.bin/mocha --use_strict

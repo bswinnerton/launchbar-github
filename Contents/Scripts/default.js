@@ -157,23 +157,29 @@ class GitHubLB {
   }
 
   openRepositoriesMenu(account, selection) {
-    let repositories = account.repositories();
+    if (LaunchBar.options.commandKey == 1) {
+      let repository = new Repository(account, selection);
+      LaunchBar.openURL(repository.url);
+      LaunchBar.executeAppleScript('tell application "LaunchBar" to hide');
+    } else {
+      let repositories = account.repositories();
 
-    if (selection) {
-      repositories = repositories.filter(function(repository) {
-        let regex = new RegExp(selection, 'i');
-        return repository.name.match(regex);
+      if (selection) {
+        repositories = repositories.filter(function(repository) {
+          let regex = new RegExp(selection, 'i');
+          return repository.name.match(regex);
+        });
+      }
+
+      return repositories.map(function(repository) {
+        let menuItem = repository.toMenuItem();
+        delete menuItem.url;
+        menuItem.action = 'openRepositoryMenu';
+        menuItem.actionArgument = repository.nameWithOwner;
+        menuItem.actionReturnsItems = true;
+        return menuItem;
       });
     }
-
-    return repositories.map(function(repository) {
-      let menuItem = repository.toMenuItem();
-      delete menuItem.url;
-      menuItem.action = 'openRepositoryMenu';
-      menuItem.actionArgument = repository.nameWithOwner;
-      menuItem.actionReturnsItems = true;
-      return menuItem;
-    });
   }
 
   openRepositoryMenu(repository, secondarySelection) {

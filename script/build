@@ -1,4 +1,4 @@
 #!/bin/bash
 
 rm -f Contents/Scripts/bundle.min.js
-./node_modules/.bin/babel Contents/Scripts/default.js Contents/Scripts/ --presets es2015 --out-file Contents/Scripts/bundle.min.js --compact=true
+./node_modules/.bin/babel Contents/Scripts/default.js --presets es2015 --out-file Contents/Scripts/bundle.min.js --compact=true

@@ -12,7 +12,7 @@ if ! cmp -s Contents/Scripts/bundle.min.js Contents/Scripts/bundle.min.js.tmp; t
   echo "Please run \`script/build\` and commit the resulting changes."
 
   if [ -n "$DEBUG" ]; then
-    git diff Contents/Scripts/bundle.min.js Contents/Scripts/bundle.min.js.tmp
+    git --no-pager diff Contents/Scripts/bundle.min.js Contents/Scripts/bundle.min.js.tmp
   fi
 
   exitcode=1

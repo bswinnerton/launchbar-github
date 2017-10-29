@@ -169,6 +169,16 @@ class GitHubLB {
           let regex = new RegExp(selection, 'i');
           return repository.name.match(regex);
         });
+
+        // Sort repositories such that if the exact selection is present, it
+        // floats to the top.
+        repositories = repositories.sort(function(a,b) {
+          if (a.name == selection) {
+            return -1
+          } else {
+            return 0
+          }
+        });
       }
 
       return repositories.map(function(repository) {

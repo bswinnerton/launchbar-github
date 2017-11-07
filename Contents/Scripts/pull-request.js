@@ -1,12 +1,17 @@
 class PullRequest {
-  constructor(repository, number, title) {
+  constructor(repository, number, title, url) {
     this.repository = repository;
     this.number     = number;
     this.title      = title;
+    this.passedUrl  = url;
   }
 
   get url() {
-    return this.repository.url + '/pull/' + this.number;
+    if (this.passedUrl) {
+      return this.passedUrl;
+    } else {
+      return this.repository.url + '/pull/' + this.number;
+    }
   }
 
   get shortURL() {

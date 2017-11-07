@@ -45,9 +45,9 @@ class Resource {
 
         switch (issueOrPullRequest.__typename) {
           case 'Issue':
-            return new Issue(repository, issueOrPullRequest.number, issueOrPullRequest.title);
+            return new Issue(repository, issueOrPullRequest.number, issueOrPullRequest.title, this.url);
           case 'PullRequest':
-            return new PullRequest(repository, issueOrPullRequest.number, issueOrPullRequest.title);
+            return new PullRequest(repository, issueOrPullRequest.number, issueOrPullRequest.title, this.url);
         }
       } else {
         return {};

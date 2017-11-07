@@ -84,7 +84,20 @@ class GitHubLB {
     // Matching:
     // https://github.com/bswinnerton/dotfiles/blob/master/ack/ackrc.symlink#L6
     if (input.match(GITHUB_LINK_FORMAT)) {
-      return this.openLinkShortnerMenu(input);
+      return [
+        {
+          title: 'Shorten link',
+          icon: 'linkTemplate.png',
+          action: 'shortenLink',
+          actionArgument: input,
+        },
+        {
+          title: 'Add to things',
+          icon: 'linkTemplate.png',
+          action: 'addToThings',
+          actionArgument: input,
+        }
+      ];
     }
 
     // Matching:
@@ -130,21 +143,6 @@ class GitHubLB {
         actionArgument: LaunchBar.getClipboardString(),
       },
     ];
-  }
-
-  openLinkShortnerMenu(link, options) {
-    if (LaunchBar.options.commandKey == 1) {
-      this.shortenLink(link);
-    } else {
-      return [
-        {
-          title: 'Shorten link',
-          icon: 'linkTemplate.png',
-          action: 'shortenLink',
-          actionArgument: link,
-        },
-      ];
-    }
   }
 
   openIssueMenu(issue) {
@@ -426,6 +424,17 @@ class GitHubLB {
     LaunchBar.executeAppleScript('tell application "LaunchBar" to hide');
   }
 
+  addToThings(link) {
+    let resource = new Resource(link);
+    let issueOrPullRequest = resource.toObject();
+
+    let title     = issueOrPullRequest.title;
+    let todo      = encodeURI('Review "' + title + '"');
+    let url       = encodeURI(issueOrPullRequest.url);
+
+    LaunchBar.openURL('things:add?title=' + todo + '&notes=' + url);
+  }
+
   setToken(token) {
     Action.preferences.token = token;
 
@@ -498,6 +507,10 @@ function openAccountMenu(string) {
 
 function shortenLink(link, details) {
   return app.shortenLink(link);
+}
+
+function addToThings(link) {
+  return app.addToThings(link);
 }
 
 function openSettingsMenu() {

@@ -23,7 +23,11 @@
 		<key>LBTwitter</key>
 		<string>bswinnerton</string>
 		<key>LBWebsiteURL</key>
-		<string>https://github.com/bswinnerton/launchbar-github</string>
+    <string>http://launchbar-github.com</string>
+    <key>LBUpdateURL</key>
+    <string>https://raw.githubusercontent.com/bswinnerton/launchbar-github/master/Contents/Info.plist</string>
+    <key>LBDownloadURL</key>
+    <string>http://launchbar-github.com/download</string>
 	</dict>
 	<key>LBScripts</key>
 	<dict>

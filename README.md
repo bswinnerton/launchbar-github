@@ -93,7 +93,9 @@ from clipboard".
 
 ## Updating
 
-This action can be updated by pulling the latest changes from Git.
+This action can be updated using the [Action
+Updates](https://prenagha.github.io/launchbar/updates.html) action, or you can
+drop into a terminal and pull the latest changes from Git using:
 
 ```
 cd ~/Library/Application\ Support/LaunchBar/Actions/github.lbaction/

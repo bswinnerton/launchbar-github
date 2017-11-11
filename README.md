@@ -10,7 +10,8 @@ Download and install the action [here](http://launchbar-github.com).
 ## Actions
 
 At any point you can either hit enter to navigate into available options, or
-hit `⌘` + `enter` to go directly to the corresponding GitHub page.
+hit <kbd>⌘</kbd> + <kbd>Enter</kbd> to go directly to the corresponding GitHub
+page.
 
 ### For a user or organization
 
@@ -35,11 +36,11 @@ be fetched:
 
 ### For a commit
 
-At any time, paste a commit SHA into LaunchBar and hit `tab`. Start typing
-"github" and you should see the action appear, hit `enter`. Once complete, the
-action will bring you to the pull request that introduced the commit. If the
-commit is associated with multiple pull requests, they will be displayed in a
-list.
+At any time, paste a commit SHA into LaunchBar and hit <kbd>Tab</kbd>. Start
+typing "github" and you should see the action appear, hit <kbd>Enter</kbd>.
+Once complete, the action will bring you to the pull request that introduced
+the commit. If the commit is associated with multiple pull requests, they will
+be displayed in a list.
 
 <p align="center"><img src="screenshots/commit.png" width="668px" /></p>
 <p align="center"><img src="screenshots/commit-expanded.png" width="668px" /></p>
@@ -47,15 +48,27 @@ list.
 
 ### Shortening a link
 
-At any time, paste a GitHub link into LaunchBar and hit `tab`. Start typing
-"github" and you should see the action appear, hit `enter`. Once complete, the
-action will ask you if you want to shorten the link, hit `enter` and the
-shortened link will be copied to your clipboard.
+At any time, paste a GitHub link into LaunchBar and hit <kbd>Tab</kbd>. Start
+typing "github" and you should see the action appear, hit <kbd>Enter</kbd>.
+Once complete, the action will ask you if you want to shorten the link, hit
+<kbd>Enter</kbd> and the shortened link will be copied to your clipboard.
 
 <p align="center"><img src="screenshots/shorten-link.png" width="668px" /></p>
 <p align="center"><img src="screenshots/shorten-link-expanded.png" width="668px" /></p>
 <p align="center"><img src="screenshots/shorten-link-final.png" width="668px" /></p>
 <p align="center"><img src="screenshots/shorten-link-notification.png" width="378px" /></p>
+
+### Sending a link to [Things][things]
+
+Similarly to shortening a link, you can paste a GitHub link into LaunchBar at
+any time and hit <kbd>Tab</kbd>. From there, either find GitHub in the options
+or type "github" to have it appear for the first time, then hit
+<kbd>Enter</kbd> to open the quick add menu of the Things application.
+
+<p align="center"><img src="screenshots/shorten-link.png" width="668px" /></p>
+<p align="center"><img src="screenshots/shorten-link-expanded.png" width="668px" /></p>
+<p align="center"><img src="screenshots/send-to-things.png" width="668px" /></p>
+<p align="center"><img src="screenshots/send-to-things-final.png" width="668px" /></p>
 
 ## Installing
 
@@ -142,7 +155,7 @@ script/test
 
 If you set your token using http://launchbar-github.com and are not seeing
 repositories belonging to an organization you are a part of, the organization
-may have enabled [Organization Application Policies](oap). OAP limits access to
+may have enabled [Organization Application Policies][oap]. OAP limits access to
 private resources on GitHub unless the OAuth application has been granted
 access. You can either [request access][request-oap-access] from an
 organization administrator, or instead use a Personal Access Token as [outlined
@@ -150,3 +163,4 @@ above](#manual) to get around this problem.
 
 [oap]: https://developer.github.com/changes/2015-01-19-an-integrators-guide-to-organization-application-policies/
 [request-oap-access]: https://github.com/settings/connections/applications/7f3d43c8412a4385727e
+[things]: https://culturedcode.com/things/

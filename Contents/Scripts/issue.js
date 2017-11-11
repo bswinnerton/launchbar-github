@@ -1,12 +1,17 @@
 class Issue {
-  constructor(repository, number, title) {
+  constructor(repository, number, title, url) {
     this.repository = repository;
-    this.number = parseInt(number);
-    this.title = title;
+    this.number     = parseInt(number);
+    this.title      = title;
+    this.passedUrl  = url;
   }
 
   get url() {
-    return 'https://github.com/' + this.repository.nameWithOwner + '/issues/' + this.number;
+    if (this.passedUrl) {
+      return this.passedUrl;
+    } else {
+      return 'https://github.com/' + this.repository.nameWithOwner + '/issues/' + this.number;
+    }
   }
 
   get shortURL() {

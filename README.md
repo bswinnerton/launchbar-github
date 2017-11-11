@@ -142,7 +142,7 @@ script/test
 
 If you set your token using http://launchbar-github.com and are not seeing
 repositories belonging to an organization you are a part of, the organization
-may have enabled [Organization Application Policies](oap). OAP limits access to
+may have enabled [Organization Application Policies][oap]. OAP limits access to
 private resources on GitHub unless the OAuth application has been granted
 access. You can either [request access][request-oap-access] from an
 organization administrator, or instead use a Personal Access Token as [outlined

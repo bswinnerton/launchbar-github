@@ -57,6 +57,18 @@ shortened link will be copied to your clipboard.
 <p align="center"><img src="screenshots/shorten-link-final.png" width="668px" /></p>
 <p align="center"><img src="screenshots/shorten-link-notification.png" width="378px" /></p>
 
+### Sending a link to [Things][things]
+
+Similarly to shortening a link, you can paste a GitHub link into LaunchBar at
+any time and hit <kbd>Tab</kbd>. From there, either find GitHub in the options
+or type "github" to have it appear for the first time, then hit
+<kbd>Enter</kbd> to open the quick add menu of the Things application.
+
+<p align="center"><img src="screenshots/shorten-link.png" width="668px" /></p>
+<p align="center"><img src="screenshots/shorten-link-expanded.png" width="668px" /></p>
+<p align="center"><img src="screenshots/send-to-things.png" width="668px" /></p>
+<p align="center"><img src="screenshots/send-to-things-final.png" width="668px" /></p>
+
 ## Installing
 
 ### Automatic
@@ -150,3 +162,4 @@ above](#manual) to get around this problem.
 
 [oap]: https://developer.github.com/changes/2015-01-19-an-integrators-guide-to-organization-application-policies/
 [request-oap-access]: https://github.com/settings/connections/applications/7f3d43c8412a4385727e
+[things]: https://culturedcode.com/things/

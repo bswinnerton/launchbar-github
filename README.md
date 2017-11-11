@@ -10,7 +10,8 @@ Download and install the action [here](http://launchbar-github.com).
 ## Actions
 
 At any point you can either hit enter to navigate into available options, or
-hit `⌘` + `enter` to go directly to the corresponding GitHub page.
+hit <kbd>⌘</kbd> + <kbd>Enter</kbd> to go directly to the corresponding GitHub
+page.
 
 ### For a user or organization
 
@@ -35,11 +36,11 @@ be fetched:
 
 ### For a commit
 
-At any time, paste a commit SHA into LaunchBar and hit `tab`. Start typing
-"github" and you should see the action appear, hit `enter`. Once complete, the
-action will bring you to the pull request that introduced the commit. If the
-commit is associated with multiple pull requests, they will be displayed in a
-list.
+At any time, paste a commit SHA into LaunchBar and hit <kbd>Tab</kbd>. Start
+typing "github" and you should see the action appear, hit <kbd>Enter</kbd>.
+Once complete, the action will bring you to the pull request that introduced
+the commit. If the commit is associated with multiple pull requests, they will
+be displayed in a list.
 
 <p align="center"><img src="screenshots/commit.png" width="668px" /></p>
 <p align="center"><img src="screenshots/commit-expanded.png" width="668px" /></p>
@@ -47,10 +48,10 @@ list.
 
 ### Shortening a link
 
-At any time, paste a GitHub link into LaunchBar and hit `tab`. Start typing
-"github" and you should see the action appear, hit `enter`. Once complete, the
-action will ask you if you want to shorten the link, hit `enter` and the
-shortened link will be copied to your clipboard.
+At any time, paste a GitHub link into LaunchBar and hit <kbd>Tab</kbd>. Start
+typing "github" and you should see the action appear, hit <kbd>Enter</kbd>.
+Once complete, the action will ask you if you want to shorten the link, hit
+<kbd>Enter</kbd> and the shortened link will be copied to your clipboard.
 
 <p align="center"><img src="screenshots/shorten-link.png" width="668px" /></p>
 <p align="center"><img src="screenshots/shorten-link-expanded.png" width="668px" /></p>

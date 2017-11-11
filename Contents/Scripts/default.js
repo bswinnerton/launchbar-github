@@ -93,7 +93,7 @@ class GitHubLB {
         },
         {
           title: 'Add to things',
-          icon: 'linkTemplate.png',
+          icon: 'thingsTemplate.png',
           action: 'addToThings',
           actionArgument: input,
         }

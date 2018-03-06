@@ -432,7 +432,7 @@ class GitHubLB {
     let todo      = encodeURI('Review "' + title + '"');
     let url       = encodeURI(issueOrPullRequest.url);
 
-    LaunchBar.openURL('things:add?title=' + todo + '&notes=' + url);
+    LaunchBar.openURL('things:///add?show-quick-entry=true&title=' + todo + '&notes=' + url);
   }
 
   setToken(token) {

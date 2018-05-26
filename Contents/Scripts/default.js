@@ -322,6 +322,13 @@ class GitHubLB {
           action: 'openAccountGists',
           actionArgument: account.login,
           actionReturnsItems: true,
+        },
+        {
+          title: 'View Projects',
+          icon: 'projectTemplate.png',
+          action: 'openOrganizationProjects',
+          actionArgument: account.login,
+          actionReturnsItems: true,
         }
       ];
 
@@ -408,6 +415,25 @@ class GitHubLB {
         }
       ].concat(account.gists().map(function(gist) {
         return gist.toMenuItem();
+      }));
+    }
+  }
+
+  openOrganizationProjects(login) {
+    let org = new Organization(login);
+
+    if (LaunchBar.options.commandKey == 1) {
+      LaunchBar.openURL(org.projectsURL);
+      LaunchBar.executeAppleScript('tell application "LaunchBar" to hide');
+    } else {
+      return [
+        {
+          title: 'View All Projects',
+          icon: 'projectTemplate.png',
+          url: org.projectsURL,
+        }
+      ].concat(org.projects().map(function(project) {
+        return project.toMenuItem();
       }));
     }
   }
@@ -499,6 +525,10 @@ function openAccountIssues(string) {
 
 function openAccountGists(string) {
   return app.openAccountGists(string);
+}
+
+function openOrganizationProjects(string) {
+  return app.openOrganizationProjects(string);
 }
 
 function openAccountMenu(string) {

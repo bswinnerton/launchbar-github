@@ -8,5 +8,5 @@ gulp.task('build', function () {
 });
 
 gulp.task('watch', function() {
-  gulp.watch(path, ['build']);
+  gulp.watch(path, gulp.series('build'));
 });

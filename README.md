@@ -100,9 +100,9 @@ git clone https://github.com/bswinnerton/launchbar-github ~/Library/Application\
 You'll need to get an access token from GitHub if you'd like to use any of the
 features that return data directly in LaunchBar. To do so, go to
 https://github.com/settings/tokens/new and create a new token with the `repo`
-and `user` scopes selected. Copy the token to your clipboard and invoke the
-GitHub action and select "Settings". From here, choose "Set GitHub access token
-from clipboard".
+`user`, `read:discussion` scopes selected. Copy the token to your clipboard and
+invoke the GitHub action and select "Settings". From here, choose "Set GitHub
+access token from clipboard".
 
 ## Updating
 

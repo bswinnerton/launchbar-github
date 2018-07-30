@@ -1,6 +1,6 @@
 let GraphQL = {};
 
-GraphQL.execute = function(query, variables) {
+GraphQL.execute = function(query, variables, requestHeaders = {}) {
   if (!Action.preferences.token) {
     LaunchBar.openURL('http://launchbar-github.com/install');
 
@@ -12,10 +12,14 @@ GraphQL.execute = function(query, variables) {
     return [];
   }
 
-  let requestHeaders = {
+  let defaultRequestHeaders = {
     'Authorization':  'token ' + Action.preferences.token,
     'User-Agent':     'github-launchbar-' + GitHubLB.VERSION,
   };
+
+  for(let header in defaultRequestHeaders) {
+    requestHeaders[header] = defaultRequestHeaders[header];
+  }
 
   let requestBody = { query: query, variables: variables };
 

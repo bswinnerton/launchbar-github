@@ -451,12 +451,11 @@ class GitHubLB {
   }
 
   addToThings(link) {
-    let resource = new Resource(link);
-    let issueOrPullRequest = resource.toObject();
+    let resource = new Resource(link).toObject();
 
-    let title     = issueOrPullRequest.title;
+    let title     = resource.title;
     let todo      = encodeURI('Review "' + title + '"');
-    let url       = encodeURI(issueOrPullRequest.url);
+    let url       = encodeURI(resource.url);
 
     LaunchBar.openURL('things:///add?show-quick-entry=true&title=' + todo + '&notes=' + url);
   }

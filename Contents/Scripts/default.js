@@ -454,8 +454,8 @@ class GitHubLB {
     let resource = new Resource(link).toObject();
 
     let title     = resource.title;
-    let todo      = encodeURI('Review "' + title + '"');
-    let url       = encodeURI(resource.url);
+    let todo      = encodeURIComponent('Review "' + title + '"');
+    let url       = encodeURIComponent(resource.url);
 
     LaunchBar.openURL('things:///add?show-quick-entry=true&title=' + todo + '&notes=' + url);
   }

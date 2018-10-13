@@ -11,14 +11,14 @@ class GitHubLB {
         actionReturnsItems: true,
       },
       {
-        title: 'My Open Issues',
+        title: 'My Issues',
         icon: 'issueTemplate.png',
         action: 'openAccountIssues',
         actionArgument: handle,
         actionReturnsItems: true,
       },
       {
-        title: 'My Open Pull Requests',
+        title: 'My Pull Requests',
         icon: 'pullRequestTemplate.png',
         action: 'openAccountPullRequests',
         actionArgument: handle,
@@ -371,9 +371,24 @@ class GitHubLB {
     } else {
       return [
         {
-          title: 'View All Pull Requests',
+          title: 'Created',
           icon: 'pullRequestTemplate.png',
           url: 'https://github.com/pulls',
+        },
+        {
+          title: 'Assigned',
+          icon: 'pullRequestTemplate.png',
+          url: 'https://github.com/pulls/assigned',
+        },
+        {
+          title: 'Mentioned',
+          icon: 'pullRequestTemplate.png',
+          url: 'https://github.com/pulls/mentioned',
+        },
+        {
+          title: 'Review Requests',
+          icon: 'pullRequestTemplate.png',
+          url: 'https://github.com/pulls/review-requested',
         }
       ].concat(account.pullRequests().map(function(pullRequest) {
         return pullRequest.toMenuItem();
@@ -390,9 +405,19 @@ class GitHubLB {
     } else {
       return [
         {
-          title: 'View All Issues',
+          title: 'Created',
           icon: 'issueTemplate.png',
           url: 'https://github.com/issues',
+        },
+        {
+          title: 'Assigned',
+          icon: 'issueTemplate.png',
+          url: 'https://github.com/issues/assigned',
+        },
+        {
+          title: 'Mentioned',
+          icon: 'issueTemplate.png',
+          url: 'https://github.com/issues/mentioned',
         }
       ].concat(account.issues().map(function(issue) {
         return issue.toMenuItem();
